@@ -106,4 +106,206 @@
       <div class="row g-4">
         <div class="col-lg-4">
           <div class="card h-100 shadow-sm">
-            <di
+            <div class="card-body">
+              <h3 class="h5">Accesibilidad primero</h3>
+              <p class="mb-0">Componentes AA: botón, nav, modal con <em>focus trap</em>, tabs, alertas y formularios con etiquetas, descripciones y estados.</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-4">
+          <div class="card h-100 shadow-sm">
+            <div class="card-body">
+              <h3 class="h5">Rendimiento medible</h3>
+              <p class="mb-0">Imágenes optimizadas, scripts <code>defer</code>, fuentes del sistema y pruebas Lighthouse (capturas antes/después).</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-4">
+          <div class="card h-100 shadow-sm">
+            <div class="card-body">
+              <h3 class="h5">Formularios que ayudan</h3>
+              <p class="mb-0">Guardado en navegador, reanudación, validación clara y exportación a PDF con <code>jsPDF</code>.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SERVICIOS -->
+  <section id="servicios" class="py-5">
+    <div class="container">
+      <div class="row align-items-center g-4">
+        <div class="col-lg-6">
+          <h2 class="h3">Servicios RockCode</h2>
+          <ul class="list-unstyled">
+            <li class="d-flex align-items-start gap-2"><svg class="check" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M9 16.17 4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg><span>Auditoría AA / Performance para sitios públicos</span></li>
+            <li class="d-flex align-items-start gap-2 mt-2"><svg class="check" viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.17 4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg><span>Prototipos de trámites y formularios con PDF</span></li>
+            <li class="d-flex align-items-start gap-2 mt-2"><svg class="check" viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.17 4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg><span>Buscadores con sinónimos (FlexSearch/Lunr)</span></li>
+          </ul>
+        </div>
+        <div class="col-lg-6">
+          <div class="ratio ratio-16x9 rounded-4 shadow-sm bg-light">
+            <iframe
+              title="Video demo"
+              src="https://www.youtube-nocookie.com/embed/VIDEOID"
+              loading="lazy"
+              referrerpolicy="strict-origin-when-cross-origin"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              allowfullscreen></iframe>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- DEMOS -->
+  <section id="demos" class="py-5 bg-light">
+    <div class="container">
+      <div class="d-flex align-items-center justify-content-between mb-3">
+        <h2 class="h4 mb-0">Demos públicas</h2>
+        <a class="btn btn-outline-primary btn-sm focus-ring" href="#cta">Cómo replicar</a>
+      </div>
+      <div class="row g-4">
+        <div class="col-md-4">
+          <div class="card h-100 shadow-sm">
+            <div class="card-body">
+              <h3 class="h6">Demo A — Accesibilidad AA Kit</h3>
+              <p class="mb-3">Botón, navegación, modal con <em>focus trap</em>, tabs, alertas y formulario accesible.</p>
+              <a class="btn btn-primary focus-ring" href="demos/accesibilidad/" aria-label="Abrir demo de accesibilidad">Abrir demo</a>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="card h-100 shadow-sm">
+            <div class="card-body">
+              <h3 class="h6">Demo B — FormKit Gobierno</h3>
+              <p class="mb-3">Multistep, guardado local y exportar a PDF.</p>
+              <a class="btn btn-primary focus-ring" href="demos/formkit/" aria-label="Abrir demo de formularios">Abrir demo</a>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="card h-100 shadow-sm">
+            <div class="card-body">
+              <h3 class="h6">Demo C — Buscador de Trámites</h3>
+              <p class="mb-3">JSON local + autocomplete + filtros con sinónimos.</p>
+              <a class="btn btn-primary focus-ring" href="demos/buscador/" aria-label="Abrir demo de buscador de trámites">Abrir demo</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA con formulario (Formspree) + fallback mailto -->
+  <section id="cta" class="py-5">
+    <div class="container">
+      <div class="row g-4 align-items-start">
+        <div class="col-lg-5">
+          <h2 class="h4">¿Quieres replicar las demos en tu institución?</h2>
+          <p class="mb-2">Te guiamos con deploy y checklist AA/Performance.</p>
+          <p class="small text-muted mb-0">
+            También puedes escribir a <a href="mailto:hola@rockcode.cl">hola@rockcode.cl</a>
+          </p>
+        </div>
+
+        <div class="col-lg-7">
+          <form id="contacto" class="bg-white p-3 p-md-4 rounded-3 shadow-sm" action="YOUR_FORMSPREE_ENDPOINT" method="POST" novalidate>
+            <div class="row g-3">
+              <div class="col-md-6">
+                <label for="c-nombre" class="form-label">Nombre</label>
+                <input id="c-nombre" name="nombre" class="form-control" autocomplete="name" required>
+                <div class="invalid-feedback">Indica tu nombre.</div>
+              </div>
+              <div class="col-md-6">
+                <label for="c-email" class="form-label">Correo</label>
+                <input id="c-email" name="email" type="email" class="form-control" autocomplete="email" required>
+                <div class="invalid-feedback">Indica un correo válido.</div>
+              </div>
+              <div class="col-12">
+                <label for="c-mensaje" class="form-label">Mensaje</label>
+                <textarea id="c-mensaje" name="mensaje" class="form-control" rows="4" required></textarea>
+                <div class="invalid-feedback">Cuéntanos brevemente qué necesitas.</div>
+              </div>
+
+              <!-- Honeypot antispam -->
+              <div class="d-none" aria-hidden="true">
+                <label>Deja este campo vacío</label>
+                <input type="text" name="_gotcha" tabindex="-1" autocomplete="off">
+              </div>
+
+              <!-- Metadatos útiles -->
+              <input type="hidden" name="proyecto" value="RockCode GovDX Demos">
+              <input type="hidden" name="_subject" value="Contacto RockCode · GovDX Demos">
+
+              <div class="d-flex align-items-center gap-3">
+                <button class="btn btn-success btn-lg" type="submit">Enviar</button>
+                <span id="c-estado" class="small text-muted" role="status" aria-live="polite"></span>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="mt-auto py-4 bg-dark">
+    <div class="container d-flex flex-column flex-md-row justify-content-between align-items-center">
+      <p class="m-0 footer">© <span id="y"></span> RockCode — GovDX Demos</p>
+      <nav aria-label="Enlaces de pie" class="footer">
+        <a class="me-3" href="#">Accesibilidad</a>
+        <a class="me-3" href="#">Performance</a>
+        <a class="" href="#">Política de datos</a>
+      </nav>
+    </div>
+    <div class="container mt-2">
+      <small class="text-secondary">
+        Diseño &amp; desarrollo: <strong>Rockwell Harrison</strong> + <strong>Spark (ChatGPT)</strong>
+      </small>
+    </div>
+  </footer>
+
+  <!-- Bootstrap 5 (JS) -->
+  <script defer src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+
+  <!-- Formulario: validación + envío accesible -->
+  <script>
+  (() => {
+    const yearEl = document.getElementById('y');
+    if (yearEl) yearEl.textContent = new Date().getFullYear();
+
+    const form = document.getElementById('contacto');
+    const estado = document.getElementById('c-estado');
+    if (!form) return;
+
+    form.addEventListener('submit', async (e) => {
+      if (!form.checkValidity()) {
+        e.preventDefault(); e.stopPropagation();
+        form.classList.add('was-validated');
+        if (estado) estado.textContent = 'Revisa los campos requeridos.';
+        return;
+      }
+      e.preventDefault();
+      if (estado) estado.textContent = 'Enviando…';
+      try {
+        const resp = await fetch(form.action, {
+          method: 'POST',
+          headers: { 'Accept': 'application/json' },
+          body: new FormData(form)
+        });
+        if (resp.ok) {
+          if (estado) estado.textContent = '¡Gracias! Te contactamos en breve.';
+          form.reset(); form.classList.remove('was-validated');
+        } else {
+          if (estado) estado.textContent = 'No pudimos enviar el mensaje. Escribe a hola@rockcode.cl';
+        }
+      } catch {
+        if (estado) estado.textContent = 'Error de red. Intenta de nuevo o por correo.';
+      }
+    });
+  })();
+  </script>
+</body>
+</html>
