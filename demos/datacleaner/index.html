@@ -224,69 +224,118 @@
         for (let r=1;r<data.length;r++) data[r]=data[r].map(fix);
       },
 
-      // --- RUT helpers ---
-      _rut_detect(headers, sample){
-        let idx = headers.findIndex(h => /rut/i.test(String(h||'')));
-        if (idx<0 && sample){
-          for (let c=0;c<sample.length;c++){ const v=String(sample[c]||''); if(/[0-9Kk\.\-]{7,12}/.test(v)){ idx=c; break; } }
-        }
-        return idx<0 ? 0 : idx;
-      },
-      _rut_clean(s){ return String(s||'').toUpperCase().replace(/[^0-9K]/g,''); },
-      _rut_calcDV(body){
-        let sum=0, mul=2; for (let i=body.length-1;i>=0;i--){ sum+=mul*(+body[i]); mul = (mul===7)?2:(mul+1); }
-        const res=11-(sum%11); return res===11?'0': (res===10?'K': String(res));
-      },
-      _rut_format(body,dv){ return body.replace(/\B(?=(\d{3})+(?!\d))/g,'.')+'-'+dv; },
+     // ─────────────────────────────
+// Reglas avanzadas de RUT
+// ─────────────────────────────
+const RUT_MINLEN = 7;       // mínimo dígitos del cuerpo
+const RUT_MAXLEN = 8;       // máximo dígitos del cuerpo
+const RUT_STRICT = true;    // rechazar cuerpos fuera de rango o todos ceros
 
-      'rut-normalize'(){
-        if(!data.length) return;
-        const idx=this._rut_detect(data[0], data[1]);
-        const out=data.map((row,i)=>{
-          if(i===0) return row;
-          const raw=String(row[idx]||'').trim(); if(!raw) return row;
-          const cleaned=this._rut_clean(raw); if (cleaned.length<2) return row;
-          const body=cleaned.slice(0,-1), dv=cleaned.slice(-1);
-          const ok=this._rut_calcDV(body)===dv;
-          const formatted=this._rut_format(body,dv);
-          const copy=row.slice(); copy[idx]= ok? formatted : (formatted+' ⚠️'); return copy;
-        });
-        data=out;
-      },
+function rutCalcDV(body){
+  let sum = 0, mul = 2;
+  for (let i = body.length - 1; i >= 0; i--) {
+    sum += mul * (+body[i]);
+    mul = (mul === 7) ? 2 : (mul + 1);
+  }
+  const res = 11 - (sum % 11);
+  return res === 11 ? '0' : (res === 10 ? 'K' : String(res));
+}
+function rutClean(s){
+  return String(s||'').toUpperCase().replace(/[^0-9K]/g, '');
+}
+function rutFormat(body,dv){
+  return body.replace(/\B(?=(\d{3})+(?!\d))/g, '.') + '-' + dv;
+}
+function rutLooksReal(body){
+  if (!RUT_STRICT) return true;
+  if (!/^\d+$/.test(body)) return false;
+  if (body.length < RUT_MINLEN || body.length > RUT_MAXLEN) return false;
+  if (/^0+$/.test(body)) return false; // todo 0
+  return true;
+}
 
-      'rut-validate'(){
-        if(!data.length) return;
-        const headers=data[0].slice();
-        let col=headers.findIndex(h => /RUT_Valido/i.test(String(h||'')));
-        if (col<0){ col=headers.length; headers.push('RUT_Valido'); }
-        const idx=this._rut_detect(data[0], data[1]);
-        const out=[headers].concat(data.slice(1).map(row=>{
-          const r=row.slice();
-          const cleaned=this._rut_clean(r[idx]); let ok=false;
-          if (cleaned.length>=2){
-            const body=cleaned.slice(0,-1), dv=cleaned.slice(-1);
-            ok = this._rut_calcDV(body)===dv;
-          }
-          r[col]= ok? 'Sí':'No'; return r;
-        }));
-        data=out;
-      },
+actions['rut-normalize'] = function(){
+  if (!data.length) return;
+  const headers = data[0].slice();
+  const idxRut = actions._rut_detect(headers, data[1]);
 
-      'rut-duplicates'(){
-        if(!data.length) return;
-        const headers=data[0].slice();
-        let col=headers.findIndex(h => /RUT_Duplicado/i.test(String(h||'')));
-        if (col<0){ col=headers.length; headers.push('RUT_Duplicado'); }
-        const idx=this._rut_detect(data[0], data[1]);
-        const counts=new Map();
-        data.slice(1).forEach(r=>{ const k=this._rut_clean(r[idx]||''); if(!k) return; counts.set(k,(counts.get(k)||0)+1); });
-        const out=[headers].concat(data.slice(1).map(row=>{
-          const r=row.slice(); const key=this._rut_clean(r[idx]||'');
-          r[col]= key && counts.get(key)>1 ? 'Sí' : 'No'; return r;
-        }));
-        data=out;
+  // columna RUT_Normalizado
+  let colNorm = headers.findIndex(h => /RUT_Normalizado/i.test(String(h||'')));
+  if (colNorm < 0) { colNorm = headers.length; headers.push('RUT_Normalizado'); }
+
+  const out = [headers];
+  for (let i = 1; i < data.length; i++) {
+    const row = data[i].slice();
+    const cleaned = rutClean(row[idxRut]||'');
+    if (cleaned.length >= 2) {
+      const body = cleaned.slice(0,-1);
+      const dv = cleaned.slice(-1);
+      if (rutLooksReal(body)) {
+        const okDv = rutCalcDV(body) === dv;
+        row[colNorm] = rutFormat(body, dv) + (okDv ? '' : ' ⚠️');
+      } else {
+        row[colNorm] = ''; // cuerpo irreal
       }
-    };
+    } else {
+      row[colNorm] = '';
+    }
+    out.push(row);
+  }
+  data = out;
+  render();
+};
+
+actions['rut-validate'] = function(){
+  if (!data.length) return;
+  let headers = data[0].slice();
+  const idxRut = actions._rut_detect(headers, data[1]);
+
+  let colVal = headers.findIndex(h => /RUT_Valido/i.test(String(h||'')));
+  if (colVal < 0) { colVal = headers.length; headers.push('RUT_Valido'); }
+
+  const out = [headers];
+  for (let i = 1; i < data.length; i++) {
+    const row = data[i].slice();
+    const cleaned = rutClean(row[idxRut]||'');
+    let ok = false;
+    if (cleaned.length >= 2) {
+      const body = cleaned.slice(0,-1);
+      const dv = cleaned.slice(-1);
+      ok = rutLooksReal(body) && (rutCalcDV(body) === dv);
+    }
+    row[colVal] = ok ? 'Sí' : 'No';
+    out.push(row);
+  }
+  data = out;
+  render();
+};
+
+actions['rut-duplicates'] = function(){
+  if (!data.length) return;
+  const headers = data[0].slice();
+  const idxRut = actions._rut_detect(headers, data[1]);
+
+  let colDup = headers.findIndex(h => /RUT_Duplicado/i.test(String(h||'')));
+  if (colDup < 0) { colDup = headers.length; headers.push('RUT_Duplicado'); }
+
+  const counts = new Map();
+  data.slice(1).forEach(r => {
+    const key = rutClean(r[idxRut]||'');
+    if (!key) return;
+    counts.set(key, (counts.get(key)||0)+1);
+  });
+
+  const out = [headers];
+  for (let i = 1; i < data.length; i++) {
+    const row = data[i].slice();
+    const key = rutClean(row[idxRut]||'');
+    row[colDup] = (key && counts.get(key) > 1) ? 'Sí' : 'No';
+    out.push(row);
+  }
+  data = out;
+  render();
+};
+
 
     // ===== Pipeline rápida =====
     $('quickPipeline').addEventListener('click', () => {
