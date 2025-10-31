@@ -1,73 +1,291 @@
 <!doctype html>
-<html lang="es"><head>
-<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Demo B — FormKit Gobierno</title>
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-</head><body class="p-3">
-<a class="btn btn-link" href="/">← Volver</a>
-<h1 class="h3">FormKit Gobierno</h1>
-<p class="text-muted">Multistep + guardado local + exportar a PDF.</p>
-<form id="form" class="mt-3">
-  <fieldset class="border rounded p-3">
-    <legend class="float-none w-auto px-2 h6">Paso 1: Datos</legend>
-    <div class="mb-3"><label for="rut" class="form-label">RUT</label><input id="rut" class="form-control" required></div>
-    <div class="mb-3"><label for="nombre" class="form-label">Nombre</label><input id="nombre" class="form-control" required></div>
-    <button class="btn btn-primary" type="button" id="guardar">Guardar y continuar</button>
-  </fieldset>
-</form>
-<div class="mt-3 d-flex gap-2">
-  <button class="btn btn-outline-secondary" id="reanudar">Reanudar</button>
-  <button class="btn btn-success" id="pdf">Exportar PDF</button>
-</div>
-<script defer src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/jspdf@2.5.1/dist/jspdf.umd.min.js"></script>
-<script>
-(() => {
-  const STORAGE_KEY = 'formkit-v1';
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Demo B — FormKit Gobierno (autosave + PDF)</title>
+  <meta name="description" content="Formulario multistep accesible con autosave en navegador, reanudar y exportar a PDF." />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    .focus-ring:focus { outline: 3px solid #3a86ff; outline-offset: 2px; }
+    .step { display: none; }
+    .step[aria-hidden="false"] { display:block; }
+    .sr-only { position:absolute!important;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0; }
+  </style>
+</head>
+<body class="bg-light">
+  <main class="container py-4">
+    <a class="btn btn-link p-0 mb-3" href="../../">← Volver</a>
+    <h1 class="h3 mb-3">FormKit Gobierno</h1>
+    <p class="text-muted">Multistep accesible con <strong>auto-guardado</strong>, botón <em>Reanudar</em>, <em>Limpiar</em> y <em>Exportar a PDF</em>.</p>
 
-  // Restaura automáticamente al cargar
-  document.addEventListener('DOMContentLoaded', () => {
-    try {
-      const data = JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}');
-      for (const [name, value] of Object.entries(data)) {
-        const el = document.querySelector(`[name="${CSS.escape(name)}"]`);
-        if (!el) continue;
-        if (el.type === 'checkbox' || el.type === 'radio') {
-          const boxes = document.querySelectorAll(`[name="${CSS.escape(name)}"]`);
-          boxes.forEach(b => b.checked = Array.isArray(value) ? value.includes(b.value) : b.value === value);
-        } else {
-          el.value = value;
-        }
-      }
-    } catch {}
-  });
+    <div class="d-flex gap-2 mb-3">
+      <button type="button" class="btn btn-outline-secondary btn-sm" data-resume>Reanudar</button>
+      <button type="button" class="btn btn-outline-danger btn-sm" data-clear>Limpiar</button>
+      <button type="button" class="btn btn-primary btn-sm" id="btn-pdf">Exportar a PDF</button>
+    </div>
 
-  // Auto-guardado en cada cambio
-  function snapshot() {
-    const data = {};
-    document.querySelectorAll('input[name], select[name], textarea[name]').forEach(el => {
-      if (el.type === 'checkbox') {
-        const boxes = [...document.querySelectorAll(`input[type="checkbox"][name="${el.name}"]`)];
-        data[el.name] = boxes.filter(b => b.checked).map(b => b.value);
-      } else if (el.type === 'radio') {
-        const checked = document.querySelector(`input[type="radio"][name="${el.name}"]:checked`);
-        if (checked) data[el.name] = checked.value;
-      } else {
-        data[el.name] = el.value;
-      }
+    <!-- Región de mensajes accesibles -->
+    <div class="alert alert-info py-2" role="status" aria-live="polite" id="statusMsg">Tus cambios se guardan automáticamente.</div>
+
+    <form id="formkit" novalidate class="bg-white p-3 p-md-4 rounded-3 shadow-sm">
+      <!-- Barra de pasos -->
+      <ol class="mb-4 d-flex gap-2 list-unstyled" aria-label="Progreso">
+        <li><span class="badge text-bg-primary" id="stepLabel">Paso <span id="stepNow">1</span> de <span id="stepTotal">3</span></span></li>
+      </ol>
+
+      <!-- Paso 1 -->
+      <section class="step" aria-hidden="false" data-step="1" aria-labelledby="s1-title">
+        <h2 id="s1-title" class="h5">Identificación</h2>
+        <div class="row g-3">
+          <div class="col-md-6">
+            <label for="nombre" class="form-label">Nombre completo</label>
+            <input id="nombre" name="nombre" class="form-control" required autocomplete="name" />
+            <div class="invalid-feedback">Indica tu nombre.</div>
+          </div>
+          <div class="col-md-6">
+            <label for="rut" class="form-label">RUT / Identificación</label>
+            <input id="rut" name="rut" class="form-control" required autocomplete="off" />
+            <div class="invalid-feedback">Indica tu RUT/Identificación.</div>
+          </div>
+          <div class="col-md-6">
+            <label for="email" class="form-label">Correo</label>
+            <input id="email" name="email" type="email" class="form-control" required autocomplete="email" />
+            <div class="invalid-feedback">Indica un correo válido.</div>
+          </div>
+          <div class="col-md-6">
+            <label for="fono" class="form-label">Teléfono</label>
+            <input id="fono" name="fono" class="form-control" autocomplete="tel" />
+          </div>
+        </div>
+      </section>
+
+      <!-- Paso 2 -->
+      <section class="step" aria-hidden="true" data-step="2" aria-labelledby="s2-title">
+        <h2 id="s2-title" class="h5">Datos del trámite</h2>
+        <div class="row g-3">
+          <div class="col-md-6">
+            <label for="region" class="form-label">Región</label>
+            <select id="region" name="region" class="form-select" required>
+              <option value="" selected disabled>Selecciona…</option>
+              <option>Región de Valparaíso</option>
+              <option>Región Metropolitana</option>
+              <option>Región del Biobío</option>
+            </select>
+            <div class="invalid-feedback">Selecciona tu región.</div>
+          </div>
+          <div class="col-md-6">
+            <label class="form-label d-block">Tipo de solicitud</label>
+            <div class="form-check">
+              <input class="form-check-input" type="radio" name="tipo" id="t1" value="Nueva" required>
+              <label class="form-check-label" for="t1">Nueva</label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" type="radio" name="tipo" id="t2" value="Renovación">
+              <label class="form-check-label" for="t2">Renovación</label>
+            </div>
+            <div class="invalid-feedback d-block" id="tipoInvalid" hidden>Selecciona una opción.</div>
+          </div>
+          <div class="col-12">
+            <label for="detalle" class="form-label">Detalle (opcional)</label>
+            <textarea id="detalle" name="detalle" class="form-control" rows="3"></textarea>
+          </div>
+        </div>
+      </section>
+
+      <!-- Paso 3 -->
+      <section class="step" aria-hidden="true" data-step="3" aria-labelledby="s3-title">
+        <h2 id="s3-title" class="h5">Confirmación</h2>
+        <div class="form-check mb-3">
+          <input class="form-check-input" type="checkbox" id="acepta" name="acepta" value="sí" required>
+          <label class="form-check-label" for="acepta">
+            Declaro que la información proporcionada es verídica.
+          </label>
+          <div class="invalid-feedback">Debes aceptar para continuar.</div>
+        </div>
+        <div class="alert alert-secondary" role="status">
+          Revisa los datos. Puedes exportar un <strong>PDF</strong> o regresar a editar.
+        </div>
+      </section>
+
+      <!-- Navegación -->
+      <div class="d-flex align-items-center gap-2 mt-3">
+        <button type="button" class="btn btn-outline-secondary" id="prevBtn">Anterior</button>
+        <button type="button" class="btn btn-primary" id="nextBtn">Siguiente</button>
+        <button type="submit" class="btn btn-success d-none" id="sendBtn">Enviar</button>
+      </div>
+    </form>
+  </main>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/jspdf@2.5.1/dist/jspdf.umd.min.js"></script>
+
+  <script>
+  (() => {
+    const STORAGE_KEY = 'formkit-v1';
+    const form = document.querySelector('#formkit');
+    const steps = [...document.querySelectorAll('.step')];
+    const stepNow = document.getElementById('stepNow');
+    const stepTotal = document.getElementById('stepTotal');
+    const prevBtn = document.getElementById('prevBtn');
+    const nextBtn = document.getElementById('nextBtn');
+    const sendBtn = document.getElementById('sendBtn');
+    const statusMsg = document.getElementById('statusMsg');
+
+    let current = 0;
+    stepTotal.textContent = steps.length;
+
+    // -------- Navegación de pasos (ocultamos con aria-hidden, no deshabilitamos campos)
+    function showStep(i) {
+      current = Math.max(0, Math.min(i, steps.length - 1));
+      steps.forEach((s, idx) => s.setAttribute('aria-hidden', String(idx !== current)));
+      stepNow.textContent = current + 1;
+      prevBtn.disabled = current === 0;
+      nextBtn.classList.toggle('d-none', current === steps.length - 1);
+      sendBtn.classList.toggle('d-none', current !== steps.length - 1);
+      // foco accesible:
+      steps[current].querySelector('input,select,textarea,button')?.focus();
+    }
+
+    prevBtn.addEventListener('click', () => showStep(current - 1));
+    nextBtn.addEventListener('click', () => {
+      // validación mínima por paso
+      if (!validateCurrent()) return;
+      showStep(current + 1);
     });
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
-  }
 
-  // Escucha cambios y también avance de paso
-  document.addEventListener('input', snapshot, true);
-  document.addEventListener('change', snapshot, true);
+    // -------- Validación simple de paso
+    function validateCurrent() {
+      const section = steps[current];
+      let ok = true;
 
-  // Botón “Reiniciar” (si existe) para limpiar
-  document.querySelector('[data-clear]')?.addEventListener('click', () => {
-    localStorage.removeItem(STORAGE_KEY);
-  });
-})();
-</script>
+      // radios "tipo"
+      if (section.contains(document.querySelector('[name="tipo"]'))) {
+        const any = form.querySelector('input[name="tipo"]:checked');
+        const msg = document.getElementById('tipoInvalid');
+        if (!any) { msg.hidden = false; ok = false; } else { msg.hidden = true; }
+      }
 
-</body></html>
+      // HTML5 required
+      section.querySelectorAll('[required]').forEach(el => {
+        if (el.type === 'radio' || el.type === 'checkbox') return; // ya chequeado arriba
+        el.classList.toggle('is-invalid', !el.checkValidity());
+        if (!el.checkValidity()) ok = false;
+      });
+
+      // checkbox requerido (paso 3)
+      const acepta = section.querySelector('#acepta');
+      if (acepta) {
+        acepta.classList.toggle('is-invalid', !acepta.checked);
+        if (!acepta.checked) ok = false;
+      }
+
+      if (!ok) {
+        statusMsg.textContent = 'Revisa los campos requeridos en este paso.';
+      } else {
+        statusMsg.textContent = 'Tus cambios se guardan automáticamente.';
+      }
+      return ok;
+    }
+
+    // -------- Autosave: toma snapshot de TODOS los campos con name
+    function snapshot() {
+      const data = {};
+      form.querySelectorAll('input[name], select[name], textarea[name]').forEach(el => {
+        if (el.type === 'checkbox') {
+          if (!data[el.name]) data[el.name] = [];
+          if (el.checked) data[el.name].push(el.value);
+        } else if (el.type === 'radio') {
+          if (el.checked) data[el.name] = el.value;
+          else if (!(el.name in data)) data[el.name] = '';
+        } else {
+          data[el.name] = el.value;
+        }
+      });
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+    }
+    let t; const debounced = () => { clearTimeout(t); t = setTimeout(snapshot, 150); };
+
+    form.addEventListener('input', debounced, true);
+    form.addEventListener('change', debounced, true);
+    window.addEventListener('beforeunload', snapshot);
+
+    // -------- Restaurar
+    function restore() {
+      try {
+        const data = JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}');
+        Object.entries(data).forEach(([name, val]) => {
+          const fields = form.querySelectorAll(`[name="${CSS.escape(name)}"]`);
+          if (!fields.length) return;
+          fields.forEach(el => {
+            if (el.type === 'checkbox') {
+              const arr = Array.isArray(val) ? val : [val];
+              el.checked = arr.includes(el.value);
+            } else if (el.type === 'radio') {
+              el.checked = (el.value === val);
+            } else {
+              el.value = val ?? '';
+            }
+          });
+        });
+        statusMsg.textContent = 'Datos restaurados desde el navegador.';
+      } catch (e) {
+        console.warn('No se pudo restaurar:', e);
+      }
+    }
+
+    document.querySelector('[data-resume]')?.addEventListener('click', (e) => {
+      e.preventDefault(); restore();
+    });
+    document.querySelector('[data-clear]')?.addEventListener('click', () => {
+      localStorage.removeItem(STORAGE_KEY);
+      form.reset();
+      statusMsg.textContent = 'Se limpiaron los datos guardados.';
+    });
+
+    // Restauración automática al cargar si hay datos
+    if (localStorage.getItem(STORAGE_KEY)) restore();
+
+    // -------- Envío (demo)
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      if (!validateCurrent()) return;
+      snapshot();
+      statusMsg.textContent = 'Formulario validado. Puedes guardar el PDF.';
+    });
+
+    // -------- Exportar a PDF
+    document.getElementById('btn-pdf').addEventListener('click', async () => {
+      snapshot(); // asegura último estado
+
+      const data = JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}');
+      const { jsPDF } = window.jspdf;
+      const doc = new jsPDF();
+
+      const lines = [
+        'Comprobante de Formulario',
+        '———————————————',
+        `Nombre: ${data.nombre || ''}`,
+        `RUT/ID: ${data.rut || ''}`,
+        `Correo: ${data.email || ''}`,
+        `Teléfono: ${data.fono || ''}`,
+        `Región: ${data.region || ''}`,
+        `Tipo: ${data.tipo || ''}`,
+        `Detalle: ${data.detalle || ''}`,
+        `Acepta declaración: ${Array.isArray(data.acepta) ? data.acepta.join(', ') : (data.acepta ? 'sí' : 'no')}`
+      ];
+      let y = 15;
+      doc.setFont('helvetica', 'normal');
+      doc.setFontSize(16); doc.text(lines[0], 14, y); y += 8;
+      doc.setFontSize(11);
+      for (let i = 1; i < lines.length; i++) { doc.text(lines[i], 14, y); y += 7; }
+
+      doc.save('formulario-rockcode.pdf');
+    });
+
+    // init
+    showStep(0);
+  })();
+  </script>
+</body>
+</html>
