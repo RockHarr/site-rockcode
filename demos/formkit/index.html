@@ -22,24 +22,52 @@
 <script defer src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/jspdf@2.5.1/dist/jspdf.umd.min.js"></script>
 <script>
-const key = 'demo-formkit-v1';
-document.getElementById('guardar').onclick = () => {
-  const data = { rut: document.getElementById('rut').value, nombre: document.getElementById('nombre').value };
-  localStorage.setItem(key, JSON.stringify(data));
-  alert('Datos guardados en el navegador.');
-};
-document.getElementById('reanudar').onclick = () => {
-  const data = JSON.parse(localStorage.getItem(key) || '{}');
-  document.getElementById('rut').value = data.rut || '';
-  document.getElementById('nombre').value = data.nombre || '';
-};
-document.getElementById('pdf').onclick = async () => {
-  const { jsPDF } = window.jspdf;
-  const doc = new jsPDF();
-  doc.text('Comprobante Demo - FormKit', 10, 10);
-  doc.text('RUT: ' + (document.getElementById('rut').value || ''), 10, 20);
-  doc.text('Nombre: ' + (document.getElementById('nombre').value || ''), 10, 30);
-  doc.save('comprobante_demo.pdf');
-};
+(() => {
+  const STORAGE_KEY = 'formkit-v1';
+
+  // Restaura automáticamente al cargar
+  document.addEventListener('DOMContentLoaded', () => {
+    try {
+      const data = JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}');
+      for (const [name, value] of Object.entries(data)) {
+        const el = document.querySelector(`[name="${CSS.escape(name)}"]`);
+        if (!el) continue;
+        if (el.type === 'checkbox' || el.type === 'radio') {
+          const boxes = document.querySelectorAll(`[name="${CSS.escape(name)}"]`);
+          boxes.forEach(b => b.checked = Array.isArray(value) ? value.includes(b.value) : b.value === value);
+        } else {
+          el.value = value;
+        }
+      }
+    } catch {}
+  });
+
+  // Auto-guardado en cada cambio
+  function snapshot() {
+    const data = {};
+    document.querySelectorAll('input[name], select[name], textarea[name]').forEach(el => {
+      if (el.type === 'checkbox') {
+        const boxes = [...document.querySelectorAll(`input[type="checkbox"][name="${el.name}"]`)];
+        data[el.name] = boxes.filter(b => b.checked).map(b => b.value);
+      } else if (el.type === 'radio') {
+        const checked = document.querySelector(`input[type="radio"][name="${el.name}"]:checked`);
+        if (checked) data[el.name] = checked.value;
+      } else {
+        data[el.name] = el.value;
+      }
+    });
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+  }
+
+  // Escucha cambios y también avance de paso
+  document.addEventListener('input', snapshot, true);
+  document.addEventListener('change', snapshot, true);
+
+  // Botón “Reiniciar” (si existe) para limpiar
+  document.querySelector('[data-clear]')?.addEventListener('click', () => {
+    localStorage.removeItem(STORAGE_KEY);
+  });
+})();
 </script>
+
 </body></html>
