@@ -43,6 +43,95 @@
   footer{margin-top:16px;color:var(--muted);font-size:13px}
   .sr-only{position:absolute;left:-10000px;top:auto;width:1px;height:1px;overflow:hidden}
   .pill{border:1px solid var(--line);border-radius:999px;padding:6px 10px;color:var(--muted);font-size:12px}
+  /* ---------- Botones/Chips de acciones: contraste y accesibilidad ---------- */
+.actions button,
+.actions .btn,
+.actions .chip,
+.actions a[role="button"] {
+  --bg: #0f172a;          /* fondo oscuro legible */
+  --bd: #2b3447;          /* borde con contraste */
+  --ink: #e5e7eb;         /* texto claro */
+  --hover: #182236;       /* hover un poco más claro */
+  --ring: #3a86ff;        /* foco accesible */
+  background: var(--bg);
+  color: var(--ink);
+  border: 1px solid var(--bd);
+  border-radius: 14px;
+  padding: .55rem .9rem;
+  font-weight: 600;
+  line-height: 1;
+  letter-spacing: .1px;
+  display: inline-flex;
+  align-items: center;
+  gap: .4rem;
+  cursor: pointer;
+  user-select: none;
+  text-decoration: none;
+  box-shadow:
+    0 1px 0 rgba(0,0,0,.40),
+    inset 0 0 0 1px rgba(255,255,255,.02);
+  transition: background .15s ease, border-color .15s ease, transform .05s ease;
+}
+
+/* Hover/active/disabled */
+.actions button:hover,
+.actions .btn:hover,
+.actions .chip:hover,
+.actions a[role="button"]:hover {
+  background: var(--hover);
+  border-color: #3b475f;
+}
+.actions button:active,
+.actions .btn:active,
+.actions .chip:active,
+.actions a[role="button"]:active {
+  transform: translateY(1px);
+}
+.actions button[disabled],
+.actions .btn[disabled],
+.actions .chip[disabled],
+.actions a[aria-disabled="true"] {
+  opacity: .55;
+  cursor: not-allowed;
+}
+
+/* Focus visible: anillo accesible */
+.actions button:focus-visible,
+.actions .btn:focus-visible,
+.actions .chip:focus-visible,
+.actions a[role="button"]:focus-visible {
+  outline: 3px solid var(--ring);
+  outline-offset: 2px;
+}
+
+/* Contenedor de acciones: que envuelva bonito en todas las filas */
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+/* Variantes compactas en móviles (mejor toque) */
+@media (max-width: 640px) {
+  .actions button,
+  .actions .btn,
+  .actions .chip,
+  .actions a[role="button"] {
+    font-size: .95rem;
+    padding: .65rem 1rem;
+  }
+}
+
+/* Si tienes botones secundarios muy claros, refuérzalos con borde */
+.actions .btn--ghost {
+  background: transparent;
+  border-color: #3b475f;
+}
+.actions .btn--ghost:hover {
+  background: rgba(56,68,94,.25);
+}
+
+  
 </style>
 <!-- SheetJS para XLSX -->
 <script defer src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
