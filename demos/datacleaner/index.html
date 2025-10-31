@@ -191,6 +191,18 @@
         for (let r=1;r<data.length;r++) data[r]=data[r].map(fix);
       },
 
+      // Pipeline rápida en un clic
+      $('quickPipeline')?.addEventListener('click', () => {
+        if (!data.length) return;
+        actions.trim();
+        actions.collapse();
+        actions['drop-empty']();
+        actions.normalize();
+        actions.date();
+        actions['rut-normalize']();
+        render();
+      });
+
       // --- RUT helpers ---
       _rut_detect(headers, sample){
         let idx = headers.findIndex(h => /rut/i.test(String(h||'')));
