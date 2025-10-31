@@ -6,7 +6,7 @@
   <title>RockCode — GovDX Demos: accesibilidad, performance y formularios</title>
   <meta name="description" content="RockCode: demos públicas para gobierno digital (GovDX). Accesibilidad AA, performance (LCP < 2.5s), formularios con PDF y buscador de trámites con sinónimos." />
 
-  <!-- Favicon (absoluto para evitar 404 en subrutas) -->
+  <!-- Favicon absoluto para evitar 404 en subrutas -->
   <link rel="icon" href="/assets/img/favicon.png" />
 
   <!-- Canonical + color de tema -->
@@ -24,11 +24,9 @@
   <!-- Bootstrap 5 (CSS) -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
 
-  <!-- Estilos críticos (inlined) -->
+  <!-- Estilos críticos -->
   <style>
-    :root{
-      --rc-bg:#0b132b; --rc-ink:#0b132b; --rc-ink-2:#1c2541; --rc-accent:#3a86ff; --rc-good:#16a34a;
-    }
+    :root{ --rc-bg:#0b132b; --rc-ink:#0b132b; --rc-ink-2:#1c2541; --rc-accent:#3a86ff; --rc-good:#16a34a; }
     body{font-feature-settings:"kern" 1,"liga" 1;}
     .skip-link{position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden;}
     .skip-link:focus{position:fixed;left:1rem;top:1rem;width:auto;height:auto;z-index:1050;background:#fff;border:2px solid var(--rc-accent);padding:.5rem 1rem;border-radius:.5rem;}
@@ -211,7 +209,7 @@
         </div>
 
         <div class="col-lg-7">
-          <form id="contacto" class="bg-white p-3 p-md-4 rounded-3 shadow-sm" action="YOUR_FORMSPREE_ENDPOINT" method="POST" novalidate>
+          <form id="contacto" class="bg-white p-3 p-md-4 rounded-3 shadow-sm" action="https://formspree.io/f/mdkpwbwb" method="POST" novalidate>
             <div class="row g-3">
               <div class="col-md-6">
                 <label for="c-nombre" class="form-label">Nombre</label>
