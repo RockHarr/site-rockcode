@@ -1,73 +1,66 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>DataCleaner — RockCode</title>
-  <meta name="description" content="Limpia y valida datos CSV/Excel: quitar duplicados, normalizar fechas/textos y RUT.">
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><circle cx=%2250%22 cy=%2250%22 r=%2245%22 fill=%22%2300d084%22/></svg>">
-  <style>
-    :root{
-      --bg:#0b1220; --ink:#e5e7eb; --muted:#94a3b8; --line:#1f2937; --accent:#22c55e;
-      --card:rgba(255,255,255,.02);
-    }
-    *{box-sizing:border-box}
-    html,body{height:100%}
-    body{
-      margin:0; font-family:system-ui,-apple-system,Segoe UI,Roboto,Inter,Ubuntu,sans-serif;
-      background:#0b1220; color:var(--ink);
-    }
-    .wrap{max-width:1100px;margin:0 auto;padding:20px}
-    .h1{font-size:clamp(20px,4vw,28px);margin:0 0 14px;font-weight:700}
-    .muted{color:var(--muted)}
-    .pill{border:1px solid var(--line);border-radius:999px;padding:4px 10px;color:var(--muted);font-size:12px}
-    .btn{
-      appearance:none;border:1px solid var(--line);background:#0f172a;color:var(--ink);
-      padding:10px 14px;border-radius:12px;font-weight:700;cursor:pointer
-    }
-    .btn.primary{background:var(--accent);color:#062b14;border-color:#16a34a}
-    .btn[disabled]{opacity:.6;cursor:not-allowed}
-    .card{background:var(--card);border:1px solid var(--line);border-radius:14px}
-    .hd{padding:12px 14px;border-bottom:1px dashed var(--line);display:flex;gap:10px;align-items:center;justify-content:space-between}
-    .bd{padding:14px}
-    .grid2{display:grid;gap:16px;grid-template-columns:1fr 1fr}
-    @media (max-width:900px){.grid2{grid-template-columns:1fr}}
-    input,textarea{
-      width:100%;background:#0b1220;border:1px solid var(--line);border-radius:12px;color:var(--ink);padding:10px
-    }
-    label{display:block;font-size:14px;margin:10px 0 6px;color:var(--muted)}
-    .row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
-    table{border-collapse:collapse;width:100%;background:var(--card);font-size:13px}
-    th{background:#111827;color:#9ca3af;font-weight:600;position:sticky;top:0}
-    td,th{border:1px solid #1f2937;padding:6px 8px;text-align:left;white-space:nowrap}
-    tbody tr:nth-child(even){background:rgba(255,255,255,.03)}
-    footer{border-top:1px solid var(--line);margin-top:18px;color:var(--muted);font-size:12px;padding-top:12px}
-  </style>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>DataCleaner · RockCode</title>
+<meta name="description" content="DataCleaner: limpia CSV/Excel en segundos. Quita duplicados, normaliza fechas y valida RUT.">
+<link rel="icon" href="/assets/img/favicon.png" />
+<style>
+  :root{
+    --bg:#0b1220;--panel:#0f172a;--ink:#e5e7eb;--muted:#94a3b8;
+    --line:#1f2937;--accent:#22c55e;--accent-ink:#052814;--danger:#ef4444
+  }
+  *{box-sizing:border-box}
+  html,body{height:100%}
+  body{margin:0;background:linear-gradient(180deg,#0a0f1f,#0b1220);color:var(--ink);
+    font:14px/1.5 system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Inter,Arial,sans-serif}
+  .wrap{max-width:1200px;margin:0 auto;padding:24px}
+  h1{font-size:clamp(22px,4vw,32px);margin:0 0 8px}
+  .sub{color:var(--muted);margin:0 0 16px}
+  .card{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:16px}
+  .grid{display:grid;grid-template-columns:1.1fr .9fr;gap:16px}
+  @media (max-width:980px){.grid{grid-template-columns:1fr}}
+  label{display:block;font-weight:600;margin:0 0 8px;color:var(--muted)}
+  textarea{width:100%;min-height:170px;background:#0b1220;border:1px solid var(--line);
+    border-radius:12px;color:var(--ink);padding:12px;resize:vertical}
+  .btn{appearance:none;border:1px solid var(--line);background:#0f172a;color:var(--ink);
+    padding:10px 14px;border-radius:12px;font-weight:700;cursor:pointer}
+  .btn[disabled]{opacity:.6;cursor:not-allowed}
+  .btn.primary{background:var(--accent);border-color:#16a34a;color:var(--accent-ink)}
+  .btn.ghost{background:transparent}
+  .btn.danger{background:#1a0b0b;border-color:#7f1d1d;color:#fecaca}
+  .bar{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+  .pill{border:1px solid var(--line);border-radius:999px;padding:6px 10px;color:var(--muted);font-size:12px}
+  .table-wrap{margin-top:14px;border:1px solid var(--line);border-radius:12px;overflow:auto}
+  table{border-collapse:collapse;width:100%;background:rgba(255,255,255,.02);font-size:13px;white-space:nowrap}
+  th{position:sticky;top:0;background:#111827;color:#9ca3af;font-weight:600}
+  td,th{border:1px solid #1f2937;padding:6px 8px;text-align:left}
+  tbody tr:nth-child(even){background:rgba(255,255,255,.03)}
+  .footer{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;margin-top:16px;color:var(--muted)}
+  .hint{font-size:12px;color:var(--muted)}
+</style>
 </head>
 <body>
   <main class="wrap">
+    <h1>DataCleaner</h1>
+    <p class="sub">Limpia datos en segundos: CSV/Excel, fechas, duplicados, RUT. Diseñado por RockCode.</p>
+
     <div class="card">
-      <div class="hd">
-        <div>
-          <div class="h1">DataCleaner</div>
-          <div class="muted">Limpia datos en segundos: CSV/Excel, RUT, fechas, duplicados.</div>
-        </div>
-        <span class="pill" id="meta">0 filas · 0 columnas</span>
-      </div>
-
-      <div class="bd grid2">
-        <div>
-          <label>Pega tus datos (CSV con coma o punto y coma)</label>
-          <textarea id="raw" style="min-height:180px"></textarea>
-          <div class="row" style="margin-top:10px">
+      <div class="grid">
+        <section>
+          <label for="raw">Pega tus datos (CSV con coma o punto y coma)</label>
+          <textarea id="raw" spellcheck="false"></textarea>
+          <div class="bar" style="margin-top:10px">
             <button class="btn primary" id="load">Cargar</button>
-            <button class="btn" id="clear">Limpiar</button>
+            <button class="btn ghost" id="clear">Limpiar</button>
+            <span class="pill" id="meta">0 filas · 0 columnas</span>
           </div>
-        </div>
+        </section>
 
-        <div>
+        <section>
           <label>Acciones</label>
-          <div class="row">
+          <div class="bar" style="margin-top:2px">
             <button class="btn" data-act="trim">Quitar espacios</button>
             <button class="btn" data-act="collapse">Espacios múltiples → uno</button>
             <button class="btn" data-act="lower">minúsculas</button>
@@ -81,258 +74,425 @@
             <button class="btn" data-act="rut-validate">Validar RUT</button>
             <button class="btn" data-act="rut-duplicates">Etiquetar duplicados RUT</button>
           </div>
-        </div>
+        </section>
       </div>
 
-      <div class="bd" style="max-height:50vh;overflow:auto;border-top:1px dashed var(--line)">
-        <table id="table"></table>
+      <div class="table-wrap">
+        <table id="table" aria-live="polite"></table>
       </div>
 
-      <div class="bd row">
-        <button class="btn" id="copyCsv">Copiar CSV</button>
-        <button class="btn" id="downloadCsv">Descargar CSV (ordenado)</button>
+      <div class="bar" style="margin-top:12px">
+        <button class="btn ghost" id="copyCsv">Copiar CSV</button>
+        <button class="btn ghost" id="downloadCsv">Descargar CSV (ordenado)</button>
         <button class="btn" id="downloadXls">Descargar Excel (XLS)</button>
         <button class="btn primary" id="downloadXlsx">Descargar Excel (XLSX)</button>
+        <span class="hint">* XLSX requiere <code>xlsx.full.min.js</code> en esta carpeta.</span>
       </div>
     </div>
 
-    <footer>
-      © <span id="y"></span> RockCode — DataCleaner. Diseño & desarrollo: Rockwell Harrison + Spark (ChatGPT)
-    </footer>
+    <div class="footer">
+      <div>© <span id="y"></span> RockCode — DataCleaner.</div>
+      <div class="hint">Diseño & desarrollo: <strong>Rockwell Harrison</strong> + <strong>Spark (ChatGPT)</strong></div>
+    </div>
   </main>
 
-  <!-- Debe existir en la misma carpeta -->
+  <!-- XLSX opcional / mismo directorio -->
   <script src="xlsx.full.min.js"></script>
   <script>
   (function(){
-    const $ = (id)=>document.getElementById(id);
-    const meta=$('meta'), table=$('table'); let data=[];
+    const $ = id => document.getElementById(id);
+    const meta = $('meta'), tableEl = $('table');
 
-    function parseCSV(text) {
-  // 1) Normaliza saltos de línea a \n (soporta \r\n, \n o \r)
-  const norm = String(text ?? '').replace(/\r\n|\n|\r/g, '\n');
-  if (!norm.trim()) return [];
+    // Estado
+    let data = []; // AOA: [ [headers], [row], ... ]
 
-  // 2) Detecta separador entre coma y punto y coma (en primeras líneas),
-  //    si no hay, intenta con tabulador.
-  const first = norm.split('\n').slice(0, 3).join('\n');
-  let sep = ',';
-  const cntComma = (first.match(/,/g) || []).length;
-  const cntSemi  = (first.match(/;/g) || []).length;
-  const cntTab   = (first.match(/\t/g) || []).length;
-  if (cntSemi > cntComma && cntSemi >= cntTab) sep = ';';
-  else if (cntTab > Math.max(cntComma, cntSemi)) sep = '\t';
+    // Utilidades ---------------------
 
-  // 3) Parse carácter por carácter con comillas
-  const lines = norm.split('\n');
-  const rows = [];
-  for (let line of lines) {
-    // Permite líneas en blanco
-    if (line === '') continue;
-    const row = [];
-    let cur = '', inQ = false;
-
-    for (let i = 0; i < line.length; i++) {
-      const ch = line[i];
-      const nx = line[i + 1];
-
-      if (ch === '"' && nx === '"') { cur += '"'; i++; }         // comilla escapada
-      else if (ch === '"') { inQ = !inQ; }                       // abrir/cerrar comillas
-      else if (ch === sep && !inQ) { row.push(cur.trim()); cur=''; } // separador
-      else { cur += ch; }
+    // Quitar BOM y normalizar saltos
+    function cleanText(t){
+      return String(t || '')
+        .replace(/^\uFEFF/, '')      // BOM
+        .replace(/\r\n/g, '\n')      // Windows -> LF
+        .replace(/\r/g, '\n');       // Mac -> LF
     }
-    row.push(cur.trim());
-    // filtra filas totalmente vacías
-    if (row.some(c => String(c).trim() !== '')) rows.push(row);
-  }
 
-  // 4) Fallback: si por algún motivo quedó 1 sola fila gigante, intenta forzar split
-  if (rows.length === 1 && (rows[0] || []).length > 15 && norm.includes('\n')) {
-    return norm.split('\n').filter(l => l.trim() !== '').map(l => l.split(sep).map(c => c.trim()));
-  }
-  return rows;
-}
+    // Parser CSV robusto con autodetección de separador y comillas
+    function parseCSV(text){
+      const src = cleanText(text);
+      if (!src.trim()) return [];
 
+      // Autodetección del separador en primeras líneas
+      const sample = src.split('\n').slice(0, 5).join('\n');
+      const commas  = (sample.match(/,/g) || []).length;
+      const semis   = (sample.match(/;/g) || []).length;
+      const sep = semis > commas ? ';' : ',';
 
-    function toCSV(rows,sep=','){
+      const lines = src.split('\n');
+      const out = [];
+      for (let line of lines){
+        // Permite líneas vacías (se filtrarán después si se pide)
+        let row = [];
+        let cur = '';
+        let inQ = false;
+
+        for (let i = 0; i < line.length; i++){
+          const ch = line[i], nx = line[i+1];
+
+          if (ch === '"'){                 // comillas
+            if (inQ && nx === '"'){        // escape ""
+              cur += '"'; i++;
+            } else {
+              inQ = !inQ;
+            }
+          } else if (ch === sep && !inQ){  // separador fuera de comillas
+            row.push(cur);
+            cur = '';
+          } else {
+            cur += ch;
+          }
+        }
+        row.push(cur);
+
+        // No trims destructivos aquí; se hace en acciones
+        out.push(row);
+      }
+      // No eliminar vacíos; dejar que "Eliminar filas vacías" lo haga
+      return out;
+    }
+
+    function toCSV(rows, sep=','){
       return rows.map(r => r.map(c => {
         const s = String(c ?? '');
-        return /["\\n,;\\t]/.test(s) ? '"'+s.replace(/"/g,'""')+'"' : s;
-      }).join(sep)).join('\\n');
+        return /["\n,;\t]/.test(s) ? '"' + s.replace(/"/g,'""') + '"' : s;
+      }).join(sep)).join('\n');
+    }
+
+    function stripDiacritics(s){
+      // Solo elimina marcas combinantes. No borra letras ni números.
+      return String(s ?? '').normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+    }
+
+    function toTitleCase(s){
+      return String(s || '').toLowerCase()
+        .replace(/\b([\p{L}\p{M}][\p{L}\p{M}'-]*)/gu, m => m[0].toUpperCase() + m.slice(1));
     }
 
     function render(){
-      table.innerHTML='';
-      if(!data.length){ meta.textContent='0 filas · 0 columnas'; return; }
-      const cols=Math.max(...data.map(r=>r.length));
-      let thead='<thead><tr>';
-      for(let i=0;i<cols;i++) thead+=`<th>${data[0][i]||('Col '+(i+1))}</th>`;
-      thead+='</tr></thead>';
-      let body='<tbody>';
-      data.slice(1).forEach(r=>{
-        body+='<tr>';
-        for(let i=0;i<cols;i++) body+=`<td>${(r[i]??'')}</td>`;
-        body+='</tr>';
-      });
-      body+='</tbody>';
-      table.innerHTML=thead+body;
-      meta.textContent=`${data.length-1} filas · ${cols} columnas`;
+      tableEl.innerHTML = '';
+      if (!data.length){ meta.textContent = '0 filas · 0 columnas'; return; }
+
+      const cols = Math.max(...data.map(r => r.length));
+      const header = data[0] || [];
+      let thead = '<thead><tr>';
+      for (let i=0;i<cols;i++) thead += `<th>${(header[i] ?? ('Col ' + (i+1)))}</th>`;
+      thead += '</tr></thead>';
+
+      let tbody = '<tbody>';
+      for (let r=1; r<data.length; r++){
+        const row = data[r] || [];
+        tbody += '<tr>';
+        for (let c=0; c<cols; c++) tbody += `<td>${(row[c] ?? '')}</td>`;
+        tbody += '</tr>';
+      }
+      tbody += '</tbody>';
+
+      tableEl.innerHTML = thead + tbody;
+      meta.textContent = `${Math.max(0, data.length-1)} filas · ${cols} columnas`;
     }
 
+    // Acciones -----------------------
+
     const actions = {
-      'trim':()=>{ for(let r=1;r<data.length;r++) data[r]=data[r].map(c=>String(c??'').trim()); },
-      'collapse':()=>{ for(let r=1;r<data.length;r++) data[r]=data[r].map(c=>String(c??'').replace(/\\s+/g,' ').trim()); },
-      'lower':()=>{ for(let r=1;r<data.length;r++) data[r]=data[r].map(c=>String(c??'').toLowerCase()); },
-      'upper':()=>{ for(let r=1;r<data.length;r++) data[r]=data[r].map(c=>String(c??'').toUpperCase()); },
-      'title':()=>{ const tt=s=> s.toLowerCase().replace(/\\b([\\p{L}\\p{M}][\\p{L}\\p{M}'-]*)/gu,m=>m.charAt(0).toUpperCase()+m.slice(1)); for(let r=1;r<data.length;r++) data[r]=data[r].map(c=>tt(String(c??''))); },
-      'dedupe':()=>{ const seen=new Set(); const out=[data[0]]; for(let r=1;r<data.length;r++){ const k=JSON.stringify(data[r]); if(!seen.has(k)){ seen.add(k); out.push(data[r]); } } data=out; },
-      'drop-empty':()=>{ data=[data[0], ...data.slice(1).filter(r => r.some(c => String(c||'').trim() !== ''))]; },
-      'normalize':()=>{ for(let r=1;r<data.length;r++) data[r]=data[r].map(c=> String(c??'').normalize('NFD').replace(/[\\u0300-\\u036f]/g,'')); },
-      'date':()=>{ const fix=v=>{ const s=String(v??'').trim(); const m=s.match(/^(\\d{1,2})[\\/-](\\d{1,2})[\\/-](\\d{2,4})$/); if(!m) return v; let a=+m[1], b=+m[2], c=+m[3]; if(c<100) c+=2000; let day,mon,yr; if(a>12){day=a;mon=b;yr=c;} else if(a<=12 && b>12){day=b;mon=a;yr=c;} else {day=a;mon=b;yr=c;} return yr+'-'+String(mon).padStart(2,'0')+'-'+String(day).padStart(2,'0'); }; for(let r=1;r<data.length;r++) data[r]=data[r].map(fix); },
+      trim(){
+        for (let r=1;r<data.length;r++){
+          data[r] = (data[r] || []).map(c => String(c ?? '').trim());
+        }
+      },
+      collapse(){
+        for (let r=1;r<data.length;r++){
+          data[r] = (data[r] || []).map(c => String(c ?? '').replace(/\s+/g, ' ').trim());
+        }
+      },
+      lower(){
+        for (let r=1;r<data.length;r++){
+          data[r] = (data[r] || []).map(c => String(c ?? '').toLowerCase());
+        }
+      },
+      upper(){
+        for (let r=1;r<data.length;r++){
+          data[r] = (data[r] || []).map(c => String(c ?? '').toUpperCase());
+        }
+      },
+      title(){
+        for (let r=1;r<data.length;r++){
+          data[r] = (data[r] || []).map(c => toTitleCase(c));
+        }
+      },
+      dedupe(){
+        const seen = new Set();
+        const out = [data[0]];
+        for (let r=1; r<data.length; r++){
+          const key = JSON.stringify(data[r] || []);
+          if (!seen.has(key)){ seen.add(key); out.push(data[r]); }
+        }
+        data = out;
+      },
+      'drop-empty'(){
+        data = [data[0], ...data.slice(1).filter(row => (row||[]).some(c => String(c||'').trim() !== ''))];
+      },
+      normalize(){
+        for (let r=1;r<data.length;r++){
+          data[r] = (data[r] || []).map(c => stripDiacritics(c));
+        }
+      },
+      date(){
+        // Heurística dd/mm primero si ambiguo
+        const norm = s => {
+          const t = String(s || '').trim();
+          // 1)  dd/mm/yy(yy)  o  dd-mm-yy(yy)
+          let m = t.match(/^(\d{1,2})[\/\-](\d{1,2})[\/\-](\d{2,4})$/);
+          if (m){
+            let d = +m[1], M = +m[2], Y = +m[3];
+            if (Y < 100) Y += 2000;
+            // si ambiguo (ambos <=12), asumir dd/mm
+            if (d <=12 && M <=12){
+              // ya d/M
+            } else if (M > 12 && d <= 12){ // mm/dd -> dd/mm
+              [d, M] = [M, d];
+            }
+            return `${Y}-${String(M).padStart(2,'0')}-${String(d).padStart(2,'0')}`;
+          }
+          // 2)  yyyy-mm-dd
+          m = t.match(/^(\d{4})-(\d{1,2})-(\d{1,2})$/);
+          if (m){
+            const Y = +m[1], M = +m[2], d = +m[3];
+            return `${Y}-${String(M).padStart(2,'0')}-${String(d).padStart(2,'0')}`;
+          }
+          // 3)  mm/dd/yyyy o mm-dd-yyyy -> pasarlo a ISO asumiendo formato US
+          m = t.match(/^(\d{1,2})[\/\-](\d{1,2})[\/\-](\d{4})$/);
+          if (m && (+m[1] <= 12 && +m[2] <=31)){
+            const M = +m[1], d = +m[2], Y = +m[3];
+            return `${Y}-${String(M).padStart(2,'0')}-${String(d).padStart(2,'0')}`;
+          }
+          return s; // dejar como está
+        };
+        for (let r=1;r<data.length;r++){
+          data[r] = (data[r] || []).map(c => norm(c));
+        }
+      },
 
-      _rut_detect:(headers,sample)=>{ let idx=headers.findIndex(h=>/rut/i.test(String(h||''))); if(idx<0 && sample){ for(let c=0;c<sample.length;c++){ const v=String(sample[c]||''); if(/[0-9Kk\\.\\-]{7,12}/.test(v)){ idx=c; break; } } } if(idx<0) idx=0; return idx; },
-      _rut_clean:s=> String(s||'').toUpperCase().replace(/[^0-9K]/g,''),
-      _rut_calcDV:body=>{ let sum=0,mul=2; for(let i=body.length-1;i>=0;i--){ sum+=mul*(+body[i]); mul = (mul===7)?2:(mul+1); } const res=11-(sum%11); return res===11?'0':(res===10?'K':String(res)); },
-      _rut_format:(body,dv)=> body.replace(/\\B(?=(\\d{3})+(?!\\d))/g,'.')+'-'+dv,
+      // ----- RUT -----
+      _rut_detect(headers, sampleRow){
+        let idx = (headers || []).findIndex(h => /rut/i.test(String(h||'')));
+        if (idx < 0 && sampleRow){
+          for (let c=0;c<sampleRow.length;c++){
+            const v = String(sampleRow[c] || '');
+            if (/[0-9Kk\.\-]{7,12}/.test(v)){ idx = c; break; }
+          }
+        }
+        return idx < 0 ? 0 : idx;
+      },
+      _rut_clean(s){ return String(s||'').toUpperCase().replace(/[^0-9K]/g,''); },
+      _rut_calcDV(body){
+        let sum=0, mul=2;
+        for (let i=body.length-1;i>=0;i--){
+          sum += mul * (+body[i]);
+          mul = mul === 7 ? 2 : mul+1;
+        }
+        const res = 11 - (sum % 11);
+        return res === 11 ? '0' : (res === 10 ? 'K' : String(res));
+      },
+      _rut_format(body,dv){ return body.replace(/\B(?=(\d{3})+(?!\d))/g,'.') + '-' + dv; },
 
-      'rut-normalize':function(){
-        if(!data.length) return;
-        const headers=data[0]||[]; const idx=this._rut_detect(headers, data[1]);
-        data = data.map((row,i)=>{
-          if(i===0) return row;
-          const raw=String(row[idx]||''); if(!raw.trim()) return row;
-          const cleaned=this._rut_clean(raw); if(cleaned.length<2) return row;
-          const body=cleaned.slice(0,-1), dv=cleaned.slice(-1);
-          const ok=this._rut_calcDV(body)===dv;
-          const formatted=this._rut_format(body,dv);
-          const copy=row.slice(); copy[idx]= ok? formatted : formatted+' ⚠️'; return copy;
+      'rut-normalize'(){
+        if (!data.length) return;
+        const headers = data[0] || [];
+        const idx = this._rut_detect(headers, data[1]);
+        const out = data.map((row,i) => {
+          if (i === 0) return row;
+          const raw = String((row||[])[idx] || '').trim();
+          if (!raw) return row;
+          const cleaned = this._rut_clean(raw);
+          if (cleaned.length < 2) return row;
+          const body = cleaned.slice(0,-1);
+          const dv   = cleaned.slice(-1);
+          const ok   = this._rut_calcDV(body) === dv;
+          const copy = (row||[]).slice();
+          copy[idx]  = this._rut_format(body,dv) + (ok ? '' : ' ⚠️');
+          return copy;
         });
+        data = out;
       },
 
-      'rut-validate':function(){
-        if(!data.length) return;
-        const headers=data[0].slice(); let col=headers.findIndex(h=>/RUT_Valido/i.test(String(h||'')));
-        if(col<0){ col=headers.length; headers.push('RUT_Valido'); }
-        const idx=this._rut_detect(data[0], data[1]);
-        const out=[headers].concat(data.slice(1).map(row=>{
-          const r=row.slice(); const cleaned=this._rut_clean(r[idx]); let ok=false;
-          if(cleaned.length>=2){ const body=cleaned.slice(0,-1), dv=cleaned.slice(-1); ok=this._rut_calcDV(body)===dv; }
-          r[col]= ok? 'Sí':'No'; return r;
+      'rut-validate'(){
+        if (!data.length) return;
+        let headers = (data[0] || []).slice();
+        let col = headers.findIndex(h => /RUT_Valido/i.test(String(h||'')));
+        if (col < 0){ col = headers.length; headers.push('RUT_Valido'); }
+        const idx = this._rut_detect(data[0], data[1]);
+        const out = [headers].concat(data.slice(1).map(row => {
+          const r = (row||[]).slice();
+          const cleaned = this._rut_clean(r[idx]);
+          let ok = false;
+          if (cleaned.length >= 2){
+            const body = cleaned.slice(0,-1);
+            const dv   = cleaned.slice(-1);
+            ok = this._rut_calcDV(body) === dv;
+          }
+          r[col] = ok ? 'Sí' : 'No';
+          return r;
         }));
-        data=out;
+        data = out;
       },
 
-      'rut-duplicates':function(){
-        if(!data.length) return;
-        const headers=data[0].slice(); let col=headers.findIndex(h=>/RUT_Duplicado/i.test(String(h||'')));
-        if(col<0){ col=headers.length; headers.push('RUT_Duplicado'); }
-        const idx=this._rut_detect(data[0], data[1]); const counts=new Map();
-        data.slice(1).forEach(r=>{ const k=this._rut_clean(r[idx]||''); if(!k) return; counts.set(k, (counts.get(k)||0)+1); });
-        const out=[headers].concat(data.slice(1).map(row=>{
-          const r=row.slice(); const key=this._rut_clean(r[idx]||''); r[col]= key && counts.get(key)>1 ? 'Sí':'No'; return r;
+      'rut-duplicates'(){
+        if (!data.length) return;
+        let headers = (data[0] || []).slice();
+        let col = headers.findIndex(h => /RUT_Duplicado/i.test(String(h||'')));
+        if (col < 0){ col = headers.length; headers.push('RUT_Duplicado'); }
+        const idx = this._rut_detect(data[0], data[1]);
+        const counts = new Map();
+        data.slice(1).forEach(r => {
+          const k = this._rut_clean((r||[])[idx] || '');
+          if (!k) return;
+          counts.set(k, (counts.get(k) || 0) + 1);
+        });
+        const out = [headers].concat(data.slice(1).map(row => {
+          const r = (row||[]).slice();
+          const key = this._rut_clean(r[idx] || '');
+          r[col] = key && counts.get(key) > 1 ? 'Sí' : 'No';
+          return r;
         }));
-        data=out;
-      },
+        data = out;
+      }
     };
 
-    document.querySelectorAll('[data-act]').forEach(b=> b.addEventListener('click', ()=>{ const act=b.getAttribute('data-act'); if(actions[act]){ actions[act](); render(); } }));
+    // Acciones → render
+    document.querySelectorAll('[data-act]').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const act = btn.getAttribute('data-act');
+        if (actions[act]){ actions[act](); render(); }
+      });
+    });
 
-    $('load').addEventListener('click', ()=>{
-      const raw=$('raw').value.trim();
-      data = raw? parseCSV(raw): [];
+    // Cargar
+    $('load').addEventListener('click', () => {
+      const src = $('raw').value;
+      const rows = parseCSV(src);
+      if (!rows.length){ data = []; render(); return; }
+      // Si la primera fila parece ser cabecera (tiene letras, no solo números), úsala
+      const head = rows[0] || [];
+      const scoreLetters = head.filter(x => /[A-Za-zÁÉÍÓÚÜÑáéíóúüñ]/.test(String(x||''))).length;
+      data = scoreLetters ? rows : [['Col 1','Col 2','Col 3','Col 4','Col 5'].slice(0,(rows[0]||[]).length), ...rows];
       render();
     });
 
-    $('clear').addEventListener('click', ()=>{
-      $('raw').value=''; data=[]; render();
+    // Limpiar
+    $('clear').addEventListener('click', () => { $('raw').value=''; data=[]; render(); });
+
+    // Copiar con fallback
+    async function copyTextSafe(text){
+      try{
+        await navigator.clipboard.writeText(text);
+      }catch(e){
+        const ta=document.createElement('textarea');
+        ta.value=text; document.body.appendChild(ta);
+        ta.select(); document.execCommand('copy');
+        ta.remove();
+      }
+    }
+
+    $('copyCsv').addEventListener('click', async function(){
+      if (!data.length) return;
+      const headers = (data[0]||[]).map(h => toTitleCase(String(h||'').replace(/_/g,' ')));
+      const body = data.slice(1).filter(r => (r||[]).some(c => String(c||'').trim() !== ''));
+      await copyTextSafe(toCSV([headers, ...body]));
+      const t=this.textContent; this.textContent='¡Copiado!'; setTimeout(()=>this.textContent=t,1200);
     });
 
-    const toTitle=s=> String(s||'').toLowerCase().replace(/\\b([\\p{L}\\p{M}][\\p{L}\\p{M}'-]*)/gu,m=>m.charAt(0).toUpperCase()+m.slice(1));
-
-    $('copyCsv').addEventListener('click', async ()=>{
-      if(!data.length) return;
-      const headers = (data[0]||[]).map(toTitle);
-      const body = data.slice(1).filter(r => r.some(c => String(c||'').trim() !== ''));
-      await navigator.clipboard.writeText(toCSV([headers, ...body]));
-      const btn=this.event?.target || $('copyCsv'); const t=btn.textContent; btn.textContent='¡Copiado!'; setTimeout(()=>btn.textContent=t,1200);
-    });
-
-    $('downloadCsv').addEventListener('click', ()=>{
-      if(!data.length) return;
-      const headers = (data[0]||[]).map(toTitle);
-      const body = data.slice(1).filter(r => r.some(c => String(c||'').trim() !== ''));
+    $('downloadCsv').addEventListener('click', () => {
+      if (!data.length) return;
+      const headers = (data[0]||[]).map(h => toTitleCase(String(h||'').replace(/_/g,' ')));
+      const body = data.slice(1).filter(r => (r||[]).some(c => String(c||'').trim() !== ''));
       const csv = toCSV([headers, ...body]);
-      const blob = new Blob(['\\ufeff'+csv], {type:'text/csv;charset=utf-8'});
+      const blob = new Blob(['\ufeff'+csv], {type:'text/csv;charset=utf-8'});
       const url = URL.createObjectURL(blob);
       const a = document.createElement('a'); a.href=url; a.download='rockcode_datacleaner.csv'; a.click();
       URL.revokeObjectURL(url);
     });
 
-    function exportXLS_HTML(){
-      if(!data || !data.length) return;
+    // XLS (HTML compatible) – fallback universal
+    $('downloadXls').addEventListener('click', () => {
+      if (!data.length) return;
       const headers = (data[0]||[]).map(h => String(h||'').trim().replace(/_/g,' '));
-      const body = data.slice(1).filter(r => r.some(c => String(c||'').trim() !== ''));
+      const body = data.slice(1).filter(r => (r||[]).some(c => String(c||'').trim() !== ''));
       const rows = [headers, ...body];
-      const htmlTable = rows.map((r,i)=>'<tr>'+r.map(c=> (i===0?'<th>':'<td>') + String(c??'').replace(/&/g,'&amp;').replace(/</g,'&lt;') + (i===0?'</th>':'</td>')).join('') + '</tr>').join('');
-      const html = `
-      <html xmlns:o="urn:schemas-microsoft-com:office:office"
-            xmlns:x="urn:schemas-microsoft-com:office:excel"
-            xmlns="http://www.w3.org/TR/REC-html40">
-      <head><meta charset="utf-8"><!--[if gte mso 9]><xml><x:ExcelWorkbook><x:ExcelWorksheets><x:ExcelWorksheet>
-      <x:Name>DataCleaner</x:Name><x:WorksheetOptions><x:Print/></x:WorksheetOptions></x:ExcelWorksheet>
-      </x:ExcelWorksheets></x:ExcelWorkbook></xml><![endif]--></head>
-      <body><table border="1">${htmlTable}</table></body></html>`;
-      const blob = new Blob([html], {type: 'application/vnd.ms-excel'});
+      const html = '<table border="1">' + rows.map((r,i)=>'<tr>' + r.map(c => {
+        const cell = String(c ?? '').replace(/&/g,'&amp;').replace(/</g,'&lt;');
+        return i===0 ? `<th>${cell}</th>` : `<td>${cell}</td>`;
+      }).join('') + '</tr>').join('') + '</table>';
+      const blob = new Blob([`<html><meta charset="utf-8">${html}</html>`], {type:'application/vnd.ms-excel'});
       const url = URL.createObjectURL(blob);
       const a = document.createElement('a'); a.href=url; a.download='rockcode_datacleaner.xls'; a.click();
       URL.revokeObjectURL(url);
-    }
+    });
 
-    function exportXLSX_Nativo(){
-      if (!window.XLSX) { alert('Para XLSX, coloca xlsx.full.min.js junto a este index.html'); return; }
-      if (!data || !data.length) return;
+    // XLSX nativo (si está la lib)
+    $('downloadXlsx').addEventListener('click', () => {
+      if (!window.XLSX){ alert('Para XLSX, coloca xlsx.full.min.js junto a este archivo.'); return; }
+      if (!data.length) return;
+
       const headersRaw = data[0] || [];
       const headers = headersRaw.map(h => String(h||'').trim().replace(/_/g,' '));
-      const body = data.slice(1).filter(r => r.some(c => String(c||'').trim() !== ''));
-      const toISO = v => /^\\d{4}-\\d{2}-\\d{2}$/.test(String(v||''));
-      const rows = [headers, ...body.map(row => row.map((v,i) => {
+      const body = data.slice(1).filter(r => (r||[]).some(c => String(c||'').trim() !== ''));
+
+      const isNumericHeader = name =>
+        /(edad|monto|total|tiempo|id|cantidad|nro|número|precio|anio|año)/i.test(name||'') &&
+        !/rut/i.test(name||'');
+
+      const rows = [headers, ...body.map(row => (row||[]).map((v,i) => {
         const s = String(v ?? '').trim();
-        if (toISO(s)) return new Date(s + 'T00:00:00');
-        if (/(edad|monto|total|tiempo|id|cantidad|nro|número)/i.test(headers[i]||'')) {
-          const n = Number(s.replace(/\\./g,'').replace(',', '.')); if(!isNaN(n)) return n;
+        // ISO -> Date
+        if (/^\d{4}-\d{2}-\d{2}$/.test(s)) return new Date(s + 'T00:00:00');
+        // Num seguro (NO en columnas RUT)
+        if (isNumericHeader(headers[i])){
+          const n = Number(s.replace(/\./g,'').replace(',', '.'));
+          if (!Number.isNaN(n) && isFinite(n)) return n;
         }
         return v;
       }))];
-      const ws = XLSX.utils.aoa_to_sheet(rows, { cellDates: true });
+
+      const ws = XLSX.utils.aoa_to_sheet(rows, { cellDates:true });
       const wb = XLSX.utils.book_new();
       XLSX.utils.book_append_sheet(wb, ws, 'DataCleaner');
+
+      // Autoancho + encabezado fijo + autofiltro
       const range = XLSX.utils.decode_range(ws['!ref']);
-      ws['!cols'] = headers.map((h, c) => {
-        let maxLen = String(h).length;
-        for (let r = 1; r <= range.e.r; r++) {
+      ws['!cols'] = headers.map((h,c) => {
+        let max = String(h||'').length;
+        for (let r=1; r<=range.e.r; r++){
           const L = String(rows[r]?.[c] ?? '').length;
-          if (L > maxLen) maxLen = L;
+          if (L > max) max = L;
         }
-        return { wch: Math.min(Math.max(10, maxLen + 2), 48) };
+        return { wch: Math.min(Math.max(10, max+2), 48) };
       });
-      ws['!freeze'] = { xSplit: 0, ySplit: 1 };
+      ws['!freeze'] = { xSplit:0, ySplit:1 };
       ws['!autofilter'] = { ref: ws['!ref'] };
+
       XLSX.writeFile(wb, 'rockcode_datacleaner.xlsx');
-    }
+    });
 
-    $('downloadXls').addEventListener('click', exportXLS_HTML);
-    $('downloadXlsx').addEventListener('click', exportXLSX_Nativo);
-
-    document.getElementById('y').textContent = new Date().getFullYear();
-
-    // Semilla de ejemplo (opcional)
-    const sample = `nombre,correo,rut,fecha,ciudad
+    // Demo inicial (muestra que no pega todo en 1 línea)
+    const demo = `nombre,correo,rut,fecha,ciudad
 ANA, ana@example.com, 12345678-5, 1/2/24, ViÑA del Mar
 Ana, ana@example.com, 12.345.678-5, 01-02-2024, viña  del   mar
 Pedro, pedro@example.com, 11111111-1, 12/31/2023, santiago
- , , , , 
+,,,
 JUAN, juan@example.com, 9876543k, 5-7-2024, PROVIDENCIA`;
-    if(!$('raw').value) $('raw').value = sample;
+    $('raw').value = demo;
+
+    $('y').textContent = new Date().getFullYear();
+    render();
   })();
   </script>
 </body>
