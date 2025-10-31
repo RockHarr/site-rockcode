@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="description" content="DataCleaner es una herramienta gratuita de RockCode SpA para limpiar y validar datos CSV o Excel. Tecnología con propósito, hecha en Chile.">
+  <meta property="og:title" content="DataCleaner · RockCode SpA">
+  <meta property="og:description" content="Limpieza y validación de datos CSV o Excel en segundos. Tecnología con propósito.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://datacleaner-rockcode.netlify.app/">
+  <meta property="og:image" content="https://datacleaner-rockcode.netlify.app/preview.jpg">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>RockCode · Tecnología con propósito</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root{--bg:#0b1220;--ink:#e5e7eb;--muted:#94a3b8;--line:#1f2937;--accent:#22c55e}
+    *{box-sizing:border-box}body{margin:0;font-family:Inter,system-ui,Segoe UI,Roboto,Ubuntu,sans-serif;background:linear-gradient(180deg,#0a0f1f,#0b1220);color:var(--ink)}
+    a{color:inherit}
+    header{position:sticky;top:0;z-index:10;background:rgba(11,18,32,.7);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+    .wrap{max-width:1100px;margin:0 auto;padding:0 16px}
+    .nav{display:flex;align-items:center;justify-content:space-between;padding:14px 0}
+    .brand{display:flex;gap:10px;align-items:center}
+    .logo{width:28px;height:28px;border-radius:8px;background:#10b981;box-shadow:inset 0 0 12px rgba(0,0,0,.35)}
+    .links{display:flex;gap:18px;color:var(--muted);font-size:14px}
+    .hero{padding:56px 0 24px}
+    h1{font-size:clamp(28px,5vw,44px);line-height:1.1;margin:0 0 10px}
+    .btn{appearance:none;border:1px solid var(--line);background:#0f172a;color:var(--ink);padding:10px 14px;border-radius:14px;font-weight:700;cursor:pointer}
+    .btn.primary{background:var(--accent);color:#062b14;border-color:#16a34a}
+    .btn[disabled]{opacity:.6;cursor:not-allowed}
+    .pill{border:1px solid var(--line);border-radius:999px;padding:6px 10px;color:var(--muted);font-size:12px}
+    .card{grid-column:span 12;background:rgba(255,255,255,.02);border:1px solid var(--line);border-radius:16px}
+    .card .hd{padding:14px 16px;border-bottom:1px dashed var(--line)}
+    .card .bd{padding:16px}
+    .kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px}
+    .kpi{padding:16px;border:1px solid var(--line);border-radius:16px;background:rgba(255,255,255,.02);text-align:center}
+    .kpi .n{font-size:28px;color:#34d399;font-weight:700}
+    .two{display:grid;gap:16px;grid-template-columns:repeat(2,1fr)}
+    @media (max-width:900px){.two{grid-template-columns:1fr}}
+    footer{border-top:1px solid var(--line);padding:16px 0;color:var(--muted);font-size:14px}
+    .modal{position:fixed;inset:0;background:rgba(0,0,0,.6);display:none;align-items:center;justify-content:center;padding:16px}
+    .modal .box{max-width:1100px;width:100%;background:#0b1220;border:1px solid var(--line);border-radius:16px;box-shadow:0 20px 60px rgba(0,0,0,.5)}
+    .modal .hdr{display:flex;justify-content:space-between;align-items:center;padding:12px 14px;border-bottom:1px solid var(--line)}
+    .modal .cnt{padding:16px}
+
+    input,textarea{width:100%;background:#0b1220;border:1px solid var(--line);border-radius:12px;color:var(--ink);padding:10px}
+    label{display:block;font-size:14px;margin-top:10px;color:var(--muted)}
+
+    /* Tabla mejorada */
+    table{border-collapse:collapse;width:100%;background:rgba(255,255,255,.02);font-size:13px}
+    th{background:#111827;color:#9ca3af;font-weight:600;position:sticky;top:0}
+    td,th{border:1px solid #1f2937;padding:6px 8px;text-align:left;white-space:nowrap}
+    tbody tr:nth-child(even){background:rgba(255,255,255,.03)}
+  </style>
+</head>
+<body>
+  <header>
+    <div class="wrap nav">
+      <div class="brand"><div class="logo"></div><strong>RockCode</strong></div>
+      <nav class="links">
+        <a href="#features">Soluciones</a>
+        <a href="#demo">Demo</a>
+        <a href="#contact">Contacto</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <section class="hero">
+      <h1>Tecnología con propósito: <span style="color:#34d399">simple, útil y humana</span></h1>
+      <p style="color:var(--muted);max-width:60ch">Combinamos <strong>desarrollo</strong> y <strong>UX/UI</strong> para crear soluciones digitales que las personas y las instituciones realmente disfrutan usar.</p>
+      <div style="margin-top:14px;display:flex;gap:10px;flex-wrap:wrap">
+        <button class="btn primary" id="openDemo">Probar DataCleaner</button>
+        <a class="btn" href="#contact">Conversemos</a>
+      </div>
+      <div style="margin-top:10px;display:flex;gap:8px;flex-wrap:wrap">
+        <span class="pill">Desarrollo de Software</span>
+        <span class="pill">UX/UI</span>
+        <span class="pill">Integraciones</span>
+        <span class="pill">Gobierno Digital</span>
+      </div>
+    </section>
+
+    <section class="card" id="features">
+      <div class="hd"><strong>Soluciones</strong></div>
+      <div class="bd kpis">
+        <div class="kpi"><div class="n">+10</div><div>años creando e-learning y UX</div></div>
+        <div class="kpi"><div class="n">24/7</div><div>foco en soporte y continuidad</div></div>
+        <div class="kpi"><div class="n">Gov ready</div><div>pensado para licitaciones y gobierno</div></div>
+      </div>
+    </section>
+
+    <section class="card" id="demo" style="margin-top:16px">
+      <div class="hd"><strong>DataCleaner</strong></div>
+      <div class="bd">
+        <p style="color:var(--muted);margin:0 0 12px">Limpia datos en segundos: quita duplicados, normaliza fechas y estandariza texto.</p>
+        <button class="btn primary" id="openDemo2">Abrir demo</button>
+      </div>
+    </section>
+
+    <section class="card" id="contact" style="margin-top:16px">
+      <div class="hd"><strong>Contacto</strong></div>
+      <div class="bd two">
+        <div>
+          <p style="color:var(--muted)">Cuéntanos brevemente tu necesidad y te contactamos. También puedes escribir a <a href="mailto:contacto@rockcode.cl">contacto@rockcode.cl</a>.</p>
+          <ul style="color:var(--muted);font-size:14px;line-height:1.7">
+            <li>• Implementación rápida y acompañamiento.</li>
+            <li>• Contratos y compras públicas (ChileCompra).</li>
+            <li>• Desarrollo, UX/UI, automatizaciones.</li>
+          </ul>
+        </div>
+        <form id="contactForm" action="https://formspree.io/f/xjkanagp" method="POST">
+          <label>Nombre<input name="name" required></label>
+          <label>Correo<input type="email" name="email" required></label>
+          <label>Mensaje<textarea name="message" rows="5" required></textarea></label>
+          <button class="btn primary" style="margin-top:10px">Enviar</button>
+          <p style="color:var(--muted);font-size:12px;margin-top:6px">* Enviado vía Formspree: https://formspree.io/f/xjkanagp</p>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap">© 2025 RockCode SpA · RUT 78.280.182-1</div>
+  </footer>
+
+  <div class="modal" id="modal">
+    <div class="box">
+      <div class="hdr"><div>DataCleaner · Demo</div><button class="btn" id="closeDemo">Cerrar</button></div>
+      <div class="cnt">
+        <div style="display:grid;gap:16px;grid-template-columns:1fr 1fr">
+          <div>
+            <label style="color:var(--muted);font-size:14px">Pega tus datos</label>
+            <textarea id="raw" style="min-height:160px"></textarea>
+            <div style="display:flex;gap:8px;align-items:center;margin-top:10px">
+              <button class="btn primary" id="load">Cargar</button>
+              <button class="btn" id="clear">Limpiar</button>
+              <span class="pill" id="meta">0 filas · 0 columnas</span>
+            </div>
+          </div>
+          <div>
+            <label style="color:var(--muted);font-size:14px">Acciones</label>
+            <div style="display:flex;flex-wrap:wrap;gap:8px;margin-top:8px">
+              <button class="btn" data-act="trim">Quitar espacios</button>
+              <button class="btn" data-act="collapse">Espacios múltiples → uno</button>
+              <button class="btn" data-act="lower">minúsculas</button>
+              <button class="btn" data-act="upper">MAYÚSCULAS</button>
+              <button class="btn" data-act="title">Título</button>
+              <button class="btn" data-act="dedupe">Eliminar duplicados</button>
+              <button class="btn" data-act="drop-empty">Eliminar filas vacías</button>
+              <button class="btn" data-act="normalize">Quitar acentos</button>
+              <button class="btn" data-act="date">Normalizar fecha</button>
+              <button class="btn" data-act="rut-normalize">Normalizar RUT</button>
+              <button class="btn" data-act="rut-validate">Validar RUT</button>
+              <button class="btn" data-act="rut-duplicates">Etiquetar duplicados RUT</button>
+            </div>
+          </div>
+        </div>
+        <div style="margin-top:14px;max-height:45vh;overflow:auto;border:1px solid var(--line);border-radius:12px">
+          <table id="table"></table>
+        </div>
+        <div style="margin-top:10px;display:flex;gap:8px;flex-wrap:wrap">
+          <button class="btn" id="copyCsv">Copiar CSV</button>
+          <button class="btn" id="downloadCsv">Descargar CSV (ordenado)</button>
+          <button class="btn primary" id="downloadXls">Descargar Excel (XLS)</button>
+          <button class="btn" id="downloadXlsx">Descargar Excel (XLSX)</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="xlsx.full.min.js"></script>
+  <script>
+  (function(){
+    const $ = (id)=>document.getElementById(id);
+    const modal=$('modal'), open1=$('openDemo'), open2=$('openDemo2'), close=$('closeDemo');
+    const openModal=()=>{ if(!modal) return; modal.style.display='flex';
+      const raw=$('raw'); if(raw && !raw.value.trim()) raw.value=`nombre,correo,rut,fecha,ciudad
+ANA, ana@example.com, 12345678-5, 1/2/24, ViÑA del Mar
+Ana, ana@example.com, 12.345.678-5, 01-02-2024, viña  del   mar
+Pedro, pedro@example.com, 11111111-1, 12/31/2023, santiago
+ , , , , 
+JUAN, juan@example.com, 9876543k, 5-7-2024, PROVIDENCIA`; };
+    const closeModal=()=>{ if(!modal) return; modal.style.display='none'; };
+    open1 && open1.addEventListener('click', openModal);
+    open2 && open2.addEventListener('click', openModal);
+    close && close.addEventListener('click', closeModal);
+
+    let data=[]; const table=$('table'), meta=$('meta');
+
+    function parseCSV(text) {
+      if (!text.trim()) return [];
+      const sample = text.split('\n').slice(0,3).join('');
+      const sep = (sample.match(/;/g)||[]).length > (sample.match(/,/g)||[]).length ? ';' : ',';
+      const lines = text.split(/\r?\n/);
+      const rows = [];
+      for (let line of lines) {
+        if (!line.trim()) continue;
+        const row = [];
+        let current = '', inQuotes = false;
+        for (let i=0;i<line.length;i++) {
+          const ch=line[i], next=line[i+1];
+          if (ch === '"' && next === '"') { current+='"'; i++; }
+          else if (ch === '"') { inQuotes = !inQuotes; }
+          else if (ch === sep && !inQuotes) { row.push(current.trim()); current=''; }
+          else { current += ch; }
+        }
+        row.push(current.trim());
+        rows.push(row);
+      }
+      return rows.filter(r => r.some(c => c.trim() !== ''));
+    }
+
+    function toCSV(rows,sep=','){
+      return rows.map(r => r.map(c => {
+        const s = String(c ?? '');
+        return /["\n,;\t]/.test(s) ? '"'+s.replace(/"/g,'""')+'"' : s;
+      }).join(sep)).join('\n');
+    }
+
+    function render(){
+      if(!table||!meta) return;
+      table.innerHTML='';
+      if(!data.length){ meta.textContent='0 filas · 0 columnas'; return; }
+      const cols=Math.max(...data.map(r=>r.length));
+      let thead='<thead><tr>';
+      for(let i=0;i<cols;i++) thead+=`<th>${data[0][i]||('Col '+(i+1))}</th>`;
+      thead+='</tr></thead>';
+      let body='<tbody>';
+      data.slice(1).forEach(r=>{
+        body+='<tr>';
+        for(let i=0;i<cols;i++) body+=`<td>${(r[i]??'')}</td>`;
+        body+='</tr>';
+      });
+      body+='</tbody>';
+      table.innerHTML=thead+body;
+      meta.textContent=`${data.length-1} filas · ${cols} columnas`;
+    }
+
+    const actions = {
+      'trim': function(){ for(let r=1;r<data.length;r++) data[r]=data[r].map(c=>String(c??'').trim()); },
+      'collapse': function(){ for(let r=1;r<data.length;r++) data[r]=data[r].map(c=>String(c??'').replace(/\s+/g,' ').trim()); },
+      'lower': function(){ for(let r=1;r<data.length;r++) data[r]=data[r].map(c=>String(c??'').toLowerCase()); },
+      'upper': function(){ for(let r=1;r<data.length;r++) data[r]=data[r].map(c=>String(c??'').toUpperCase()); },
+      'title': function(){ const tt=s=> s.toLowerCase().replace(/\b([\p{L}\p{M}][\p{L}\p{M}'-]*)/gu,m=>m.charAt(0).toUpperCase()+m.slice(1)); for(let r=1;r<data.length;r++) data[r]=data[r].map(c=>tt(String(c??''))); },
+      'dedupe': function(){ const seen=new Set(); const out=[data[0]]; for(let r=1;r<data.length;r++){ const k=JSON.stringify(data[r]); if(!seen.has(k)){ seen.add(k); out.push(data[r]); } } data=out; },
+      'drop-empty': function(){ data=[data[0], ...data.slice(1).filter(r => r.some(c => String(c||'').trim() !== ''))]; },
+      'normalize': function(){ for(let r=1;r<data.length;r++) data[r]=data[r].map(c=> String(c??'').normalize('NFD').replace(/[\u0300-\u036f]/g,'')); },
+      'date': function(){ const fix=function(v){ const s=String(v??'').trim(); const m=s.match(/^(\d{1,2})[\/-](\d{1,2})[\/-](\d{2,4})$/); if(!m) return v; var a=+m[1], b=+m[2], c=+m[3]; if(c<100) c+=2000; var day,mon,yr; if(a>12){day=a;mon=b;yr=c;} else if(a<=12 && b>12){day=b;mon=a;yr=c;} else {day=a;mon=b;yr=c;} return yr+'-'+String(mon).padStart(2,'0')+'-'+String(day).padStart(2,'0'); }; for(let r=1;r<data.length;r++) data[r]=data[r].map(fix); },
+
+      '_rut_detect': function(headers, sample){ var idx=headers.findIndex(function(h){ return /rut/i.test(String(h||'')); }); if(idx<0 && sample){ for(var c=0;c<sample.length;c++){ var v=String(sample[c]||''); if(/[0-9Kk\.\-]{7,12}/.test(v)){ idx=c; break; } } } if(idx<0) idx=0; return idx; },
+      '_rut_clean': function(s){ return String(s||'').toUpperCase().replace(/[^0-9K]/g,''); },
+      '_rut_calcDV': function(body){ var sum=0,mul=2; for(var i=body.length-1;i>=0;i--){ sum+=mul*(+body[i]); mul = (mul===7)?2:(mul+1); } var res=11-(sum%11); return res===11?'0': (res===10?'K': String(res)); },
+      '_rut_format': function(body,dv){ return body.replace(/\B(?=(\d{3})+(?!\d))/g,'.')+'-'+dv; },
+
+      'rut-normalize': function(){ if(!data.length) return; var headers=data[0]||[]; var idx=this._rut_detect(headers, data[1]); var out=data.map(function(row,i){ if(i===0) return row; var raw=String(row[idx]||''); if(!raw.trim()) return row; var cleaned=actions._rut_clean(raw); if(cleaned.length<2) return row; var body=cleaned.slice(0,-1); var dv=cleaned.slice(-1); var ok=actions._rut_calcDV(body)===dv; var formatted=actions._rut_format(body,dv); var copy=row.slice(); copy[idx]= ok? formatted : formatted+' \u26A0\uFE0F'; return copy; }); data=out; },
+
+      'rut-validate': function(){ if(!data.length) return; var headers=data[0].slice(); var col=headers.findIndex(function(h){ return /RUT_Valido/i.test(String(h||'')); }); if(col<0){ col=headers.length; headers.push('RUT_Valido'); } var idx=this._rut_detect(data[0], data[1]); var out=[headers].concat(data.slice(1).map(function(row){ var r=row.slice(); var cleaned=actions._rut_clean(r[idx]); var ok=false; if(cleaned.length>=2){ var body=cleaned.slice(0,-1); var dv=cleaned.slice(-1); ok = actions._rut_calcDV(body)===dv; } r[col]= ok? 'Sí':'No'; return r; })); data=out; },
+
+      'rut-duplicates': function(){ if(!data.length) return; var headers=data[0].slice(); var col=headers.findIndex(function(h){ return /RUT_Duplicado/i.test(String(h||'')); }); if(col<0){ col=headers.length; headers.push('RUT_Duplicado'); } var idx=this._rut_detect(data[0], data[1]); var counts=new Map(); data.slice(1).forEach(function(r){ var k=actions._rut_clean(r[idx]||''); if(!k) return; counts.set(k, (counts.get(k)||0)+1); }); var out=[headers].concat(data.slice(1).map(function(row){ var r=row.slice(); var key=actions._rut_clean(r[idx]||''); r[col]= key && counts.get(key)>1 ? 'Sí':'No'; return r; })); data=out; },
+    };
+
+    document.querySelectorAll('[data-act]').forEach(b=> b.addEventListener('click', ()=>{ const act=b.getAttribute('data-act'); if(actions[act]){ actions[act](); render(); } }));
+    $('load') && $('load').addEventListener('click', function(){ var raw=($('raw') && $('raw').value.trim())||''; data = raw? parseCSV(raw): []; render(); });
+    $('clear') && $('clear').addEventListener('click', function(){ if($('raw')) $('raw').value=''; data=[]; render(); });
+
+    function toTitle(s){ return String(s||'').toLowerCase().replace(/\b([\p{L}\p{M}][\p{L}\p{M}'-]*)/gu, function(m){ return m.charAt(0).toUpperCase()+m.slice(1); }); }
+    $('copyCsv') && $('copyCsv').addEventListener('click', async function(){
+      if(!data.length) return;
+      const headers = (data[0]||[]).map(toTitle);
+      const body = data.slice(1).filter(r => r.some(c => String(c||'').trim() !== ''));
+      await navigator.clipboard.writeText(toCSV([headers, ...body]));
+      const btn=this; const t=btn.textContent; btn.textContent='¡Copiado!'; setTimeout(()=>btn.textContent=t,1200);
+    });
+
+    $('downloadCsv') && $('downloadCsv').addEventListener('click', function(){
+      if(!data.length) return;
+      const headers = (data[0]||[]).map(toTitle);
+      const body = data.slice(1).filter(r => r.some(c => String(c||'').trim() !== ''));
+      const csv = toCSV([headers, ...body]);
+      const blob = new Blob(['\ufeff'+csv], {type:'text/csv;charset=utf-8'});
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a'); a.href=url; a.download='rockcode_datacleaner.csv'; a.click();
+      URL.revokeObjectURL(url);
+    });
+
+    function exportXLS_HTML(){
+      if(!data || !data.length) return;
+      const headers = (data[0]||[]).map(h => String(h||'').trim().replace(/_/g,' '));
+      const body = data.slice(1).filter(r => r.some(c => String(c||'').trim() !== ''));
+      const rows = [headers, ...body];
+      const htmlTable = rows.map((r,i)=>'<tr>'+r.map(c=> (i===0?'<th>':'<td>') + String(c??'').replace(/&/g,'&amp;').replace(/</g,'&lt;') + (i===0?'</th>':'</td>')).join('') + '</tr>').join('');
+      const html = `
+      <html xmlns:o="urn:schemas-microsoft-com:office:office"
+            xmlns:x="urn:schemas-microsoft-com:office:excel"
+            xmlns="http://www.w3.org/TR/REC-html40">
+      <head><meta charset="utf-8"><!--[if gte mso 9]><xml><x:ExcelWorkbook><x:ExcelWorksheets><x:ExcelWorksheet>
+      <x:Name>DataCleaner</x:Name><x:WorksheetOptions><x:Print/></x:WorksheetOptions></x:ExcelWorksheet>
+      </x:ExcelWorksheets></x:ExcelWorkbook></xml><![endif]--></head>
+      <body><table border="1">${htmlTable}</table></body></html>`;
+      const blob = new Blob([html], {type: 'application/vnd.ms-excel'});
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a'); a.href=url; a.download='rockcode_datacleaner.xls'; a.click();
+      URL.revokeObjectURL(url);
+    }
+
+    function exportXLSX_Nativo(){
+      if (!window.XLSX) { alert('Para XLSX nativo, coloca xlsx.full.min.js junto a index.html'); return; }
+      if (!data || !data.length) return;
+      const headersRaw = data[0] || [];
+      const headers = headersRaw.map(h => String(h||'').trim().replace(/_/g,' '));
+      const body = data.slice(1).filter(r => r.some(c => String(c||'').trim() !== ''));
+      const toISO = v => /^\d{4}-\d{2}-\d{2}$/.test(String(v||''));
+      const rows = [headers, ...body.map(row => row.map((v,i) => {
+        const s = String(v ?? '').trim();
+        if (toISO(s)) return new Date(s + 'T00:00:00');
+        if (/(edad|monto|total|tiempo|id|cantidad|nro|número)/i.test(headers[i]||'')) {
+          const n = Number(s.replace(/\./g,'').replace(',', '.')); if(!isNaN(n)) return n;
+        }
+        return v;
+      }))];
+      const ws = XLSX.utils.aoa_to_sheet(rows, { cellDates: true });
+      const wb = XLSX.utils.book_new();
+      XLSX.utils.book_append_sheet(wb, ws, 'DataCleaner');
+      const range = XLSX.utils.decode_range(ws['!ref']);
+      ws['!cols'] = headers.map((h, c) => {
+        let maxLen = String(h).length;
+        for (let r = 1; r <= range.e.r; r++) {
+          const L = String(rows[r]?.[c] ?? '').length;
+          if (L > maxLen) maxLen = L;
+        }
+        return { wch: Math.min(Math.max(10, maxLen + 2), 48) };
+      });
+      ws['!freeze'] = { xSplit: 0, ySplit: 1 };
+      ws['!autofilter'] = { ref: ws['!ref'] };
+      XLSX.writeFile(wb, 'rockcode_datacleaner.xlsx');
+    }
+
+    document.getElementById('downloadXls')?.addEventListener('click', exportXLS_HTML);
+    document.getElementById('downloadXlsx')?.addEventListener('click', exportXLSX_Nativo);
+
+    document.querySelectorAll('[data-act]').forEach(b=> b.addEventListener('click', ()=>{ const act=b.getAttribute('data-act'); if(actions[act]){ actions[act](); render(); } }));
+    document.getElementById('load')?.addEventListener('click', function(){ var raw=($('raw') && $('raw').value.trim())||''; data = raw? parseCSV(raw): []; render(); });
+    document.getElementById('clear')?.addEventListener('click', function(){ if($('raw')) $('raw').value=''; data=[]; render(); });
+  })();
+  </script>
+</body>
+</html>
