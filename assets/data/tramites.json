@@ -1,0 +1,28 @@
+[
+  {
+    "nombre": "Solicitud de Licencia de Conducir",
+    "entidad": "Municipalidad",
+    "tags": [
+      "licencia",
+      "permiso",
+      "conducir"
+    ]
+  },
+  {
+    "nombre": "Obtención de Cédula de Identidad",
+    "entidad": "Registro Civil",
+    "tags": [
+      "carnet",
+      "carne",
+      "cedula"
+    ]
+  },
+  {
+    "nombre": "Certificado de Nacimiento",
+    "entidad": "Registro Civil",
+    "tags": [
+      "certificado",
+      "nacimiento"
+    ]
+  }
+]

@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="es"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Demo B — FormKit Gobierno</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+</head><body class="p-3">
+<a class="btn btn-link" href="/">← Volver</a>
+<h1 class="h3">FormKit Gobierno</h1>
+<p class="text-muted">Multistep + guardado local + exportar a PDF.</p>
+<form id="form" class="mt-3">
+  <fieldset class="border rounded p-3">
+    <legend class="float-none w-auto px-2 h6">Paso 1: Datos</legend>
+    <div class="mb-3"><label for="rut" class="form-label">RUT</label><input id="rut" class="form-control" required></div>
+    <div class="mb-3"><label for="nombre" class="form-label">Nombre</label><input id="nombre" class="form-control" required></div>
+    <button class="btn btn-primary" type="button" id="guardar">Guardar y continuar</button>
+  </fieldset>
+</form>
+<div class="mt-3 d-flex gap-2">
+  <button class="btn btn-outline-secondary" id="reanudar">Reanudar</button>
+  <button class="btn btn-success" id="pdf">Exportar PDF</button>
+</div>
+<script defer src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jspdf@2.5.1/dist/jspdf.umd.min.js"></script>
+<script>
+const key = 'demo-formkit-v1';
+document.getElementById('guardar').onclick = () => {
+  const data = { rut: document.getElementById('rut').value, nombre: document.getElementById('nombre').value };
+  localStorage.setItem(key, JSON.stringify(data));
+  alert('Datos guardados en el navegador.');
+};
+document.getElementById('reanudar').onclick = () => {
+  const data = JSON.parse(localStorage.getItem(key) || '{}');
+  document.getElementById('rut').value = data.rut || '';
+  document.getElementById('nombre').value = data.nombre || '';
+};
+document.getElementById('pdf').onclick = async () => {
+  const { jsPDF } = window.jspdf;
+  const doc = new jsPDF();
+  doc.text('Comprobante Demo - FormKit', 10, 10);
+  doc.text('RUT: ' + (document.getElementById('rut').value || ''), 10, 20);
+  doc.text('Nombre: ' + (document.getElementById('nombre').value || ''), 10, 30);
+  doc.save('comprobante_demo.pdf');
+};
+</script>
+</body></html>
