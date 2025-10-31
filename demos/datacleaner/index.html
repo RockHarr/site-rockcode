@@ -109,27 +109,50 @@
     const meta=$('meta'), table=$('table'); let data=[];
 
     function parseCSV(text) {
-      if (!text.trim()) return [];
-      const sample = text.split('\\n').slice(0,3).join('');
-      const sep = (sample.match(/;/g)||[]).length > (sample.match(/,/g)||[]).length ? ';' : ',';
-      const lines = text.split(/\\r?\\n/);
-      const rows = [];
-      for (let line of lines) {
-        if (!line.trim()) continue;
-        const row = [];
-        let current = '', inQuotes = false;
-        for (let i=0;i<line.length;i++) {
-          const ch=line[i], next=line[i+1];
-          if (ch === '"' && next === '"') { current+='"'; i++; }
-          else if (ch === '"') { inQuotes = !inQuotes; }
-          else if (ch === sep && !inQuotes) { row.push(current.trim()); current=''; }
-          else { current += ch; }
-        }
-        row.push(current.trim());
-        rows.push(row);
-      }
-      return rows.filter(r => r.some(c => c.trim() !== ''));
+  // 1) Normaliza saltos de línea a \n (soporta \r\n, \n o \r)
+  const norm = String(text ?? '').replace(/\r\n|\n|\r/g, '\n');
+  if (!norm.trim()) return [];
+
+  // 2) Detecta separador entre coma y punto y coma (en primeras líneas),
+  //    si no hay, intenta con tabulador.
+  const first = norm.split('\n').slice(0, 3).join('\n');
+  let sep = ',';
+  const cntComma = (first.match(/,/g) || []).length;
+  const cntSemi  = (first.match(/;/g) || []).length;
+  const cntTab   = (first.match(/\t/g) || []).length;
+  if (cntSemi > cntComma && cntSemi >= cntTab) sep = ';';
+  else if (cntTab > Math.max(cntComma, cntSemi)) sep = '\t';
+
+  // 3) Parse carácter por carácter con comillas
+  const lines = norm.split('\n');
+  const rows = [];
+  for (let line of lines) {
+    // Permite líneas en blanco
+    if (line === '') continue;
+    const row = [];
+    let cur = '', inQ = false;
+
+    for (let i = 0; i < line.length; i++) {
+      const ch = line[i];
+      const nx = line[i + 1];
+
+      if (ch === '"' && nx === '"') { cur += '"'; i++; }         // comilla escapada
+      else if (ch === '"') { inQ = !inQ; }                       // abrir/cerrar comillas
+      else if (ch === sep && !inQ) { row.push(cur.trim()); cur=''; } // separador
+      else { cur += ch; }
     }
+    row.push(cur.trim());
+    // filtra filas totalmente vacías
+    if (row.some(c => String(c).trim() !== '')) rows.push(row);
+  }
+
+  // 4) Fallback: si por algún motivo quedó 1 sola fila gigante, intenta forzar split
+  if (rows.length === 1 && (rows[0] || []).length > 15 && norm.includes('\n')) {
+    return norm.split('\n').filter(l => l.trim() !== '').map(l => l.split(sep).map(c => c.trim()));
+  }
+  return rows;
+}
+
 
     function toCSV(rows,sep=','){
       return rows.map(r => r.map(c => {
