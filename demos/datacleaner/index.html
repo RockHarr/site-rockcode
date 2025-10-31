@@ -4,7 +4,7 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
 <title>DataCleaner · RockCode</title>
-<meta name="description" content="Limpia datos CSV/Excel en segundos: quitar duplicados, normalizar RUT/fechas, acentos y más. 100% en tu navegador." />
+<meta name="description" content="Limpia datos CSV/Excel en segundos: duplicados, RUT, fechas, tildes y más. 100% en tu navegador." />
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='50' fill='%2310b981'/></svg>">
 <style>
   :root{--bg:#0b1220;--ink:#e5e7eb;--muted:#94a3b8;--line:#1f2937;--accent:#22c55e;--ink-2:#cbd5e1}
@@ -14,11 +14,9 @@
   .wrap{max-width:1100px;margin:0 auto;padding:24px 16px}
   h1{margin:0 0 8px;font-size:clamp(22px,3.5vw,28px)}
   .sub{color:var(--muted);margin:0 0 20px}
-  /* panel */
   .card{border:1px solid var(--line);border-radius:16px;background:rgba(255,255,255,.02);padding:16px}
   .grid{display:grid;gap:16px;grid-template-columns:1fr 1fr}
   @media (max-width:900px){.grid{grid-template-columns:1fr}}
-  /* inputs / botones */
   textarea{width:100%;min-height:190px;background:#0b1220;border:1px solid var(--line);border-radius:12px;color:var(--ink);padding:12px 12px 10px 12px;resize:vertical}
   .bar{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-top:10px}
   .btn{appearance:none;border:1px solid var(--line);background:#0f172a;color:var(--ink);padding:10px 14px;border-radius:12px;font-weight:700;cursor:pointer}
@@ -29,13 +27,11 @@
   .pill{border:1px solid var(--line);border-radius:999px;padding:6px 10px;color:var(--muted);font-size:12px}
   .drop{margin-top:8px;padding:12px;text-align:center;color:var(--muted);border:2px dashed var(--line);border-radius:12px}
   .drop.over{border-color:var(--accent);background:rgba(34,197,94,.08);color:#a7f3d0}
-  /* tabla */
   .tableWrap{margin-top:12px;border:1px solid var(--line);border-radius:12px;overflow:auto;max-height:min(56vh,520px)}
   table{border-collapse:collapse;width:100%;background:rgba(255,255,255,.02);font-size:13px;min-width:720px}
   th{position:sticky;top:0;background:#111827;color:#9ca3af;font-weight:600}
   td,th{border:1px solid #1f2937;padding:6px 8px;white-space:nowrap;text-align:left}
   tbody tr:nth-child(even){background:rgba(255,255,255,.03)}
-  /* footer */
   footer{color:var(--muted);font-size:13px;margin-top:18px;text-align:center}
   a{color:inherit}
 </style>
@@ -76,9 +72,7 @@
             <button class="btn" data-act="rut-normalize">Normalizar RUT</button>
             <button class="btn" data-act="rut-validate">Validar RUT</button>
             <button class="btn" data-act="rut-duplicates">Etiquetar duplicados RUT</button>
-            <!-- En la barra de Acciones, agrega al final: -->
             <button class="btn primary" id="quickPipeline" title="Limpieza completa en 1 clic">Pipeline rápida</button>
-
           </div>
         </div>
       </div>
@@ -93,7 +87,7 @@
       </div>
     </section>
 
-    <footer>© 2025 RockCode — DataCleaner. Diseño & desarrollo: <strong>Rockwell Harrison</strong> + <strong>Spark (ChatGPT)</strong></footer>
+    <footer>© <span id="y"></span> RockCode — DataCleaner. Diseño & desarrollo: <strong>Rockwell Harrison</strong> + <strong>Spark (ChatGPT)</strong></footer>
   </main>
 
   <!-- XLSX opcional: coloca xlsx.full.min.js en esta carpeta para habilitar import/export XLSX -->
@@ -102,23 +96,54 @@
   (function(){
     const $ = id => document.getElementById(id);
 
+    // ========= Persistencia =========
+    const LS_KEY_ROWS = 'rockcode_datacleaner_rows_v1';
+    const LS_KEY_RAW  = 'rockcode_datacleaner_raw_v1';
+
+    function saveState() {
+      try {
+        if (data && data.length) localStorage.setItem(LS_KEY_ROWS, JSON.stringify(data));
+        localStorage.setItem(LS_KEY_RAW, $('raw')?.value ?? '');
+      } catch(_) {}
+    }
+    function loadState() {
+      try {
+        const raw = localStorage.getItem(LS_KEY_RAW);
+        if (raw && $('raw')) $('raw').value = raw;
+        const rows = JSON.parse(localStorage.getItem(LS_KEY_ROWS) || '[]');
+        if (Array.isArray(rows) && rows.length) { data = rows; render(); return true; }
+      } catch(_) {}
+      return false;
+    }
+
     // ========= Estado =========
     let data = []; // AOA
     const table = $('table'), meta = $('meta');
 
-    // ========= Utilidades CSV =========
+    // ========= Utilidades =========
+    async function copyTextSafe(text){
+      try{ await navigator.clipboard.writeText(text); }
+      catch(e){
+        const ta=document.createElement('textarea');
+        ta.value=text; document.body.appendChild(ta);
+        ta.select(); document.execCommand('copy'); ta.remove();
+      }
+    }
+
     function detectSep(sample){
       const s = sample.slice(0, 2000);
       const sc = (s.match(/;/g)||[]).length, cc = (s.match(/,/g)||[]).length;
       return sc > cc ? ';' : ',';
     }
     function parseCSV(text){
-      if (!text || !text.trim()) return [];
-      const sep = detectSep(text);
-      const lines = text.split(/\r?\n/);
+      if (!text) return [];
+      const norm = String(text).replace(/\r\n/g,'\n').replace(/\r/g,'\n');
+      if (!norm.trim()) return [];
+      const sep = detectSep(norm);
+      const lines = norm.split('\n');
       const rows = [];
       for (let line of lines){
-        if (!line.trim()) continue;
+        if (line === '') { rows.push(['']); continue; } // preserva filas vacías explícitas
         const row=[], n=line.length;
         let cur='', inQ=false;
         for (let i=0;i<n;i++){
@@ -129,9 +154,9 @@
           cur += ch;
         }
         row.push(cur);
-        rows.push(row.map(c => String(c).trim()));
+        rows.push(row.map(c => String(c)));
       }
-      return rows.filter(r => r.some(c => c.trim() !== ''));
+      return rows.filter(r => r.some(c => String(c).trim() !== ''));
     }
     function toCSV(rows, sep=','){
       return rows.map(r => r.map(c=>{
@@ -139,11 +164,9 @@
         return /["\n,;\t]/.test(s) ? '"' + s.replace(/"/g,'""') + '"' : s;
       }).join(sep)).join('\n');
     }
-
-    // ========= Render =========
     function render(){
       table.innerHTML='';
-      if (!data.length){ meta.textContent='0 filas · 0 columnas'; return; }
+      if (!data.length){ meta.textContent='0 filas · 0 columnas'; saveState(); return; }
       const cols = Math.max(...data.map(r=>r.length));
       let thead='<thead><tr>';
       for (let i=0;i<cols;i++) thead+=`<th>${data[0][i] || ('Col '+(i+1))}</th>`;
@@ -157,9 +180,10 @@
       body+='</tbody>';
       table.innerHTML = thead + body;
       meta.textContent = `${data.length-1} filas · ${cols} columnas`;
+      saveState();
     }
 
-    // ========= Acciones =========
+    // ===== Acciones =====
     const actions = {
       trim(){ for (let r=1;r<data.length;r++) data[r]=data[r].map(c=>String(c??'').trim()); },
       collapse(){ for (let r=1;r<data.length;r++) data[r]=data[r].map(c=>String(c??'').replace(/\s+/g,' ').trim()); },
@@ -179,37 +203,32 @@
       date(){
         const fix=v=>{
           const s=String(v??'').trim();
-          const m=s.match(/^(\d{1,2})[\/-](\d{1,2})[\/-](\d{2,4})$/);
-          if(!m) return v;
-          let a=+m[1], b=+m[2], c=+m[3]; if(c<100) c+=2000;
-          let day,mon,yr;
-          if (a>12){ day=a; mon=b; yr=c; }
-          else if (a<=12 && b>12){ day=b; mon=a; yr=c; }
-          else { day=a; mon=b; yr=c; }
-          return `${yr}-${String(mon).padStart(2,'0')}-${String(day).padStart(2,'0')}`;
+          // dd/mm/yy(yy) o dd-mm-yy(yy)
+          let m=s.match(/^(\d{1,2})[\/-](\d{1,2})[\/-](\d{2,4})$/);
+          if(m){
+            let a=+m[1], b=+m[2], c=+m[3]; if(c<100) c+=2000;
+            let day,mon,yr;
+            if (a>12){ day=a; mon=b; yr=c; }
+            else if (a<=12 && b>12){ day=b; mon=a; yr=c; }
+            else { day=a; mon=b; yr=c; }
+            return `${yr}-${String(mon).padStart(2,'0')}-${String(day).padStart(2,'0')}`;
+          }
+          // yyyy-mm-dd
+          m=s.match(/^(\d{4})-(\d{1,2})-(\d{1,2})$/);
+          if(m){ const Y=+m[1], M=+m[2], d=+m[3]; return `${Y}-${String(M).padStart(2,'0')}-${String(d).padStart(2,'0')}`; }
+          // mm/dd/yyyy → ISO (asume US)
+          m=s.match(/^(\d{1,2})[\/-](\d{1,2})[\/-](\d{4})$/);
+          if(m && (+m[1] <= 12 && +m[2] <= 31)){ const M=+m[1], d=+m[2], Y=+m[3]; return `${Y}-${String(M).padStart(2,'0')}-${String(d).padStart(2,'0')}`; }
+          return v;
         };
         for (let r=1;r<data.length;r++) data[r]=data[r].map(fix);
       },
-
-      // Pipeline rápida en un clic
-      $('quickPipeline')?.addEventListener('click', () => {
-        if (!data.length) return;
-        actions.trim();
-        actions.collapse();
-        actions['drop-empty']();
-        actions.normalize();
-        actions.date();
-        actions['rut-normalize']();
-        render();
-      });
 
       // --- RUT helpers ---
       _rut_detect(headers, sample){
         let idx = headers.findIndex(h => /rut/i.test(String(h||'')));
         if (idx<0 && sample){
-          for (let c=0;c<sample.length;c++){
-            const v=String(sample[c]||''); if(/[0-9Kk\.\-]{7,12}/.test(v)){ idx=c; break; }
-          }
+          for (let c=0;c<sample.length;c++){ const v=String(sample[c]||''); if(/[0-9Kk\.\-]{7,12}/.test(v)){ idx=c; break; } }
         }
         return idx<0 ? 0 : idx;
       },
@@ -269,17 +288,28 @@
       }
     };
 
-    // ========= Carga desde textarea / archivo =========
+    // ===== Pipeline rápida =====
+    $('quickPipeline').addEventListener('click', () => {
+      if (!data.length) return;
+      actions.trim();
+      actions.collapse();
+      actions['drop-empty']();
+      actions.normalize();
+      actions.date();
+      actions['rut-normalize']();
+      render();
+    });
+
+    // ===== Cargar desde textarea / archivo =====
     function loadRowsFromText(text){
       const rows = parseCSV(text);
       if (!rows.length){ data=[]; render(); return; }
       const head = rows[0] || [];
-      // heurística simple: si header tiene letras, lo respetamos
       const scoreLetters = head.filter(x => /[A-Za-zÁÉÍÓÚÜÑáéíóúüñ]/.test(String(x||''))).length;
-      data = scoreLetters ? rows : [['Col 1','Col 2','Col 3','Col 4','Col 5'].slice(0, head.length || (rows[0]||[]).length), ...rows];
+      data = scoreLetters ? rows
+                          : [['Col 1','Col 2','Col 3','Col 4','Col 5'].slice(0,(rows[0]||[]).length), ...rows];
       render();
     }
-
     async function handleFile(file){
       const name=(file.name||'').toLowerCase();
       try{
@@ -303,31 +333,18 @@
       }
     }
 
-    // ========= Eventos UI =========
-    // demo seed
-    $('raw').value = `nombre,correo,rut,fecha,ciudad
-ANA, ana@example.com, 12345678-5, 1/2/24, ViÑA del Mar
-Ana, ana@example.com, 12.345.678-5, 01-02-2024, viña  del   mar
-Pedro, pedro@example.com, 11111111-1, 12/31/2023, santiago
- , , , , 
-JUAN, juan@example.com, 9876543k, 5-7-2024, PROVIDENCIA`;
-
+    // ===== Eventos UI =====
     $('load').addEventListener('click', ()=> loadRowsFromText($('raw').value));
     $('clear').addEventListener('click', ()=>{ $('raw').value=''; data=[]; render(); });
-
     document.querySelectorAll('[data-act]').forEach(b=>{
-      b.addEventListener('click', ()=>{
-        const act=b.getAttribute('data-act');
-        if (actions[act]){ actions[act](); render(); }
-      });
+      b.addEventListener('click', ()=>{ const act=b.getAttribute('data-act'); if (actions[act]){ actions[act](); render(); } });
     });
 
     $('copyCsv').addEventListener('click', async ()=>{
       if (!data.length) return;
       const headers = (data[0]||[]).map(h => String(h||'').trim().replace(/_/g,' '));
       const body = data.slice(1).filter(r => r.some(c => String(c||'').trim() !== ''));
-      await navigator.clipboard.writeText(toCSV([headers, ...body]));
-      const t=this; /* no modificar botón */
+      await copyTextSafe(toCSV([headers, ...body]));
     });
 
     $('downloadCsv').addEventListener('click', ()=>{
@@ -368,11 +385,15 @@ JUAN, juan@example.com, 9876543k, 5-7-2024, PROVIDENCIA`;
       const headers = headersRaw.map(h => String(h||'').trim().replace(/_/g,' '));
       const body = data.slice(1).filter(r => r.some(c => String(c||'').trim() !== ''));
       const toISO = v => /^\d{4}-\d{2}-\d{2}$/.test(String(v||''));
+      const isNumericHeader = name =>
+        /(edad|monto|total|tiempo|id|cantidad|nro|número|precio|anio|año)/i.test(name||'') &&
+        !/rut/i.test(name||'');
       const rows = [headers, ...body.map(row => row.map((v,i) => {
         const s = String(v ?? '').trim();
         if (toISO(s)) return new Date(s + 'T00:00:00');
-        if (/(edad|monto|total|tiempo|id|cantidad|nro|número)/i.test(headers[i]||'')) {
-          const n = Number(s.replace(/\./g,'').replace(',', '.')); if(!isNaN(n)) return n;
+        if (isNumericHeader(headers[i])) {
+          const n = Number(s.replace(/\./g,'').replace(',', '.'));
+          if (!Number.isNaN(n) && isFinite(n)) return n;
         }
         return v;
       }))];
@@ -405,8 +426,21 @@ JUAN, juan@example.com, 9876543k, 5-7-2024, PROVIDENCIA`;
       if (f) handleFile(f);
     });
 
-    // Carga inicial (para que veas el layout funcionando)
-    loadRowsFromText($('raw').value);
+    // ===== Arranque: recuperar estado o seed =====
+    const had = loadState();
+    if (!had) {
+      $('raw').value = `nombre,correo,rut,fecha,ciudad
+ANA, ana@example.com, 12345678-5, 1/2/24, ViÑA del Mar
+Ana, ana@example.com, 12.345.678-5, 01-02-2024, viña  del   mar
+Pedro, pedro@example.com, 11111111-1, 12/31/2023, santiago
+ , , , , 
+JUAN, juan@example.com, 9876543k, 5-7-2024, PROVIDENCIA`;
+      // Render inicial vacío (muestra 0 filas hasta que cargues)
+      render();
+    }
+
+    // Año footer
+    document.getElementById('y').textContent = new Date().getFullYear();
   })();
   </script>
 </body>
