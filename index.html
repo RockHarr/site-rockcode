@@ -28,34 +28,173 @@
   <!-- CSS Bootstrap -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
 
-  <!-- Estilos mínimos (AA + foco + motion) -->
+  <!-- Estilos (layout más pro) -->
   <style>
     :root{
-      --rc-ink:#0b132b; --rc-ink-2:#1c2541; --rc-accent:#3a86ff;
-      --rc-good:#16a34a; --rc-bg:#0b132b;
+      --rc-ink:#020617;
+      --rc-ink-soft:#475569;
+      --rc-ink-strong:#0f172a;
+      --rc-accent:#22c55e;   /* Verde tipo producto */
+      --rc-accent-soft:#bbf7d0;
+      --rc-bg:#f3f4f6;
+      --rc-surface:#ffffff;
+      --rc-border:#e5e7eb;
     }
-    html,body{font-feature-settings:"kern" 1,"liga" 1;}
+
+    html,body{
+      font-feature-settings:"kern" 1,"liga" 1;
+    }
+
+    body{
+      color:var(--rc-ink-strong);
+      background:radial-gradient(circle at top,#e5f6ff 0,#f3f4f6 36%,#e5e7eb 100%);
+    }
+
     /* Skip-link visible al foco */
-    .skip-link{position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden;}
-    .skip-link:focus{position:fixed;left:1rem;top:1rem;width:auto;height:auto;z-index:1050;background:#fff;border:2px solid var(--rc-accent);padding:.5rem 1rem;border-radius:.5rem;}
-    /* Hero */
-    .hero{background:linear-gradient(180deg,#111827, #0b132b); color:#f8fafc;}
-    .hero h1 span{color:#a5b4fc}
-    /* Foco visible consistente */
-    .focus-ring:focus, .form-control:focus, .btn:focus, .nav-link:focus{
-      outline:3px solid var(--rc-accent) !important; outline-offset:2px !important; box-shadow:none !important;
+    .skip-link{
+      position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden;
     }
+    .skip-link:focus{
+      position:fixed;left:1rem;top:1rem;width:auto;height:auto;z-index:1050;
+      background:#fff;border:2px solid var(--rc-accent);
+      padding:.5rem 1rem;border-radius:.75rem;
+    }
+
+    /* NAV */
+    header{
+      position:sticky;top:0;z-index:50;
+      backdrop-filter:blur(18px);
+      background:rgba(248,250,252,0.94);
+      border-bottom:1px solid rgba(148,163,184,0.3);
+    }
+    .navbar-brand{
+      letter-spacing:.04em;
+      text-transform:uppercase;
+      font-size:.95rem;
+    }
+    .nav-link{
+      font-size:.9rem;
+      font-weight:500;
+      color:var(--rc-ink-soft);
+    }
+    .nav-link:hover,
+    .nav-link:focus{
+      color:var(--rc-ink-strong);
+    }
+
+    /* Hero */
+    .hero{
+      background:radial-gradient(circle at top left,#0f172a 0,#020617 55%,#0b1120 100%);
+      color:#e5e7eb;
+    }
+    .hero h1{
+      font-size:clamp(2.3rem,3.2vw,3rem);
+    }
+    .hero h1 span{
+      color:#a5f3fc;
+    }
+    .hero .lead{
+      font-size:1.05rem;
+      color:#cbd5f5;
+    }
+    .hero-badges{
+      display:flex;
+      flex-wrap:wrap;
+      gap:.5rem;
+      margin-top:.75rem;
+    }
+    .hero-badges .pill{
+      border-radius:999px;
+      border:1px solid rgba(148,163,184,0.6);
+      padding:.3rem .9rem;
+      font-size:.8rem;
+      display:inline-flex;
+      align-items:center;
+      gap:.4rem;
+      background:rgba(15,23,42,0.85);
+    }
+
+    /* Foco visible consistente */
+    .focus-ring:focus,
+    .form-control:focus,
+    .btn:focus,
+    .nav-link:focus{
+      outline:3px solid var(--rc-accent) !important;
+      outline-offset:2px !important;
+      box-shadow:none !important;
+    }
+
     .badge-aa{background:#0ea5e9}
-    .card{border-radius:1rem}
-    .check{width:1.1rem;height:1.1rem}
-    .footer{color:#cbd5e1}
+
+    /* Secciones genéricas */
+    section{
+      padding-block:3.5rem;
+    }
+
+    /* Tarjetas */
+    .card{
+      border-radius:1.25rem;
+      border:1px solid var(--rc-border);
+      box-shadow:0 18px 45px rgba(15,23,42,0.06);
+    }
+
+    /* Listas con check */
+    .check{
+      width:1.05rem;height:1.05rem;flex-shrink:0;
+      color:var(--rc-accent);
+    }
+
+    /* Fondo alterno suave */
+    .bg-light{
+      background:#f9fafb !important;
+    }
+
+    /* Botones */
+    .btn-primary{
+      background:var(--rc-accent);
+      border-color:var(--rc-accent);
+      color:#022c22;
+      font-weight:600;
+      border-radius:.9rem;
+      padding:.6rem 1.2rem;
+    }
+    .btn-primary:hover{
+      background:#16a34a;
+      border-color:#16a34a;
+    }
+    .btn-outline{
+      border-radius:.9rem;
+      border-width:1px;
+    }
+    .btn-success{
+      background:#0ea5e9;
+      border-color:#0ea5e9;
+      font-weight:600;
+      border-radius:.9rem;
+    }
+    .btn-success:hover{
+      background:#0284c7;
+      border-color:#0284c7;
+    }
+
+    /* Footer */
+    .footer{
+      color:#cbd5e1;
+    }
+
     .visually-hidden {
       position: absolute !important; height: 1px; width: 1px; overflow: hidden;
       clip: rect(1px, 1px, 1px, 1px); white-space: nowrap; clip-path: inset(50%);
     }
+
     /* Respeta reduce motion */
     @media (prefers-reduced-motion: reduce){
-      *{animation-duration:0.01ms !important;animation-iteration-count:1 !important;transition-duration:0.01ms !important;scroll-behavior:auto !important}
+      *{
+        animation-duration:0.01ms !important;
+        animation-iteration-count:1 !important;
+        transition-duration:0.01ms !important;
+        scroll-behavior:auto !important;
+      }
     }
   </style>
 
@@ -106,26 +245,31 @@
           <p class="lead mb-3">
             Aplicaciones y sitios web rápidos, accesibles (AA) y medibles para
             instituciones públicas y empresas. HTML, Bootstrap 5 y JS vanilla para
-            demos que se pueden reutilizar en producción.
+            demos y MVP que se pueden reutilizar en producción.
           </p>
-          <p class="mb-3">
-            <strong>Proveedor hábil</strong> en Mercado Público · ROCKCODE SPA ·
-            RUT 78.280.182-1 · MiPyme (Microempresa)
-          </p>
-          <div class="d-flex flex-wrap gap-2 align-items-center" aria-label="Indicadores de calidad">
-            <span class="badge text-bg-success">LCP &lt;2.5s</span>
-            <span class="badge text-bg-info badge-aa">AA</span>
-            <span class="badge text-bg-secondary">CLS: Good</span>
+          <div class="hero-badges">
+            <div class="pill">
+              <span class="badge rounded-pill text-bg-success">MiPyme</span>
+              <span>Microempresa</span>
+            </div>
+            <div class="pill">
+              <span class="badge rounded-pill text-bg-light text-dark">Proveedor hábil</span>
+              <span>Registro de Proveedores del Estado</span>
+            </div>
+            <div class="pill">
+              <span class="badge rounded-pill text-bg-light text-dark">RUT</span>
+              <span>78.280.182-1</span>
+            </div>
           </div>
-          <div class="mt-4 d-flex gap-2">
+          <div class="mt-4 d-flex gap-2 flex-wrap">
             <a class="btn btn-primary btn-lg focus-ring" href="#servicios">Ver servicios</a>
-            <a class="btn btn-outline-light btn-lg focus-ring" href="#cta">Cómo trabajamos</a>
+            <a class="btn btn-outline btn-lg focus-ring border-light text-light" href="#cta">Cómo trabajamos</a>
           </div>
         </div>
         <div class="col-lg-5">
           <div class="bg-white rounded-4 p-4 shadow-sm text-dark">
-            <h2 class="h5">Definition of Done</h2>
-            <ul class="mb-0">
+            <h2 class="h5 mb-3">Definition of Done</h2>
+            <ul class="mb-0 small">
               <li>Navegación por teclado + foco visible + contraste OK</li>
               <li>LCP &lt; 2.5s, CLS "Good"</li>
               <li>Formularios: guardar/reanudar + PDF descargable</li>
@@ -138,30 +282,30 @@
   </section>
 
   <!-- Valor -->
-  <section id="valor" class="py-5 bg-light">
+  <section id="valor" class="bg-light">
     <div class="container">
       <div class="row g-4">
         <div class="col-lg-4">
-          <div class="card h-100 shadow-sm">
+          <div class="card h-100">
             <div class="card-body">
               <h3 class="h5">Accesibilidad primero</h3>
-              <p class="mb-0">Componentes AA: botón, nav, modal con <em>focus trap</em>, tabs, alertas y formularios con etiquetas, descripciones y estados.</p>
+              <p class="mb-0">Componentes AA: botón, nav, modal con <em>focus trap</em>, tabs, alertas y formularios con etiquetas, descripciones y estados claros.</p>
             </div>
           </div>
         </div>
         <div class="col-lg-4">
-          <div class="card h-100 shadow-sm">
+          <div class="card h-100">
             <div class="card-body">
               <h3 class="h5">Rendimiento medible</h3>
-              <p class="mb-0">Imágenes optimizadas, scripts <code>defer</code>, fuentes del sistema y pruebas Lighthouse (capturas antes/después).</p>
+              <p class="mb-0">Imágenes optimizadas, scripts <code>defer</code>, fuentes del sistema y pruebas Lighthouse con capturas antes/después.</p>
             </div>
           </div>
         </div>
         <div class="col-lg-4">
-          <div class="card h-100 shadow-sm">
+          <div class="card h-100">
             <div class="card-body">
               <h3 class="h5">Formularios que ayudan</h3>
-              <p class="mb-0">Guardado en navegador, reanudación, validación clara y exportación a PDF con <code>jsPDF</code>.</p>
+              <p class="mb-0">Guardado en navegador, reanudación, validación clara y exportación a PDF con <code>jsPDF</code> para trámites y solicitudes.</p>
             </div>
           </div>
         </div>
@@ -170,7 +314,7 @@
   </section>
 
   <!-- Servicios -->
-  <section id="servicios" class="py-5">
+  <section id="servicios">
     <div class="container">
       <div class="row align-items-center g-4">
         <div class="col-lg-6">
@@ -213,7 +357,7 @@
   </section>
 
   <!-- Empresa -->
-  <section id="empresa" class="py-5 bg-light">
+  <section id="empresa" class="bg-light">
     <div class="container">
       <h2 class="h3">RockCode como empresa</h2>
       <p>
@@ -234,17 +378,17 @@
   </section>
 
   <!-- Demos -->
-  <section id="demos" class="py-5">
+  <section id="demos">
     <div class="container">
       <div class="d-flex align-items-center justify-content-between mb-3">
         <h2 class="h4 mb-0">Demos públicas</h2>
-        <a class="btn btn-outline-primary btn-sm focus-ring" href="#cta">Cómo replicar</a>
+        <a class="btn btn-outline btn-sm focus-ring border-secondary text-secondary" href="#cta">Cómo replicar</a>
       </div>
 
       <div class="row g-4">
         <!-- Demo A -->
         <div class="col-md-4">
-          <div class="card h-100 shadow-sm">
+          <div class="card h-100">
             <div class="card-body">
               <h3 class="h6">Demo A — Accesibilidad AA Kit</h3>
               <p class="mb-3">Botón, navegación, modal con <em>focus trap</em>, tabs, alertas y formulario accesible.</p>
@@ -255,7 +399,7 @@
 
         <!-- Demo B -->
         <div class="col-md-4">
-          <div class="card h-100 shadow-sm">
+          <div class="card h-100">
             <div class="card-body">
               <h3 class="h6">Demo B — FormKit Gobierno</h3>
               <p class="mb-3">Multistep, guardado local y exportar a PDF.</p>
@@ -266,7 +410,7 @@
 
         <!-- Demo C -->
         <div class="col-md-4">
-          <div class="card h-100 shadow-sm">
+          <div class="card h-100">
             <div class="card-body">
               <h3 class="h6">Demo C — Buscador de Trámites</h3>
               <p class="mb-3">JSON local + autocomplete + filtros con sinónimos.</p>
@@ -277,7 +421,7 @@
 
         <!-- Demo D: DataCleaner -->
         <div class="col-md-4">
-          <div class="card h-100 shadow-sm">
+          <div class="card h-100">
             <div class="card-body">
               <h3 class="h6">Demo D — DataCleaner</h3>
               <p class="mb-3">Limpieza de datos: CSV, trim, lowercase, filas vacías y duplicados.</p>
@@ -290,12 +434,12 @@
   </section>
 
   <!-- Proyectos (no demos) -->
-  <section id="proyectos" class="py-5 bg-light">
+  <section id="proyectos" class="bg-light">
     <div class="container">
       <h2 class="h4 mb-3">Proyectos / MVP</h2>
       <div class="row g-4">
         <div class="col-lg-6">
-          <div class="card h-100 shadow-sm">
+          <div class="card h-100">
             <div class="card-body">
               <span class="badge text-bg-secondary mb-2">Proyecto / MVP</span>
               <h3 class="h5">Condominios Low-Cost</h3>
@@ -304,7 +448,7 @@
                 <li>PLAN→PR→QA→RELEASE (pipeline simulado)</li>
                 <li>Stack: HTML + BS5 + JS (frontend), mock API</li>
               </ul>
-              <a class="btn btn-outline-primary focus-ring disabled" aria-disabled="true">Ver MVP (próximamente)</a>
+              <a class="btn btn-outline focus-ring border-secondary text-secondary disabled" aria-disabled="true">Ver MVP (próximamente)</a>
             </div>
           </div>
         </div>
@@ -314,7 +458,7 @@
   </section>
 
   <!-- CTA replicar -->
-  <section id="cta" class="py-5">
+  <section id="cta">
     <div class="container">
       <div class="row g-4 align-items-center">
         <div class="col-lg-8">
@@ -336,7 +480,7 @@
   </section>
 
   <!-- CONTACTO -->
-  <section id="contacto" class="py-5">
+  <section id="contacto">
     <div class="container">
       <h2 class="h4 mb-3">Contacto</h2>
       <p>
@@ -351,113 +495,7 @@
         </a>
       </p>
 
-      <form id="rcForm" action="https://formspree.io/f/mdkpwbwb" method="POST" novalidate>
-        <div class="mb-3">
-          <label for="name" class="form-label">Nombre</label>
-          <input id="name" name="name" type="text" class="form-control" required
-                 autocomplete="name" aria-describedby="nameHelp">
-          <div id="nameHelp" class="form-text">Cómo te llamas.</div>
-        </div>
+      <
+::contentReference[oaicite:0]{index=0}
 
-        <div class="mb-3">
-          <label for="email" class="form-label">Correo</label>
-          <input id="email" name="email" type="email" class="form-control" required
-                 autocomplete="email" inputmode="email">
-        </div>
-
-        <div class="mb-3">
-          <label for="message" class="form-label">Mensaje</label>
-          <textarea id="message" name="message" class="form-control" rows="4" required></textarea>
-        </div>
-
-        <!-- Mejores metadatos para Formspree -->
-        <input type="hidden" name="_subject" value="Contacto RockCode (web)">
-        <!-- Honeypot anti-spam -->
-        <input type="text" name="_gotcha" class="visually-hidden" tabindex="-1" autocomplete="off">
-
-        <div class="d-flex gap-2 align-items-center">
-          <button id="sendBtn" type="submit" class="btn btn-success">Enviar</button>
-          <!-- Fallback manual visible siempre -->
-          <a id="mailtoLink" class="btn btn-outline-secondary"
-             href="mailto:rockwell.harrison@gmail.com?subject=Contacto%20RockCode&body=Hola%20RockCode,%0D%0A">
-            Escribir por correo
-          </a>
-        </div>
-
-        <!-- Estados accesibles -->
-        <p id="formOk" class="alert alert-success mt-3 d-none" role="status">
-          ¡Gracias! Recibimos tu mensaje y te contactaremos pronto.
-        </p>
-        <p id="formErr" class="alert alert-warning mt-3 d-none" role="status">
-          No pudimos enviar el formulario ahora. Puedes usar el botón “Escribir por correo”.
-        </p>
-      </form>
-    </div>
-  </section>
-
-  <!-- Footer -->
-  <footer class="mt-auto py-4 bg-dark">
-    <div class="container d-flex flex-column flex-md-row justify-content-between align-items-center">
-      <p class="m-0 footer">© <span id="y"></span> RockCode — Desarrollo de software y GovDX accesible</p>
-      <nav aria-label="Enlaces de pie">
-        <a class="link-light me-3" href="/accesibilidad.html">Accesibilidad</a>
-        <a class="link-light me-3" href="/faq.html">FAQ</a>
-        <a class="link-light" href="/datos.html">Política de datos</a>
-      </nav>
-    </div>
-    <div class="container mt-2">
-      <small class="text-secondary">
-        Diseño &amp; desarrollo: <strong>Rockwell Harrison (Spark)</strong> + <strong>GPT-5 Thinking</strong>
-      </small>
-    </div>
-  </footer>
-
-  <noscript>
-    <div class="alert alert-warning text-center m-0">Este sitio funciona mejor con JavaScript habilitado.</div>
-  </noscript>
-
-  <!-- JS Bootstrap (defer) -->
-  <script defer src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
-
-  <!-- Utilidades -->
-  <script>
-    // Año dinámico
-    document.getElementById('y').textContent = new Date().getFullYear();
-
-    // Formspree + fallback
-    (function () {
-      const form = document.getElementById('rcForm');
-      const sendBtn = document.getElementById('sendBtn');
-      const ok = document.getElementById('formOk');
-      const err = document.getElementById('formErr');
-
-      function show(el){ el.classList.remove('d-none'); }
-      function hide(el){ el.classList.add('d-none'); }
-
-      form.addEventListener('submit', async (e) => {
-        e.preventDefault();
-        hide(ok); hide(err);
-        sendBtn.disabled = true;
-
-        try {
-          const res = await fetch(form.action, {
-            method: 'POST',
-            headers: { 'Accept': 'application/json' },
-            body: new FormData(form)
-          });
-          if (res.ok) {
-            form.reset();
-            show(ok);
-          } else {
-            show(err);
-          }
-        } catch (_) {
-          show(err);
-        } finally {
-          sendBtn.disabled = false;
-        }
-      });
-    })();
-  </script>
-</body>
-</html>
+  
