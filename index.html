@@ -1,501 +1,132 @@
 <!doctype html>
-<html lang="es" class="h-100">
+<html lang="es" data-bs-theme="dark">
 <head>
-  <!-- Meta base -->
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>RockCode — Desarrollo de software y GovDX accesible</title>
-  <meta name="description" content="ROCKCODE SPA: desarrollo de software y GovDX accesible. Demos AA, formularios con PDF y servicios para instituciones públicas y empresas. Proveedor hábil en Mercado Público.">
-
-  <meta name="theme-color" content="#0b132b" />
-  <meta name="color-scheme" content="light dark" />
-
-  <!-- Iconos / OG -->
-  <link rel="icon" href="/assets/img/favicon.png" />
-  <meta property="og:title" content="RockCode — Desarrollo de software y GovDX accesible" />
-  <meta property="og:description" content="ROCKCODE SPA: desarrollo de software y GovDX accesible. Demos AA, formularios con PDF y servicios para instituciones públicas y empresas. Proveedor hábil en Mercado Público." />
-  <meta property="og:type" content="website" />
-  <meta property="og:image" content="https://rockcode.cl/assets/img/og.png" />
-  <meta property="og:url" content="https://rockcode.cl/" />
-  <meta name="twitter:card" content="summary_large_image" />
-
-  <!-- Rendimiento: preconnect a CDN Bootstrap -->
-  <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
-  <link rel="dns-prefetch" href="https://cdn.jsdelivr.net">
-
-  <link rel="manifest" href="/site.webmanifest">
-
-  <!-- CSS Bootstrap -->
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
-
-  <!-- Estilos (layout más pro) -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>RockCode · GovTech & Datos limpios</title>
+  <meta name="description" content="RockCode: GovTech/GovDX para sector público y PYMEs. Accesibilidad AA real, performance medible y datos limpios.">
+  <meta property="og:title" content="RockCode · GovTech & Datos limpios">
+  <meta property="og:description" content="Accesibilidad AA, performance web, datos limpios.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://rockcode.cl/">
+  <meta property="og:image" content="/og.png">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-..." crossorigin="anonymous">
   <style>
     :root{
-      --rc-ink:#020617;
-      --rc-ink-soft:#475569;
-      --rc-ink-strong:#0f172a;
-      --rc-accent:#22c55e;   /* Verde tipo producto */
-      --rc-accent-soft:#bbf7d0;
-      --rc-bg:#f3f4f6;
-      --rc-surface:#ffffff;
-      --rc-border:#e5e7eb;
+      --rc-accent:#4cc9f0; --rc-muted:#8a8f98;
     }
-
-    html,body{
-      font-feature-settings:"kern" 1,"liga" 1;
-    }
-
-    body{
-      color:var(--rc-ink-strong);
-      background:radial-gradient(circle at top,#e5f6ff 0,#f3f4f6 36%,#e5e7eb 100%);
-    }
-
-    /* Skip-link visible al foco */
-    .skip-link{
-      position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden;
-    }
-    .skip-link:focus{
-      position:fixed;left:1rem;top:1rem;width:auto;height:auto;z-index:1050;
-      background:#fff;border:2px solid var(--rc-accent);
-      padding:.5rem 1rem;border-radius:.75rem;
-    }
-
-    /* NAV */
-    header{
-      position:sticky;top:0;z-index:50;
-      backdrop-filter:blur(18px);
-      background:rgba(248,250,252,0.94);
-      border-bottom:1px solid rgba(148,163,184,0.3);
-    }
-    .navbar-brand{
-      letter-spacing:.04em;
-      text-transform:uppercase;
-      font-size:.95rem;
-    }
-    .nav-link{
-      font-size:.9rem;
-      font-weight:500;
-      color:var(--rc-ink-soft);
-    }
-    .nav-link:hover,
-    .nav-link:focus{
-      color:var(--rc-ink-strong);
-    }
-
-    /* Hero */
-    .hero{
-      background:radial-gradient(circle at top left,#0f172a 0,#020617 55%,#0b1120 100%);
-      color:#e5e7eb;
-    }
-    .hero h1{
-      font-size:clamp(2.3rem,3.2vw,3rem);
-    }
-    .hero h1 span{
-      color:#a5f3fc;
-    }
-    .hero .lead{
-      font-size:1.05rem;
-      color:#cbd5f5;
-    }
-    .hero-badges{
-      display:flex;
-      flex-wrap:wrap;
-      gap:.5rem;
-      margin-top:.75rem;
-    }
-    .hero-badges .pill{
-      border-radius:999px;
-      border:1px solid rgba(148,163,184,0.6);
-      padding:.3rem .9rem;
-      font-size:.8rem;
-      display:inline-flex;
-      align-items:center;
-      gap:.4rem;
-      background:rgba(15,23,42,0.85);
-    }
-
-    /* Foco visible consistente */
-    .focus-ring:focus,
-    .form-control:focus,
-    .btn:focus,
-    .nav-link:focus{
-      outline:3px solid var(--rc-accent) !important;
-      outline-offset:2px !important;
-      box-shadow:none !important;
-    }
-
-    .badge-aa{background:#0ea5e9}
-
-    /* Secciones genéricas */
-    section{
-      padding-block:3.5rem;
-    }
-
-    /* Tarjetas */
-    .card{
-      border-radius:1.25rem;
-      border:1px solid var(--rc-border);
-      box-shadow:0 18px 45px rgba(15,23,42,0.06);
-    }
-
-    /* Listas con check */
-    .check{
-      width:1.05rem;height:1.05rem;flex-shrink:0;
-      color:var(--rc-accent);
-    }
-
-    /* Fondo alterno suave */
-    .bg-light{
-      background:#f9fafb !important;
-    }
-
-    /* Botones */
-    .btn-primary{
-      background:var(--rc-accent);
-      border-color:var(--rc-accent);
-      color:#022c22;
-      font-weight:600;
-      border-radius:.9rem;
-      padding:.6rem 1.2rem;
-    }
-    .btn-primary:hover{
-      background:#16a34a;
-      border-color:#16a34a;
-    }
-    .btn-outline{
-      border-radius:.9rem;
-      border-width:1px;
-    }
-    .btn-success{
-      background:#0ea5e9;
-      border-color:#0ea5e9;
-      font-weight:600;
-      border-radius:.9rem;
-    }
-    .btn-success:hover{
-      background:#0284c7;
-      border-color:#0284c7;
-    }
-
-    /* Footer */
-    .footer{
-      color:#cbd5e1;
-    }
-
-    .visually-hidden {
-      position: absolute !important; height: 1px; width: 1px; overflow: hidden;
-      clip: rect(1px, 1px, 1px, 1px); white-space: nowrap; clip-path: inset(50%);
-    }
-
-    /* Respeta reduce motion */
-    @media (prefers-reduced-motion: reduce){
-      *{
-        animation-duration:0.01ms !important;
-        animation-iteration-count:1 !important;
-        transition-duration:0.01ms !important;
-        scroll-behavior:auto !important;
-      }
-    }
+    body{font-family: system-ui, -apple-system, "Segoe UI", Roboto, Ubuntu, "Helvetica Neue", Arial, "Noto Sans", "Apple Color Emoji","Segoe UI Emoji";}
+    .nav-link:focus, .btn:focus{outline:2px solid var(--rc-accent); outline-offset:2px;}
+    .hero{min-height:72vh; display:grid; place-items:center; background:radial-gradient(1200px 600px at 80% -10%,rgba(76,201,240,.08),transparent),linear-gradient(180deg,#0b0e12 0%,#0a0c10 100%);}
+    .hero h1{letter-spacing:.2px}
+    .pill{border:1px solid #2a2f37; color:var(--rc-muted)}
+    .kpis .card{background:#0f1319; border:1px solid #1b212a}
+    .footer{border-top:1px solid #1b212a}
+    a.btn-outline-light:hover{background:var(--rc-accent); color:#000; border-color:var(--rc-accent)}
+    .sr-only{position:absolute; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; border:0;}
   </style>
-
-  <!-- JSON-LD Organización -->
   <script type="application/ld+json">
   {
     "@context":"https://schema.org",
     "@type":"Organization",
-    "name":"RockCode",
+    "name":"RockCode SpA",
     "url":"https://rockcode.cl/",
-    "logo":"https://rockcode.cl/assets/img/og.png",
-    "sameAs":[]
+    "email":"contacto@rockcode.cl",
+    "sameAs":["https://www.linkedin.com/company/rockcode-cl"]
   }
   </script>
 </head>
-<body class="d-flex flex-column h-100">
-  <a class="skip-link" href="#contenido">Saltar al contenido</a>
+<body>
+<header class="container py-3">
+  <nav class="d-flex align-items-center justify-content-between">
+    <a class="text-decoration-none text-light fw-semibold" href="/" aria-label="Inicio RockCode">
+      <span class="me-2">🪨</span> RockCode
+    </a>
+    <div class="d-flex gap-2">
+      <a class="btn btn-sm btn-outline-light" href="#servicios">Servicios</a>
+      <a class="btn btn-sm btn-outline-light" href="#contacto">Contacto</a>
+      <a class="btn btn-sm btn-primary" href="https://link.mercadopago.cl/rockcode">Pagar</a>
+    </div>
+  </nav>
+</header>
 
-  <!-- Header / Nav -->
-  <header class="border-bottom bg-white">
-    <nav class="navbar navbar-expand-lg container" aria-label="Principal">
-      <a class="navbar-brand fw-semibold py-3 focus-ring" href="/">RockCode</a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#nav" aria-controls="nav" aria-expanded="false" aria-label="Alternar navegación">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="nav">
-        <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-          <li class="nav-item"><a class="nav-link" href="#valor">Valor</a></li>
-          <li class="nav-item"><a class="nav-link" href="#servicios">Servicios</a></li>
-          <li class="nav-item"><a class="nav-link" href="#empresa">Empresa</a></li>
-          <li class="nav-item"><a class="nav-link" href="#demos">Demos</a></li>
-          <li class="nav-item"><a class="nav-link" href="#proyectos">Proyectos</a></li>
-          <li class="nav-item"><a class="nav-link" href="#contacto">Contacto</a></li>
-          <li class="nav-item"><a class="btn btn-primary ms-lg-2 focus-ring" href="#demos">Ver demos</a></li>
+<main>
+  <section class="hero text-center px-3">
+    <div class="container">
+      <p class="pill d-inline-flex px-3 py-2 rounded-5 mb-3" role="note">GovTech / GovDX — Accesibilidad AA · Performance · Datos limpios</p>
+      <h1 class="display-5 fw-bold mb-3">Demos públicas en 7 días.<br>Estándares medibles, sin humo.</h1>
+      <p class="lead text-secondary mb-4">Llevamos sitios y flujos públicos a **AA real**, con <abbr title="Largest Contentful Paint">LCP</abbr> &lt; 2.5s y datos limpios listos para fiscalización.</p>
+      <div class="d-flex flex-wrap justify-content-center gap-2">
+        <a class="btn btn-primary btn-lg" href="mailto:contacto@rockcode.cl?subject=Contacto%20RockCode">Escribir a contacto@rockcode.cl</a>
+        <a class="btn btn-outline-light btn-lg" href="https://link.mercadopago.cl/rockcode">Pagar / Abonar</a>
+        <a class="btn btn-outline-light btn-lg" href="#servicios">Ver servicios</a>
+      </div>
+      <p class="mt-3 text-secondary"><span class="sr-only">Email: </span><strong>contacto@rockcode.cl</strong> · <span class="sr-only">Link de pago: </span>link.mercadopago.cl/rockcode</p>
+    </div>
+  </section>
+
+  <section id="servicios" class="container py-5">
+    <div class="row g-4 kpis">
+      <div class="col-md-4">
+        <div class="card h-100 p-4">
+          <h3 class="h5">Accesibilidad AA real</h3>
+          <p class="mb-0 text-secondary">Teclado, foco visible, contraste, labels. Auditoría y fixes con evidencia.</p>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="card h-100 p-4">
+          <h3 class="h5">Performance <span class="text-secondary">(&lt; 2.5s LCP)</span></h3>
+          <p class="mb-0 text-secondary">Optimización crítica, imágenes, caché y mejoras de Core Web Vitals.</p>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="card h-100 p-4">
+          <h3 class="h5">Datos limpios</h3>
+          <p class="mb-0 text-secondary">Integraciones y registros listos para control, conciliación y auditoría.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="contacto" class="container py-5">
+    <div class="row align-items-center g-4">
+      <div class="col-lg-7">
+        <h2 class="h3 mb-3">Contacto</h2>
+        <ul class="list-unstyled">
+          <li class="mb-1">Correo: <a href="mailto:contacto@rockcode.cl">contacto@rockcode.cl</a> (alias: hola@, licitaciones@, pagos@)</li>
+          <li class="mb-1">Pagos/abonos: <a href="https://link.mercadopago.cl/rockcode">link.mercadopago.cl/rockcode</a></li>
+          <li class="mb-1">Horario: Lun–Vie, 09:00–18:00 (America/Santiago)</li>
         </ul>
       </div>
-    </nav>
-  </header>
-
-  <!-- Hero -->
-  <section class="hero py-5">
-    <div class="container py-lg-5">
-      <div class="row align-items-center g-4">
-        <div class="col-lg-7">
-          <h1 class="display-5 fw-bold lh-tight" id="contenido">
-            RockCode — <span>Desarrollo de software y GovDX accesible</span>
-          </h1>
-          <p class="lead mb-3">
-            Aplicaciones y sitios web rápidos, accesibles (AA) y medibles para
-            instituciones públicas y empresas. HTML, Bootstrap 5 y JS vanilla para
-            demos y MVP que se pueden reutilizar en producción.
-          </p>
-          <div class="hero-badges">
-            <div class="pill">
-              <span class="badge rounded-pill text-bg-success">MiPyme</span>
-              <span>Microempresa</span>
-            </div>
-            <div class="pill">
-              <span class="badge rounded-pill text-bg-light text-dark">Proveedor hábil</span>
-              <span>Registro de Proveedores del Estado</span>
-            </div>
-            <div class="pill">
-              <span class="badge rounded-pill text-bg-light text-dark">RUT</span>
-              <span>78.280.182-1</span>
-            </div>
-          </div>
-          <div class="mt-4 d-flex gap-2 flex-wrap">
-            <a class="btn btn-primary btn-lg focus-ring" href="#servicios">Ver servicios</a>
-            <a class="btn btn-outline btn-lg focus-ring border-light text-light" href="#cta">Cómo trabajamos</a>
-          </div>
-        </div>
-        <div class="col-lg-5">
-          <div class="bg-white rounded-4 p-4 shadow-sm text-dark">
-            <h2 class="h5 mb-3">Definition of Done</h2>
-            <ul class="mb-0 small">
-              <li>Navegación por teclado + foco visible + contraste OK</li>
-              <li>LCP &lt; 2.5s, CLS "Good"</li>
-              <li>Formularios: guardar/reanudar + PDF descargable</li>
-              <li>Búsqueda: sinónimos, ≤2 intentos</li>
-            </ul>
-          </div>
+      <div class="col-lg-5">
+        <div class="p-4 rounded-3" style="background:#0f1319;border:1px solid #1b212a">
+          <h3 class="h5">Escríbenos ahora</h3>
+          <form action="mailto:contacto@rockcode.cl" method="post" enctype="text/plain">
+            <label for="f-nombre" class="form-label">Nombre</label>
+            <input id="f-nombre" name="nombre" class="form-control mb-2" required>
+            <label for="f-email" class="form-label">Email</label>
+            <input id="f-email" name="email" type="email" class="form-control mb-2" required>
+            <label for="f-msg" class="form-label">Mensaje</label>
+            <textarea id="f-msg" name="mensaje" class="form-control mb-3" rows="3" required></textarea>
+            <button class="btn btn-primary w-100" type="submit">Enviar por correo</button>
+          </form>
+          <p class="mt-2 small text-secondary">Al enviar aceptas ser contactado. No compartimos tus datos.</p>
         </div>
       </div>
     </div>
   </section>
+</main>
 
-  <!-- Valor -->
-  <section id="valor" class="bg-light">
-    <div class="container">
-      <div class="row g-4">
-        <div class="col-lg-4">
-          <div class="card h-100">
-            <div class="card-body">
-              <h3 class="h5">Accesibilidad primero</h3>
-              <p class="mb-0">Componentes AA: botón, nav, modal con <em>focus trap</em>, tabs, alertas y formularios con etiquetas, descripciones y estados claros.</p>
-            </div>
-          </div>
-        </div>
-        <div class="col-lg-4">
-          <div class="card h-100">
-            <div class="card-body">
-              <h3 class="h5">Rendimiento medible</h3>
-              <p class="mb-0">Imágenes optimizadas, scripts <code>defer</code>, fuentes del sistema y pruebas Lighthouse con capturas antes/después.</p>
-            </div>
-          </div>
-        </div>
-        <div class="col-lg-4">
-          <div class="card h-100">
-            <div class="card-body">
-              <h3 class="h5">Formularios que ayudan</h3>
-              <p class="mb-0">Guardado en navegador, reanudación, validación clara y exportación a PDF con <code>jsPDF</code> para trámites y solicitudes.</p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
+<footer class="footer py-4">
+  <div class="container d-flex flex-wrap justify-content-between gap-2">
+    <div class="text-secondary small">© <span id="y"></span> RockCode SpA — Chile</div>
+    <div class="text-secondary small">Accesibilidad AA · Performance medible · Datos limpios</div>
+  </div>
+</footer>
 
-  <!-- Servicios -->
-  <section id="servicios">
-    <div class="container">
-      <div class="row align-items-center g-4">
-        <div class="col-lg-6">
-          <h2 class="h3">Servicios RockCode</h2>
-          <p>
-            Ayudamos a instituciones públicas y empresas a lanzar y mejorar productos
-            digitales rápidos, accesibles y fáciles de mantener.
-          </p>
-          <ul class="list-unstyled">
-            <li class="d-flex align-items-start gap-2">
-              <svg class="check" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M9 16.17 4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
-              <span><strong>Desarrollo de sitios y aplicaciones web</strong><br>Proyectos a medida con foco en rendimiento, mantenibilidad y buenas prácticas.</span>
-            </li>
-            <li class="d-flex align-items-start gap-2 mt-2">
-              <svg class="check" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M9 16.17 4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
-              <span><strong>Auditoría de accesibilidad (AA) y performance</strong><br>Revisión técnica, reporte de hallazgos y plan de mejoras para sitios existentes.</span>
-            </li>
-            <li class="d-flex align-items-start gap-2 mt-2">
-              <svg class="check" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M9 16.17 4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
-              <span><strong>Prototipos de trámites y formularios</strong><br>Demos funcionales que integran formularios web con generación de PDF descargable.</span>
-            </li>
-            <li class="d-flex align-items-start gap-2 mt-2">
-              <svg class="check" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M9 16.17 4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
-              <span><strong>Buscadores con sinónimos</strong><br>Implementación de buscadores rápidos con índices en el navegador e interpretación de sinónimos.</span>
-            </li>
-            <li class="d-flex align-items-start gap-2 mt-2">
-              <svg class="check" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M9 16.17 4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
-              <span><strong>Consultoría tecnológica</strong><br>Asesoría en arquitectura, stack, automatizaciones y mejora de equipos internos de desarrollo.</span>
-            </li>
-          </ul>
-        </div>
-        <div class="col-lg-6">
-          <div class="ratio ratio-16x9 rounded-4 shadow-sm bg-light">
-            <!-- Reemplaza VIDEOID si quieres mostrar algo real -->
-            <iframe title="Video demo" src="https://www.youtube.com/embed/VIDEOID" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Empresa -->
-  <section id="empresa" class="bg-light">
-    <div class="container">
-      <h2 class="h3">RockCode como empresa</h2>
-      <p>
-        ROCKCODE SPA es una microempresa tecnológica chilena especializada en
-        desarrollo de software y soluciones GovDX.
-      </p>
-      <ul class="list-unstyled">
-        <li><strong>RUT empresa:</strong> 78.280.182-1</li>
-        <li><strong>Proveedor hábil en Mercado Público</strong> (Registro de Proveedores del Estado)</li>
-        <li><strong>Clasificación:</strong> MiPyme – Microempresa</li>
-        <li><strong>Domicilio legal:</strong> Antonio Bellet 193, Of. 1210, Providencia, Región Metropolitana</li>
-      </ul>
-      <p class="mb-0">
-        Trabajamos 100% remoto y/o en dependencias del cliente, sin atención de
-        público en el domicilio tributario.
-      </p>
-    </div>
-  </section>
-
-  <!-- Demos -->
-  <section id="demos">
-    <div class="container">
-      <div class="d-flex align-items-center justify-content-between mb-3">
-        <h2 class="h4 mb-0">Demos públicas</h2>
-        <a class="btn btn-outline btn-sm focus-ring border-secondary text-secondary" href="#cta">Cómo replicar</a>
-      </div>
-
-      <div class="row g-4">
-        <!-- Demo A -->
-        <div class="col-md-4">
-          <div class="card h-100">
-            <div class="card-body">
-              <h3 class="h6">Demo A — Accesibilidad AA Kit</h3>
-              <p class="mb-3">Botón, navegación, modal con <em>focus trap</em>, tabs, alertas y formulario accesible.</p>
-              <a class="btn btn-primary focus-ring" href="demos/accesibilidad/" aria-label="Abrir demo de accesibilidad">Abrir demo</a>
-            </div>
-          </div>
-        </div>
-
-        <!-- Demo B -->
-        <div class="col-md-4">
-          <div class="card h-100">
-            <div class="card-body">
-              <h3 class="h6">Demo B — FormKit Gobierno</h3>
-              <p class="mb-3">Multistep, guardado local y exportar a PDF.</p>
-              <a class="btn btn-primary focus-ring" href="demos/formkit/" aria-label="Abrir demo de formularios">Abrir demo</a>
-            </div>
-          </div>
-        </div>
-
-        <!-- Demo C -->
-        <div class="col-md-4">
-          <div class="card h-100">
-            <div class="card-body">
-              <h3 class="h6">Demo C — Buscador de Trámites</h3>
-              <p class="mb-3">JSON local + autocomplete + filtros con sinónimos.</p>
-              <a class="btn btn-primary focus-ring" href="demos/buscador/" aria-label="Abrir demo de buscador de trámites">Abrir demo</a>
-            </div>
-          </div>
-        </div>
-
-        <!-- Demo D: DataCleaner -->
-        <div class="col-md-4">
-          <div class="card h-100">
-            <div class="card-body">
-              <h3 class="h6">Demo D — DataCleaner</h3>
-              <p class="mb-3">Limpieza de datos: CSV, trim, lowercase, filas vacías y duplicados.</p>
-              <a class="btn btn-primary focus-ring" href="demos/datacleaner/" aria-label="Abrir demo DataCleaner">Abrir demo</a>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Proyectos (no demos) -->
-  <section id="proyectos" class="bg-light">
-    <div class="container">
-      <h2 class="h4 mb-3">Proyectos / MVP</h2>
-      <div class="row g-4">
-        <div class="col-lg-6">
-          <div class="card h-100">
-            <div class="card-body">
-              <span class="badge text-bg-secondary mb-2">Proyecto / MVP</span>
-              <h3 class="h5">Condominios Low-Cost</h3>
-              <p class="mb-2">Prorrateo, registro de pagos con comprobante, tablón de avisos, portal residente. AA y rendimiento medible.</p>
-              <ul class="small mb-3">
-                <li>PLAN→PR→QA→RELEASE (pipeline simulado)</li>
-                <li>Stack: HTML + BS5 + JS (frontend), mock API</li>
-              </ul>
-              <a class="btn btn-outline focus-ring border-secondary text-secondary disabled" aria-disabled="true">Ver MVP (próximamente)</a>
-            </div>
-          </div>
-        </div>
-        <!-- Más proyectos en el futuro -->
-      </div>
-    </div>
-  </section>
-
-  <!-- CTA replicar -->
-  <section id="cta">
-    <div class="container">
-      <div class="row g-4 align-items-center">
-        <div class="col-lg-8">
-          <h2 class="h4">¿Quieres replicar las demos en tu institución?</h2>
-          <p class="mb-2">
-            Publicamos un README con pasos de despliegue y una checklist AA/Perf para
-            que tu equipo técnico pueda reutilizar estas ideas.
-          </p>
-          <p class="mb-0">
-            Estamos acreditados y hábiles en el Registro de Proveedores del Estado
-            (Mercado Público), listos para trabajar con servicios públicos y empresas.
-          </p>
-        </div>
-        <div class="col-lg-4 text-lg-end">
-          <a href="#contacto" class="btn btn-success btn-lg focus-ring">Contáctanos</a>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- CONTACTO -->
-  <section id="contacto">
-    <div class="container">
-      <h2 class="h4 mb-3">Contacto</h2>
-      <p>
-        ¿Quieres conversar un proyecto o ver una demo adaptada a tu institución?
-        Escríbeme y coordinamos una reunión.
-      </p>
-
-      <p>
-        <strong>Correo directo:</strong>
-        <a href="mailto:rockwell.harrison@gmail.com">
-          rockwell.harrison@gmail.com
-        </a>
-      </p>
-
-      <
-::contentReference[oaicite:0]{index=0}
-
-  
+<script>
+  document.getElementById('y').textContent = new Date().getFullYear();
+</script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-..." crossorigin="anonymous"></script>
+</body>
+</html>
