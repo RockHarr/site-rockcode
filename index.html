@@ -193,22 +193,28 @@
         </div>
       </div>
 
-      <!-- Comunidad Transparente -->
-      <div class="col-md-6 col-lg-4">
-        <div class="card h-100 p-4" style="background:#0f1319;border:1px solid #1b212a">
-          <div class="d-flex justify-content-between align-items-center mb-2">
-            <h3 class="h5 m-0">Comunidad Transparente</h3>
-            <p class="text-secondary mb-3">Ideal para rendición simple con evidencia adjunta y pagos claros para
-              vecinos.</p>
-            <span class="badge text-bg-warning">Beta</span>
-          </div>
-          <p class="text-secondary mb-3">Rendición de cuentas simple, pagos y evidencia adjunta para comunidades.</p>
+      <!-- Comunidad Transparente (FIX) -->
+      <div class="card h-100 p-4" style="background:#0f1319;border:1px solid #1b212a">
+        <!-- Header: SOLO título + badges -->
+        <div class="d-flex justify-content-between align-items-center mb-2">
+          <h3 class="h5 m-0">Comunidad Transparente</h3>
           <div class="d-flex gap-2">
-            <a class="btn btn-primary btn-sm" href="/demos/ct/">Ver demo</a>
-            <a class="btn btn-outline-light btn-sm" href="/demos/ct/spec.md">Spec</a>
+            <span class="badge text-bg-secondary">Datos</span>
+            <span class="badge text-bg-warning" role="status" aria-label="Estado: MVP interno">Beta</span>
           </div>
         </div>
+
+        <!-- Descripción: fuera del header -->
+        <p class="text-secondary mb-3">
+          Ideal para rendición simple con evidencia adjunta y pagos claros para vecinos.
+        </p>
+
+        <div class="d-flex gap-2">
+          <a class="btn btn-primary btn-sm" href="/demos/ct/">Ver demo</a>
+          <a class="btn btn-outline-light btn-sm" href="/demos/ct/spec.md" target="_blank" rel="noopener">Spec</a>
+        </div>
       </div>
+
 
       <!-- AA Checker -->
       <div class="card h-100 p-4" style="background:#0f1319;border:1px solid #1b212a">
