@@ -1,10 +1,12 @@
 <!doctype html>
 <html lang="es" data-bs-theme="dark">
+
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>RockCode · GovTech & Datos limpios</title>
-  <meta name="description" content="RockCode: GovTech/GovDX para sector público y PYMEs. Accesibilidad AA real, performance medible y datos limpios.">
+  <meta name="description"
+    content="RockCode: GovTech/GovDX para sector público y PYMEs. Accesibilidad AA real, performance medible y datos limpios.">
   <meta property="og:title" content="RockCode · GovTech & Datos limpios">
   <meta property="og:description" content="Accesibilidad AA, performance web, datos limpios.">
   <meta property="og:type" content="website">
@@ -12,20 +14,66 @@
   <meta property="og:image" content="/assets/og.png">
   <link rel="icon" href="/assets/favicon.ico" sizes="any">
   <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-..." crossorigin="anonymous">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-..." crossorigin="anonymous">
   <style>
-    :root{
-      --rc-accent:#4cc9f0; --rc-muted:#8a8f98;
+    :root {
+      --rc-accent: #4cc9f0;
+      --rc-muted: #8a8f98;
     }
-    body{font-family: system-ui, -apple-system, "Segoe UI", Roboto, Ubuntu, "Helvetica Neue", Arial, "Noto Sans", "Apple Color Emoji","Segoe UI Emoji";}
-    .nav-link:focus, .btn:focus{outline:2px solid var(--rc-accent); outline-offset:2px;}
-    .hero{min-height:72vh; display:grid; place-items:center; background:radial-gradient(1200px 600px at 80% -10%,rgba(76,201,240,.08),transparent),linear-gradient(180deg,#0b0e12 0%,#0a0c10 100%);}
-    .hero h1{letter-spacing:.2px}
-    .pill{border:1px solid #2a2f37; color:var(--rc-muted)}
-    .kpis .card{background:#0f1319; border:1px solid #1b212a}
-    .footer{border-top:1px solid #1b212a}
-    a.btn-outline-light:hover{background:var(--rc-accent); color:#000; border-color:var(--rc-accent)}
-    .sr-only{position:absolute; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; border:0;}
+
+    body {
+      font-family: system-ui, -apple-system, "Segoe UI", Roboto, Ubuntu, "Helvetica Neue", Arial, "Noto Sans", "Apple Color Emoji", "Segoe UI Emoji";
+    }
+
+    .nav-link:focus,
+    .btn:focus {
+      outline: 2px solid var(--rc-accent);
+      outline-offset: 2px;
+    }
+
+    .hero {
+      min-height: 72vh;
+      display: grid;
+      place-items: center;
+      background: radial-gradient(1200px 600px at 80% -10%, rgba(76, 201, 240, .08), transparent), linear-gradient(180deg, #0b0e12 0%, #0a0c10 100%);
+    }
+
+    .hero h1 {
+      letter-spacing: .2px
+    }
+
+    .pill {
+      border: 1px solid #2a2f37;
+      color: var(--rc-muted)
+    }
+
+    .kpis .card {
+      background: #0f1319;
+      border: 1px solid #1b212a
+    }
+
+    .footer {
+      border-top: 1px solid #1b212a
+    }
+
+    a.btn-outline-light:hover {
+      background: var(--rc-accent);
+      color: #000;
+      border-color: var(--rc-accent)
+    }
+
+    .sr-only {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border: 0;
+    }
   </style>
   <script type="application/ld+json">
   {
@@ -38,194 +86,291 @@
   }
   </script>
 </head>
+
 <body>
-<header class="container py-3">
-  <nav class="d-flex align-items-center justify-content-between">
-    <a class="text-decoration-none text-light fw-semibold" href="/" aria-label="Inicio RockCode">
-      <span class="me-2">🪨</span> RockCode
-    </a>
-    <div class="d-flex gap-2">
-      <a class="btn btn-sm btn-outline-light" href="#servicios">Servicios</a>
-      <a class="btn btn-sm btn-outline-light" href="#demos">Demos</a>
-      <a class="btn btn-sm btn-outline-light" href="#contacto">Contacto</a>
-      <a class="btn btn-sm btn-primary" href="https://link.mercadopago.cl/rockcode">Pagar</a>
-    </div>
-  </nav>
-</header>
+  <header class="container py-3">
+    <nav class="d-flex align-items-center justify-content-between">
+      <a class="text-decoration-none text-light fw-semibold" href="/" aria-label="Inicio RockCode">
+        <span class="me-2">🪨</span> RockCode
+      </a>
+      <div class="d-flex gap-2">
+        <!-- en el <nav> -->
+        <a class="btn btn-sm btn-outline-light" href="#por-que">Por qué RockCode</a>
+        <a class="btn btn-sm btn-outline-light" href="#servicios">Servicios</a>
+        <a class="btn btn-sm btn-outline-light" href="#demos">Demos</a>
+        <a class="btn btn-sm btn-outline-light" href="#proyectos">Proyectos</a>
+        <a class="btn btn-sm btn-outline-light" href="#contacto">Contacto</a>
 
-<main>
-  <section class="hero text-center px-3">
-    <div class="container">
-      <p class="pill d-inline-flex px-3 py-2 rounded-5 mb-3" role="note">GovTech / GovDX — Accesibilidad AA · Performance · Datos limpios</p>
-      <h1 class="display-5 fw-bold mb-3">Demos públicas en 7 días.<br>Estándares medibles, sin humo.</h1>
-      <p class="lead text-secondary mb-4">Llevamos sitios y flujos públicos a **AA real**, con <abbr title="Largest Contentful Paint">LCP</abbr> &lt; 2.5s y datos limpios listos para fiscalización.</p>
-      <div class="d-flex flex-wrap justify-content-center gap-2">
-        <a class="btn btn-primary btn-lg" href="mailto:contacto@rockcode.cl?subject=Contacto%20RockCode">Escribir a contacto@rockcode.cl</a>
-        <a class="btn btn-outline-light btn-lg" href="https://link.mercadopago.cl/rockcode">Pagar / Abonar</a>
-        <a class="btn btn-outline-light btn-lg" href="#servicios">Ver servicios</a>
       </div>
-      <p class="mt-3 text-secondary"><span class="sr-only">Email: </span><strong>contacto@rockcode.cl</strong> · <span class="sr-only">Link de pago: </span>link.mercadopago.cl/rockcode</p>
-    </div>
-  </section>
+    </nav>
+  </header>
 
-  <section id="servicios" class="container py-5">
-    <div class="row g-4 kpis">
-      <div class="col-md-4">
-        <div class="card h-100 p-4">
-          <h3 class="h5">Accesibilidad AA real</h3>
-          <p class="mb-0 text-secondary">Teclado, foco visible, contraste, labels. Auditoría y fixes con evidencia.</p>
+  <main>
+    <section class="hero text-center px-3">
+      <div class="container">
+        <p class="pill d-inline-flex px-3 py-2 rounded-5 mb-3">GovTech / GovDX</p>
+        <h1 class="display-5 fw-bold mb-3">Prototipos de trámites públicos listos para probar en 7 días.</h1>
+        <p class="lead text-secondary mb-4">Con accesibilidad AA, performance medida y formularios que guardan progreso
+          y generan PDF.</p>
+        <div class="d-flex flex-wrap justify-content-center gap-2">
+          <a class="btn btn-primary btn-lg" href="#servicios">Ver servicios</a>
+          <a class="btn btn-outline-light btn-lg" href="#demos">Probar demos</a>
+          <a class="btn btn-outline-light btn-lg" href="mailto:contacto@rockcode.cl">Escríbenos</a>
         </div>
+        <p class="mt-3 text-secondary small">Detalle técnico: LCP &lt; 2.5s, CLS “Good”, auditorías Lighthouse y
+          checklist AA/Perf.</p>
       </div>
-      <div class="col-md-4">
-        <div class="card h-100 p-4">
-          <h3 class="h5">Performance <span class="text-secondary">(&lt; 2.5s LCP)</span></h3>
-          <p class="mb-0 text-secondary">Optimización crítica, imágenes, caché y mejoras de Core Web Vitals.</p>
-        </div>
-      </div>
-      <div class="col-md-4">
-        <div class="card h-100 p-4">
-          <h3 class="h5">Datos limpios</h3>
-          <p class="mb-0 text-secondary">Integraciones y registros listos para control, conciliación y auditoría.</p>
-        </div>
-      </div>
-    </div>
-  </section>
+    </section>
 
-  <section id="demos" class="container py-5">
-  <h2 class="h3 mb-4">Demos públicas</h2>
-  <div class="row g-4">
-    <!-- DataCleaner / MAKA -->
-    <div class="col-md-6 col-lg-4">
-      <div class="card h-100 p-4" style="background:#0f1319;border:1px solid #1b212a">
-        <div class="d-flex justify-content-between align-items-center mb-2">
-          <h3 class="h5 m-0">MAKA · DataCleaner</h3>
-          <span class="badge text-bg-primary">Listo</span>
+    <section id="por-que" class="container py-5">
+      <h2 class="h3 mb-3">¿Por qué RockCode?</h2>
+      <p class="text-secondary mb-4">Reducimos riesgos y tiempos en trámites digitales del Estado con prototipos
+        medibles.</p>
+      <ul class="row list-unstyled g-3">
+        <li class="col-md-4">
+          <div class="card p-4"><strong>Menos reclamos</strong><br><span class="text-secondary">Flujos claros,
+              validaciones visibles, lenguaje simple.</span></div>
+        </li>
+        <li class="col-md-4">
+          <div class="card p-4"><strong>Evidencia de cumplimiento</strong><br><span class="text-secondary">Checklist
+              AA/Perf y reportes Lighthouse para auditorías.</span></div>
+        </li>
+        <li class="col-md-4">
+          <div class="card p-4"><strong>Demos para jefaturas</strong><br><span class="text-secondary">Ejemplos jugables
+              que alinean a equipos y contraloría.</span></div>
+        </li>
+      </ul>
+    </section>
+
+    <section id="servicios" class="container py-5">
+      <h2 class="h3 mb-4">Servicios</h2>
+      <div class="row g-4">
+        <div class="col-md-6">
+          <div class="card p-4 h-100">
+            <h3 class="h5 mb-2">Auditoría AA / Performance</h3>
+            <p class="text-secondary">Reduce observaciones y reclamos con fixes priorizados.</p>
+            <ul class="text-secondary small mb-0">
+              <li>Informe con hallazgos y severidad</li>
+              <li>Capturas Lighthouse + métricas (LCP/CLS)</li>
+              <li>Checklist AA con evidencias</li>
+            </ul>
+          </div>
         </div>
-        <p class="text-secondary mb-3">Limpieza y unificación de nóminas (CSV/XLSX). Export y conciliación.</p>
-        <div class="d-flex gap-2">
-          <a class="btn btn-primary btn-sm" href="/demos/maka/">Ver demo</a>
-          <a class="btn btn-outline-light btn-sm" href="https://github.com/RockHarr/DataCleaner2">Código</a>
+        <div class="col-md-6">
+          <div class="card p-4 h-100">
+            <h3 class="h5 mb-2">Prototipo de Trámite (7 días)</h3>
+            <p class="text-secondary">Prueba con personas antes de invertir en desarrollo.</p>
+            <ul class="text-secondary small mb-0">
+              <li>HTML + Bootstrap 5 + JS</li>
+              <li>Guardado de progreso y PDF accesible</li>
+              <li>Demo jugable y guía de replicación</li>
+            </ul>
+          </div>
         </div>
       </div>
-    </div>
+    </section>
 
-    <!-- Comunidad Transparente -->
-    <div class="col-md-6 col-lg-4">
-      <div class="card h-100 p-4" style="background:#0f1319;border:1px solid #1b212a">
-        <div class="d-flex justify-content-between align-items-center mb-2">
-          <h3 class="h5 m-0">Comunidad Transparente</h3>
-          <span class="badge text-bg-warning">Beta</span>
-        </div>
-        <p class="text-secondary mb-3">Rendición de cuentas simple, pagos y evidencia adjunta para comunidades.</p>
-        <div class="d-flex gap-2">
-          <a class="btn btn-primary btn-sm" href="/demos/ct/">Ver demo</a>
-          <a class="btn btn-outline-light btn-sm" href="/demos/ct/spec.md">Spec</a>
+
+    <section id="demos" class="container py-5">
+      <h2 class="h3 mb-4">Demos públicas</h2>
+      <p class="text-secondary mb-4">Encuentra la demo según tu problema:</p>
+      <div class="row g-4">
+        <!-- MAKA · DataCleaner -->
+        <div class="card h-100 p-4" style="background:#0f1319;border:1px solid #1b212a">
+          <div class="d-flex justify-content-between align-items-center mb-2">
+            <h3 class="h5 m-0">MAKA · DataCleaner</h3>
+            <div class="d-flex gap-2">
+              <span class="badge text-bg-secondary">Datos</span>
+              <span class="badge text-bg-warning" role="status" aria-label="Estado: beta">Beta</span>
+            </div>
+          </div>
+          <p class="text-secondary mb-3">Ideal para limpiar, deduplicar y estandarizar planillas antes de importar.</p>
+          <div class="d-flex gap-2">
+            <a class="btn btn-primary btn-sm" href="/demos/maka/">Probar demo</a>
+            <a class="btn btn-outline-light btn-sm" href="https://github.com/RockHarr/DataCleaner2" target="_blank"
+              rel="noopener">Código</a>
+          </div>
         </div>
       </div>
-    </div>
 
-    <!-- AA Checker -->
-    <div class="col-md-6 col-lg-4">
+      <!-- Comunidad Transparente -->
+      <div class="col-md-6 col-lg-4">
+        <div class="card h-100 p-4" style="background:#0f1319;border:1px solid #1b212a">
+          <div class="d-flex justify-content-between align-items-center mb-2">
+            <h3 class="h5 m-0">Comunidad Transparente</h3>
+            <p class="text-secondary mb-3">Ideal para rendición simple con evidencia adjunta y pagos claros para
+              vecinos.</p>
+            <span class="badge text-bg-warning">Beta</span>
+          </div>
+          <p class="text-secondary mb-3">Rendición de cuentas simple, pagos y evidencia adjunta para comunidades.</p>
+          <div class="d-flex gap-2">
+            <a class="btn btn-primary btn-sm" href="/demos/ct/">Ver demo</a>
+            <a class="btn btn-outline-light btn-sm" href="/demos/ct/spec.md">Spec</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- AA Checker -->
       <div class="card h-100 p-4" style="background:#0f1319;border:1px solid #1b212a">
         <div class="d-flex justify-content-between align-items-center mb-2">
           <h3 class="h5 m-0">AA Checker</h3>
-          <span class="badge text-bg-info">Nuevo</span>
+          <div class="d-flex gap-2">
+            <span class="badge text-bg-info">Accesibilidad</span>
+            <span class="badge text-bg-success" role="status" aria-label="Estado: nuevo">Nuevo</span>
+          </div>
         </div>
-        <p class="text-secondary mb-3">Checklist AA (teclado, foco, contraste, labels) con ejemplos y fixes.</p>
+        <p class="text-secondary mb-3">Ideal para verificar AA en minutos: foco visible, contraste y navegación por
+          teclado.</p>
         <div class="d-flex gap-2">
-          <a class="btn btn-primary btn-sm" href="/demos/aa/">Ver demo</a>
-          <a class="btn btn-outline-light btn-sm" href="/demos/aa/checklist.pdf">Checklist</a>
+          <a class="btn btn-primary btn-sm" href="/demos/aa/">Probar demo</a>
+          <a class="btn btn-outline-light btn-sm" href="/demos/aa/checklist.pdf" target="_blank"
+            rel="noopener">Checklist</a>
         </div>
       </div>
-    </div>
 
-    <!-- Performance Kit -->
-    <div class="col-md-6 col-lg-4">
+      <!-- Performance Kit -->
       <div class="card h-100 p-4" style="background:#0f1319;border:1px solid #1b212a">
         <div class="d-flex justify-content-between align-items-center mb-2">
           <h3 class="h5 m-0">Performance Kit</h3>
-          <span class="badge text-bg-secondary">Demo</span>
+          <div class="d-flex gap-2">
+            <span class="badge text-bg-secondary">Performance</span>
+          </div>
         </div>
-        <p class="text-secondary mb-3">Plantilla con LCP &lt; 2.5s, lazy, preloads y medición Web Vitals.</p>
+        <p class="text-secondary mb-3">Ideal para partir con LCP &lt; 2.5s y buenas prácticas de carga desde el día 1.
+        </p>
         <div class="d-flex gap-2">
-          <a class="btn btn-primary btn-sm" href="/demos/perf/">Ver demo</a>
-          <a class="btn btn-outline-light btn-sm" href="/demos/perf/README.md">Guía</a>
+          <a class="btn btn-primary btn-sm" href="/demos/perf/">Probar demo</a>
+          <a class="btn btn-outline-light btn-sm" href="/demos/perf/README.md" target="_blank" rel="noopener">Guía</a>
         </div>
       </div>
-    </div>
 
-    <!-- Formulario → PDF -->
-    <div class="col-md-6 col-lg-4">
+      <!-- Buscador de Trámites -->
+      <div class="card h-100 p-4" style="background:#0f1319;border:1px solid #1b212a">
+        <div class="d-flex justify-content-between align-items-center mb-2">
+          <h3 class="h5 m-0">Buscador de Trámites</h3>
+          <div class="d-flex gap-2">
+            <span class="badge text-bg-success">Buscador</span>
+          </div>
+        </div>
+        <p class="text-secondary mb-3">Ideal para encontrar trámites rápido con sinónimos y sugerencias mientras
+          escribes.</p>
+        <div class="d-flex gap-2">
+          <a class="btn btn-primary btn-sm" href="/demos/buscador/">Probar demo</a>
+          <a class="btn btn-outline-light btn-sm" href="/demos/buscador/README.md" target="_blank" rel="noopener">Cómo
+            replicar</a>
+        </div>
+      </div>
+
+      <!-- Formulario → PDF -->
       <div class="card h-100 p-4" style="background:#0f1319;border:1px solid #1b212a">
         <div class="d-flex justify-content-between align-items-center mb-2">
           <h3 class="h5 m-0">Formulario → PDF</h3>
-          <span class="badge text-bg-secondary">Demo</span>
+          <div class="d-flex gap-2">
+            <span class="badge text-bg-primary">Formularios</span>
+          </div>
         </div>
-        <p class="text-secondary mb-3">Formulario con guardado/reanudación y generación de PDF accesible.</p>
+        <p class="text-secondary mb-3">Ideal para formularios que deben guardarse y generar comprobante PDF accesible.
+        </p>
         <div class="d-flex gap-2">
-          <a class="btn btn-primary btn-sm" href="/demos/form-pdf/">Ver demo</a>
-          <a class="btn btn-outline-light btn-sm" href="/demos/form-pdf/spec.md">Spec</a>
+          <a class="btn btn-primary btn-sm" href="/demos/form-pdf/">Probar demo</a>
+          <a class="btn btn-outline-light btn-sm" href="/demos/form-pdf/spec.md" target="_blank" rel="noopener">Spec</a>
         </div>
       </div>
-    </div>
 
-    <!-- Pagos / QR -->
-    <div class="col-md-6 col-lg-4">
+
+      <!-- Pagos / QR -->
       <div class="card h-100 p-4" style="background:#0f1319;border:1px solid #1b212a">
         <div class="d-flex justify-content-between align-items-center mb-2">
           <h3 class="h5 m-0">Pagos / QR</h3>
-          <span class="badge text-bg-success">Prod</span>
+          <div class="d-flex gap-2">
+            <span class="badge text-bg-dark">Pagos</span>
+            <span class="badge text-bg-success" role="status" aria-label="Estado: en producción">Prod</span>
+          </div>
         </div>
-        <p class="text-secondary mb-3">Link de cobro y QR sin monto definido para pruebas y abonos.</p>
+        <p class="text-secondary mb-3">Ideal para pruebas de cobro y abonos con link y QR sin monto definido.</p>
         <div class="d-flex gap-2">
-          <a class="btn btn-primary btn-sm" href="https://link.mercadopago.cl/rockcode">Ver link</a>
-          <a class="btn btn-outline-light btn-sm" href="/assets/qr/rockcode.pdf">QR A4</a>
+          <a class="btn btn-primary btn-sm" href="https://link.mercadopago.cl/rockcode" target="_blank"
+            rel="noopener">Ver link</a>
+          <a class="btn btn-outline-light btn-sm" href="/assets/qr/rockcode.pdf" target="_blank" rel="noopener">QR
+            A4</a>
         </div>
       </div>
-    </div>
-  </div>
-</section>
 
+      </div>
+    </section>
 
-  <section id="contacto" class="container py-5">
-    <div class="row align-items-center g-4">
-      <div class="col-lg-7">
-        <h2 class="h3 mb-3">Contacto</h2>
-        <ul class="list-unstyled">
-          <li class="mb-1">Correo: <a href="mailto:contacto@rockcode.cl">contacto@rockcode.cl</a> (alias: hola@, licitaciones@, pagos@)</li>
-          <li class="mb-1">Pagos/abonos: <a href="https://link.mercadopago.cl/rockcode">link.mercadopago.cl/rockcode</a></li>
-          <li class="mb-1">Horario: Lun–Vie, 09:00–18:00 (America/Santiago)</li>
+    <section id="proyectos" class="container py-5">
+      <h2 class="h3 mb-3">Proyectos / MVP</h2>
+      <div class="card p-4">
+        <div class="d-flex align-items-center gap-3">
+          <h3 class="h5 mb-0">Comunidad Transparente</h3>
+          <span class="badge text-bg-warning">MVP interno</span>
+        </div>
+        <ul class="text-secondary small mt-2 mb-0">
+          <li>Transparencia en gastos comunes</li>
+          <li>Comprobantes claros y conciliación</li>
+          <li>Diseñado para condominios de bajo presupuesto</li>
         </ul>
       </div>
-      <div class="col-lg-5">
-        <div class="p-4 rounded-3" style="background:#0f1319;border:1px solid #1b212a">
-          <h3 class="h5">Escríbenos ahora</h3>
-          <form action="mailto:contacto@rockcode.cl" method="post" enctype="text/plain">
-            <label for="f-nombre" class="form-label">Nombre</label>
-            <input id="f-nombre" name="nombre" class="form-control mb-2" required>
-            <label for="f-email" class="form-label">Email</label>
-            <input id="f-email" name="email" type="email" class="form-control mb-2" required>
-            <label for="f-msg" class="form-label">Mensaje</label>
-            <textarea id="f-msg" name="mensaje" class="form-control mb-3" rows="3" required></textarea>
-            <button class="btn btn-primary w-100" type="submit">Enviar por correo</button>
-          </form>
-          <p class="mt-2 small text-secondary">Al enviar aceptas ser contactado. No compartimos tus datos.</p>
+    </section>
+
+    <section id="quienes" class="container py-5">
+      <h2 class="h3 mb-3">Quiénes somos</h2>
+      <p class="text-secondary mb-0">
+        RockCode es un pequeño estudio chileno especializado en GovTech. Liderado por Rockwell Harrison (diseño/UX),
+        trabajamos con accesibilidad AA, performance web y datos limpios para instituciones públicas y PYMEs.
+      </p>
+    </section>
+
+
+    <section id="contacto" class="container py-5">
+      <div class="row align-items-center g-4">
+        <div class="col-lg-7">
+          <h2 class="h3 mb-3">Contacto</h2>
+          <ul class="list-unstyled">
+            <li class="mb-1">Correo: <a href="mailto:contacto@rockcode.cl">contacto@rockcode.cl</a> (alias: hola@,
+              licitaciones@, pagos@)</li>
+            <li class="mb-1">Pagos/abonos: <a
+                href="https://link.mercadopago.cl/rockcode">link.mercadopago.cl/rockcode</a></li>
+            <li class="mb-1">Horario: Lun–Vie, 09:00–18:00 (America/Santiago)</li>
+          </ul>
+        </div>
+        <div class="col-lg-5">
+          <div class="p-4 rounded-3" style="background:#0f1319;border:1px solid #1b212a">
+            <h3 class="h5">Escríbenos ahora</h3>
+            <form action="mailto:contacto@rockcode.cl" method="post" enctype="text/plain">
+              <label for="f-nombre" class="form-label">Nombre</label>
+              <input id="f-nombre" name="nombre" class="form-control mb-2" required>
+              <label for="f-email" class="form-label">Email</label>
+              <input id="f-email" name="email" type="email" class="form-control mb-2" required>
+              <label for="f-msg" class="form-label">Mensaje</label>
+              <textarea id="f-msg" name="mensaje" class="form-control mb-3" rows="3" required></textarea>
+              <button class="btn btn-primary w-100" type="submit">Enviar por correo</button>
+            </form>
+            <p class="mt-2 small text-secondary">Al enviar aceptas ser contactado. No compartimos tus datos.</p>
+          </div>
         </div>
       </div>
+    </section>
+  </main>
+
+  <footer class="footer py-4">
+    <p class="small text-secondary mt-2">
+      Usaremos tus datos solo para responder esta solicitud. No enviamos spam ni compartimos tu información.
+      <a class="link-light" href="/datos.html">Política de datos</a>
+    </p>
+
+    <div class="container d-flex flex-wrap justify-content-between gap-2">
+      <div class="text-secondary small">© <span id="y"></span> RockCode SpA — Chile</div>
+      <div class="text-secondary small">Accesibilidad AA · Performance medible · Datos limpios</div>
     </div>
-  </section>
-</main>
+  </footer>
 
-<footer class="footer py-4">
-  <div class="container d-flex flex-wrap justify-content-between gap-2">
-    <div class="text-secondary small">© <span id="y"></span> RockCode SpA — Chile</div>
-    <div class="text-secondary small">Accesibilidad AA · Performance medible · Datos limpios</div>
-  </div>
-</footer>
-
-<script>
-  document.getElementById('y').textContent = new Date().getFullYear();
-</script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-..." crossorigin="anonymous"></script>
+  <script>
+    document.getElementById('y').textContent = new Date().getFullYear();
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-..."
+    crossorigin="anonymous"></script>
 </body>
+
 </html>
