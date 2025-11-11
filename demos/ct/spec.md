@@ -1,0 +1,3 @@
+# Especificación
+
+Borrador de funcionalidades.
