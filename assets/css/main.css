@@ -195,3 +195,22 @@ a:focus-visible, button:focus-visible, .btn:focus-visible {
 /* un pelín más de aire bajo el logo si lo quieres */
 .rc-brand{ display:flex; align-items:center; gap:.4rem; }
 
+/* Header móvil: chips compactos y separación del logo */
+@media (max-width: 576px){
+  .rc-header{ padding-top:.25rem; }
+  .rc-brand{ margin-right:.5rem; }
+
+  .rc-nav{
+    display:flex;
+    flex-wrap:wrap;
+    gap:.5rem;
+    margin-top:.25rem; /* baja un pelín los chips */
+  }
+
+  .rc-nav .btn{
+    padding:.40rem .60rem;   /* menos “gorditos” */
+    font-size:.90rem;         /* texto un toque menor */
+    line-height:1.1;          /* baja la altura visual */
+    border-radius:.8rem;      /* chip más compacto */
+  }
+}
