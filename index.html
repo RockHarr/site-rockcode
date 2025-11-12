@@ -110,9 +110,21 @@
     <section class="rc-hero">
       <div class="container">
         <p class="pill d-inline-flex px-3 py-2 rounded-5 mb-3">GovTech / GovDX</p>
-        <h1 class="display-5 fw-bold mb-3">Prototipos de trámites públicos listos para probar en 7 días.</h1>
-        <p class="lead text-secondary mb-4">Con accesibilidad AA, performance medida y formularios que guardan progreso
-          y generan PDF.</p>
+        <section class="rc-hero container py-5">
+          <h1 class="mb-3">Prototipos de trámites públicos en 7 días</h1>
+          <p class="lead text-secondary mb-4">
+            Con accesibilidad AA, performance medida y formularios que guardan progreso.
+          </p>
+
+          <!-- AQUÍ va .rc-kpis -->
+          <div class="rc-kpis d-flex flex-wrap gap-2">
+            <span class="badge text-bg-secondary">LCP &lt; 2.5s</span>
+            <span class="badge text-bg-secondary">CLS: Good</span>
+            <span class="badge text-bg-secondary">Accesibilidad AA</span>
+            <span class="badge text-bg-secondary">PDF auto-generado</span>
+          </div>
+        </section>
+
         <div class="d-flex flex-wrap justify-content-center gap-2">
           <a class="btn btn-primary btn-lg" href="#servicios">Ver servicios</a>
           <a class="btn btn-outline-light btn-lg" href="#demos">Probar demos</a>
@@ -319,7 +331,7 @@
         <div class="d-flex gap-2">
           <a class="btn btn-outline-light btn-sm" href="https://github.com/RockHarr/DataCleaner2" target="_blank"
             rel="noopener">Código</a>
-          
+
           <!-- <a class="btn btn-primary btn-sm" href="/demos/maka/">Ver demo</a> -->
         </div>
       </div>
@@ -379,44 +391,43 @@
   </main>
 
   <footer class="mt-5 pt-4 pb-5 border-top" id="footer">
-  <div class="container">
-    <div class="row g-3 align-items-start">
-      <!-- Pilares (derecha en desktop, arriba en móvil) -->
-      <nav class="col-12 col-md-6 order-1 order-md-2 d-flex justify-content-md-end"
-           aria-label="Pilares de RockCode">
-        <ul class="list-inline mb-0 small">
-          <li class="list-inline-item">
-            <a class="link-light link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover"
-               href="/accesibilidad.html">Accesibilidad AA</a>
-          </li>
-          <li class="list-inline-item text-secondary">·</li>
-          <li class="list-inline-item">
-            <a class="link-light link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover"
-               href="/performance.html">Performance medible</a>
-          </li>
-          <li class="list-inline-item text-secondary">·</li>
-          <li class="list-inline-item">
-            <a class="link-light link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover"
-               href="/datos.html#limpios">Datos limpios</a>
-          </li>
-        </ul>
-      </nav>
+    <div class="container">
+      <div class="row g-3 align-items-start">
+        <!-- Pilares (derecha en desktop, arriba en móvil) -->
+        <nav class="col-12 col-md-6 order-1 order-md-2 d-flex justify-content-md-end" aria-label="Pilares de RockCode">
+          <ul class="list-inline mb-0 small">
+            <li class="list-inline-item">
+              <a class="link-light link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover"
+                href="/accesibilidad.html">Accesibilidad AA</a>
+            </li>
+            <li class="list-inline-item text-secondary">·</li>
+            <li class="list-inline-item">
+              <a class="link-light link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover"
+                href="/performance.html">Performance medible</a>
+            </li>
+            <li class="list-inline-item text-secondary">·</li>
+            <li class="list-inline-item">
+              <a class="link-light link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover"
+                href="/datos.html#limpios">Datos limpios</a>
+            </li>
+          </ul>
+        </nav>
 
-      <!-- Copyright + privacidad (izquierda en desktop, abajo en móvil) -->
-      <div class="col-12 col-md-6 order-2 order-md-1">
-        <p class="text-secondary mb-1">&copy; 2025 RockCode SpA — Chile</p>
-        <p class="text-secondary mb-0">
-          Usaremos tus datos solo para responder esta solicitud. No enviamos spam ni
-          compartimos tu información.
-          <a class="link-light link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover"
-             href="/datos.html" rel="privacy" aria-label="Leer la Política de datos de RockCode">
-            Política de datos
-          </a>.
-        </p>
+        <!-- Copyright + privacidad (izquierda en desktop, abajo en móvil) -->
+        <div class="col-12 col-md-6 order-2 order-md-1">
+          <p class="text-secondary mb-1">&copy; 2025 RockCode SpA — Chile</p>
+          <p class="text-secondary mb-0">
+            Usaremos tus datos solo para responder esta solicitud. No enviamos spam ni
+            compartimos tu información.
+            <a class="link-light link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover"
+              href="/datos.html" rel="privacy" aria-label="Leer la Política de datos de RockCode">
+              Política de datos
+            </a>.
+          </p>
+        </div>
       </div>
     </div>
-  </div>
-</footer>
+  </footer>
 
 
   <!-- Scripts -->
