@@ -1,27 +1,43 @@
 <!doctype html>
 <html lang="en" data-bs-theme="dark">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>RockCode · GovTech & Clean Data</title>
-  <meta name="description" content="RockCode: rapid GovTech/GovDX prototypes for public sector and SMEs. AA accessibility, measurable performance and clean data." />
-  <meta property="og:title" content="RockCode · GovTech & Clean Data" />
-  <meta property="og:description" content="AA accessibility, measurable performance, clean data." />
-  <meta property="og:type" content="website" />
-  <meta property="og:url" content="https://rockcode.cl/en/" />
-  <meta property="og:image" content="/assets/og.png" />
-
-  <!-- hreflang -->
+  <meta name="description" content="RockCode: GovTech/GovDX for public sector and SMEs. Real AA accessibility, measurable performance, and clean data.">
+  <meta property="og:title" content="RockCode · GovTech & Clean Data">
+  <meta property="og:description" content="AA accessibility, web performance, clean data.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://rockcode.cl/en/">
+  <meta property="og:image" content="/assets/og.png">
   <link rel="alternate" href="https://rockcode.cl/" hreflang="es" />
   <link rel="alternate" href="https://rockcode.cl/en/" hreflang="en" />
   <link rel="alternate" href="https://rockcode.cl/" hreflang="x-default" />
 
-  <link rel="icon" href="/assets/favicon.ico" sizes="any" />
-  <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png" />
-  <link rel="stylesheet" href="/assets/css/main.css" />
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous" />
+  <link rel="icon" href="/assets/favicon.ico" sizes="any">
+  <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
 
-  <!-- Organization schema -->
+  <!-- Bootstrap first -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
+  <!-- Your CSS afterwards to override -->
+  <link rel="stylesheet" href="/assets/css/main.css">
+
+  <style>
+    :root { --rc-accent:#4cc9f0; --rc-muted:#8a8f98; }
+    body { font-family: system-ui, -apple-system, "Segoe UI", Roboto, Ubuntu, "Helvetica Neue", Arial, "Noto Sans", "Apple Color Emoji", "Segoe UI Emoji"; }
+    .nav-link:focus, .btn:focus { outline:2px solid var(--rc-accent); outline-offset:2px; }
+    /* Hero dark with soft gradient */
+    .rc-hero {
+      min-height: 72vh;
+      display: grid;
+      place-items: center;
+      background: radial-gradient(1200px 600px at 80% -10%, rgba(76,201,240,.08), transparent),
+                  linear-gradient(180deg,#0b0e12 0%, #0a0c10 100%);
+    }
+    .pill { border:1px solid #2a2f37; color:var(--rc-muted) }
+    .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0;}
+  </style>
+
   <script type="application/ld+json">
   {
     "@context":"https://schema.org",
@@ -33,37 +49,36 @@
   }
   </script>
 </head>
-
 <body>
   <header class="container py-3">
     <nav class="d-flex align-items-center justify-content-between">
-      <a class="text-decoration-none text-light fw-semibold" href="/en/" aria-label="RockCode Home">
-        <span class="me-2">🪨</span> RockCode
-      </a>
-      <div class="d-flex flex-wrap gap-2">
-        <a class="btn btn-sm btn-outline-light" href="#why">Why RockCode</a>
-        <a class="btn btn-sm btn-outline-light" href="#services">Services</a>
-        <a class="btn btn-sm btn-outline-light" href="#demos">Demos</a>
-        <a class="btn btn-sm btn-outline-light" href="#projects">Projects</a>
-        <a class="btn btn-sm btn-outline-light" href="#contact">Contact</a>
-        <!-- language switch -->
-        <a class="btn btn-sm btn-outline-light" href="/" lang="es" aria-label="Cambiar a español">ES</a>
+      <a class="text-decoration-none text-light fw-semibold" href="/en/" aria-label="RockCode Home">🪨 RockCode</a>
+      <div class="d-flex gap-2">
+        </a>
+        <div class="rc-nav">
+          <a class="btn btn-sm btn-outline-light" href="#why">Why RockCode</a>
+          <a class="btn btn-sm btn-outline-light" href="#services">Services</a>
+          <a class="btn btn-sm btn-outline-light" href="#demos">Demos</a>
+          <a class="btn btn-sm btn-outline-light" href="#projects">Projects</a>
+          <a class="btn btn-sm btn-outline-light" href="#contact">Contact</a>
+          <a class="btn btn-sm btn-outline-light" href="/" lang="es" aria-label="Cambiar a español">ES</a>
+        </div>
+    </nav>
+    <nav class="d-flex align-items-center justify-content-between">
       </div>
     </nav>
+  
   </header>
 
   <main>
     <!-- HERO -->
     <section class="rc-hero">
-      <div class="container py-5">
+      <div class="container py-5 text-center">
         <p class="pill d-inline-flex px-3 py-2 rounded-5 mb-3">GovTech / GovDX</p>
+        <h1 class="display-5 fw-bold mb-3">Rapid public-service prototypes in 7 days</h1>
+        <p class="lead text-secondary mb-4">With AA accessibility, measured performance, and forms that save progress.</p>
 
-        <h1 class="mb-3">Rapid public-service prototypes in 7 days</h1>
-        <p class="lead text-secondary mb-4">
-          With AA accessibility, measured performance, and forms that save progress.
-        </p>
-
-        <div class="rc-kpis d-flex flex-wrap gap-2 mb-4">
+        <div class="rc-kpis d-flex flex-wrap justify-content-center gap-2 mb-4">
           <span class="badge text-bg-secondary">LCP &lt; 2.5s</span>
           <span class="badge text-bg-secondary">CLS: Good</span>
           <span class="badge text-bg-secondary">AA Accessibility</span>
@@ -75,40 +90,20 @@
           <a class="btn btn-outline-light btn-lg" href="#demos">Try demos</a>
           <a class="btn btn-outline-light btn-lg" href="mailto:contacto@rockcode.cl">Write to us</a>
         </div>
-
-        <p class="mt-3 text-secondary small">
-          Technical details: LCP &lt; 2.5s, CLS “Good”, Lighthouse audits and AA/Perf checklist.
-        </p>
+        <p class="mt-3 text-secondary small">Technical detail: LCP &lt; 2.5s, CLS “Good”, Lighthouse audits and AA/Perf checklist.</p>
       </div>
     </section>
 
-    <!-- WHY -->
     <section id="why" class="container py-5">
-      <h2 class="h3 mb-3">Why RockCode</h2>
+      <h2 class="h3 mb-3">Why RockCode?</h2>
       <p class="text-secondary mb-4">We reduce risk and time in government digital services with measurable prototypes.</p>
       <ul class="row list-unstyled g-3">
-        <li class="col-md-4">
-          <div class="card p-4 h-100">
-            <strong>Fewer complaints</strong><br />
-            <span class="text-secondary">Clear flows, visible validation, plain language.</span>
-          </div>
-        </li>
-        <li class="col-md-4">
-          <div class="card p-4 h-100">
-            <strong>Compliance evidence</strong><br />
-            <span class="text-secondary">AA/Perf checklist and Lighthouse reports for audits.</span>
-          </div>
-        </li>
-        <li class="col-md-4">
-          <div class="card p-4 h-100">
-            <strong>Demos for leadership</strong><br />
-            <span class="text-secondary">Playable examples to align teams and oversight.</span>
-          </div>
-        </li>
+        <li class="col-md-4"><div class="card p-4 h-100"><strong>Fewer complaints</strong><br><span class="text-secondary">Clear flows, visible validation, plain language.</span></div></li>
+        <li class="col-md-4"><div class="card p-4 h-100"><strong>Compliance evidence</strong><br><span class="text-secondary">AA/Perf checklist and Lighthouse reports for audits.</span></div></li>
+        <li class="col-md-4"><div class="card p-4 h-100"><strong>Demos for leadership</strong><br><span class="text-secondary">Playable examples that align teams and oversight.</span></div></li>
       </ul>
     </section>
 
-    <!-- SERVICES -->
     <section id="services" class="container py-5">
       <h2 class="h3 mb-4">Services</h2>
       <div class="row g-4">
@@ -126,127 +121,125 @@
         <div class="col-md-6">
           <div class="card p-4 h-100">
             <h3 class="h5 mb-2">Service Prototype (7 days)</h3>
-            <p class="text-secondary">Test with people before committing to development.</p>
+            <p class="text-secondary">Test with people before investing in development.</p>
             <ul class="text-secondary small mb-0">
               <li>HTML + Bootstrap 5 + JS</li>
-              <li>Progress saving & accessible PDF</li>
-              <li>Playable demo & replication guide</li>
+              <li>Progress saving and accessible PDF</li>
+              <li>Playable demo and replication guide</li>
             </ul>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- DEMOS -->
     <section id="demos" class="container py-5">
       <h2 class="h3 mb-4">Public demos</h2>
-      <p class="text-secondary mb-4">Pick the demo that matches your problem:</p>
-
+      <p class="text-secondary mb-4">Find the demo that matches your problem:</p>
       <div class="row g-4">
-        <!-- Transparent Community -->
-        <div class="card rc-card">
-          <div class="d-flex justify-content-between align-items-center mb-2">
-            <h3 class="h5 m-0">Transparent Community</h3>
-            <div class="d-flex gap-2">
-              <span class="badge text-bg-secondary">Data</span>
-              <span class="badge text-bg-warning" role="status" aria-label="Status: internal MVP">Beta</span>
+
+        <div class="col-md-6 col-lg-4">
+          <div class="card rc-card h-100">
+            <div class="d-flex justify-content-between align-items-center mb-2">
+              <h3 class="h5 m-0">Transparent Community</h3>
+              <div class="rc-nav">
+                <span class="badge text-bg-secondary">Data</span>
+                <span class="badge text-bg-warning" role="status" aria-label="Status: internal MVP">Beta</span>
+              </div>
             </div>
-          </div>
-          <p class="text-secondary mb-3">Simple expense reporting with attachments and clear payments for neighbors.</p>
-          <div class="d-flex gap-2">
-            <a class="btn btn-primary btn-sm" href="/demos/ct/">View demo</a>
-            <a class="btn btn-outline-light btn-sm" href="/demos/ct/spec.md" target="_blank" rel="noopener">Spec</a>
+            <p class="text-secondary mb-3">Simple expense reporting with attachments and clear payments for residents.</p>
+            <div class="rc-nav">
+              <a class="btn btn-primary btn-sm" href="/demos/ct/">View demo</a>
+              <a class="btn btn-outline-light btn-sm" href="/demos/ct/spec.md" target="_blank" rel="noopener">Spec</a>
+            </div>
           </div>
         </div>
 
-        <!-- AA Checker -->
-        <div class="card rc-card">
-          <div class="d-flex justify-content-between align-items-center mb-2">
-            <h3 class="h5 m-0">AA Checker</h3>
-            <div class="d-flex gap-2">
-              <span class="badge text-bg-info">Accessibility</span>
-              <span class="badge text-bg-success" role="status" aria-label="Status: new">New</span>
+        <div class="col-md-6 col-lg-4">
+          <div class="card rc-card h-100">
+            <div class="d-flex justify-content-between align-items-center mb-2">
+              <h3 class="h5 m-0">AA Checker</h3>
+              <div class="rc-nav">
+                <span class="badge text-bg-info">Accessibility</span>
+                <span class="badge text-bg-success" role="status" aria-label="Status: new">New</span>
+              </div>
             </div>
-          </div>
-          <p class="text-secondary mb-3">Check AA fast: focus visibility, contrast and keyboard navigation.</p>
-          <div class="d-flex gap-2">
-            <a class="btn btn-primary btn-sm" href="/demos/aa/">Try demo</a>
-            <a class="btn btn-outline-light btn-sm" href="/demos/aa/checklist.pdf" target="_blank" rel="noopener">Checklist</a>
+            <p class="text-secondary mb-3">Check AA in minutes: focus visibility, contrast and keyboard navigation.</p>
+            <div class="rc-nav">
+              <a class="btn btn-primary btn-sm" href="/demos/aa/">Try demo</a>
+              <a class="btn btn-outline-light btn-sm" href="/demos/aa/checklist.pdf" target="_blank" rel="noopener">Checklist</a>
+            </div>
           </div>
         </div>
 
-        <!-- Performance Kit -->
-        <div class="card rc-card">
-          <div class="d-flex justify-content-between align-items-center mb-2">
-            <h3 class="h5 m-0">Performance Kit</h3>
-            <div class="d-flex gap-2">
-              <span class="badge text-bg-secondary">Performance</span>
+        <div class="col-md-6 col-lg-4">
+          <div class="card rc-card h-100">
+            <div class="d-flex justify-content-between align-items-center mb-2">
+              <h3 class="h5 m-0">Performance Kit</h3>
+              <div class="rc-nav"><span class="badge text-bg-secondary">Performance</span></div>
             </div>
-          </div>
-          <p class="text-secondary mb-3">Start with LCP &lt; 2.5s and solid loading practices from day one.</p>
-          <div class="d-flex gap-2">
-            <a class="btn btn-primary btn-sm" href="/demos/perf/">Try demo</a>
-            <a class="btn btn-outline-light btn-sm" href="/demos/perf/README.md" target="_blank" rel="noopener">Guide</a>
+            <p class="text-secondary mb-3">Start with LCP &lt; 2.5s and solid loading practices from day one.</p>
+            <div class="rc-nav">
+              <a class="btn btn-primary btn-sm" href="/demos/perf/">Try demo</a>
+              <a class="btn btn-outline-light btn-sm" href="/demos/perf/README.md" target="_blank" rel="noopener">Guide</a>
+            </div>
           </div>
         </div>
 
-        <!-- Service Finder -->
-        <div class="card rc-card">
-          <div class="d-flex justify-content-between align-items-center mb-2">
-            <h3 class="h5 m-0">Service Finder</h3>
-            <div class="d-flex gap-2">
-              <span class="badge text-bg-success">Search</span>
+        <div class="col-md-6 col-lg-4">
+          <div class="card rc-card h-100">
+            <div class="d-flex justify-content-between align-items-center mb-2">
+              <h3 class="h5 m-0">Service Finder</h3>
+              <div class="rc-nav"><span class="badge text-bg-success">Search</span></div>
             </div>
-          </div>
-          <p class="text-secondary mb-3">Find services fast with synonyms and type-ahead suggestions.</p>
-          <div class="d-flex gap-2">
-            <a class="btn btn-primary btn-sm" href="/demos/buscador/">Try demo</a>
-            <a class="btn btn-outline-light btn-sm" href="/demos/buscador/README.md" target="_blank" rel="noopener">How to replicate</a>
+            <p class="text-secondary mb-3">Find services quickly with synonyms and type-ahead suggestions.</p>
+            <div class="rc-nav">
+              <a class="btn btn-primary btn-sm" href="/demos/buscador/">Try demo</a>
+              <a class="btn btn-outline-light btn-sm" href="/demos/buscador/README.md" target="_blank" rel="noopener">How to replicate</a>
+            </div>
           </div>
         </div>
 
-        <!-- Form -> PDF -->
-        <div class="card rc-card">
-          <div class="d-flex justify-content-between align-items-center mb-2">
-            <h3 class="h5 m-0">Form → PDF</h3>
-            <div class="d-flex gap-2">
-              <span class="badge text-bg-primary">Forms</span>
+        <div class="col-md-6 col-lg-4">
+          <div class="card rc-card h-100">
+            <div class="d-flex justify-content-between align-items-center mb-2">
+              <h3 class="h5 m-0">Form → PDF</h3>
+              <div class="rc-nav"><span class="badge text-bg-primary">Forms</span></div>
             </div>
-          </div>
-          <p class="text-secondary mb-3">For forms that must save progress and generate an accessible PDF receipt.</p>
-          <div class="d-flex gap-2">
-            <a class="btn btn-primary btn-sm" href="/demos/form-pdf/">Try demo</a>
-            <a class="btn btn-outline-light btn-sm" href="/demos/form-pdf/spec.md" target="_blank" rel="noopener">Spec</a>
+            <p class="text-secondary mb-3">For forms that must save progress and generate an accessible PDF receipt.</p>
+            <div class="rc-nav">
+              <a class="btn btn-primary btn-sm" href="/demos/form-pdf/">Try demo</a>
+              <a class="btn btn-outline-light btn-sm" href="/demos/form-pdf/spec.md" target="_blank" rel="noopener">Spec</a>
+            </div>
           </div>
         </div>
 
-        <!-- Payments / QR -->
-        <div class="card rc-card">
-          <div class="d-flex justify-content-between align-items-center mb-2">
-            <h3 class="h5 m-0">Payments / QR</h3>
-            <div class="d-flex gap-2">
-              <span class="badge text-bg-dark">Payments</span>
-              <span class="badge text-bg-success" role="status" aria-label="Status: production">Prod</span>
+        <div class="col-md-6 col-lg-4">
+          <div class="card rc-card h-100">
+            <div class="d-flex justify-content-between align-items-center mb-2">
+              <h3 class="h5 m-0">Payments / QR</h3>
+              <div class="rc-nav">
+                <span class="badge text-bg-dark">Payments</span>
+                <span class="badge text-bg-success" role="status" aria-label="Status: production">Prod</span>
+              </div>
+            </div>
+            <p class="text-secondary mb-3">Test charges and deposits via link and amount-free QR.</p>
+            <div class="rc-nav">
+              <a class="btn btn-primary btn-sm" href="https://link.mercadopago.cl/rockcode" target="_blank" rel="noopener">View link</a>
+              <a class="btn btn-outline-light btn-sm" href="/assets/qr/rockcode.pdf" target="_blank" rel="noopener">QR A4</a>
             </div>
           </div>
-          <p class="text-secondary mb-3">Test charges and deposits via link and amount-free QR.</p>
-          <div class="d-flex gap-2">
-            <a class="btn btn-primary btn-sm" href="https://link.mercadopago.cl/rockcode" target="_blank" rel="noopener">View link</a>
-            <a class="btn btn-outline-light btn-sm" href="/assets/qr/rockcode.pdf" target="_blank" rel="noopener">QR A4</a>
-          </div>
         </div>
+
       </div>
     </section>
 
-    <!-- PROJECTS -->
     <section id="projects" class="container py-5">
       <h2 class="h3 mb-3">Projects / MVP</h2>
 
-      <!-- MAKA · DataCleaner -->
-      <div class="card rc-card">
+      <div class="card rc-card mb-4">
         <div class="d-flex justify-content-between align-items-center mb-2">
           <h3 class="h5 m-0">MAKA · DataCleaner</h3>
-          <div class="d-flex gap-2">
+          <div class="rc-nav">
             <span class="badge text-bg-secondary">Data</span>
             <span class="badge text-bg-warning" role="status" aria-label="Status: internal MVP">MVP</span>
           </div>
@@ -255,39 +248,37 @@
           Cleans, deduplicates and standardizes spreadsheets before importing. Designed for teams with high Excel/CSV volume and quality control needs.
         </p>
         <ul class="text-secondary mb-3" style="padding-left:1.1rem">
-          <li>Cleaning & normalization rules</li>
+          <li>Cleaning and normalization rules</li>
           <li>Duplicate detection</li>
           <li>Export ready for external systems</li>
         </ul>
-        <div class="d-flex gap-2">
+        <div class="rc-nav">
           <a class="btn btn-outline-light btn-sm" href="https://github.com/RockHarr/DataCleaner2" target="_blank" rel="noopener">Code</a>
           <!-- <a class="btn btn-primary btn-sm" href="/demos/maka/">View demo</a> -->
         </div>
       </div>
 
-      <!-- Transparent Community (summary) -->
-      <div class="card p-4">
-        <div class="d-flex align-items-center gap-3">
+      <div class="card rc-card">
+        <div class="d-flex align-items-center gap-3 mb-2">
           <h3 class="h5 mb-0">Transparent Community</h3>
-          <span class="badge text-bg-warning">Internal MVP</span>
+          <span class="badge text-bg-warning" role="status" aria-label="Status: internal MVP">Internal MVP</span>
         </div>
         <ul class="text-secondary small mt-2 mb-0">
           <li>Transparency in shared expenses</li>
-          <li>Clear receipts & reconciliation</li>
+          <li>Clear receipts and reconciliation</li>
           <li>Designed for low-budget condominiums</li>
         </ul>
       </div>
     </section>
 
-    <!-- ABOUT -->
     <section id="about" class="container py-5">
       <h2 class="h3 mb-3">About us</h2>
       <p class="text-secondary mb-0">
-        RockCode is a small Chilean studio specialized in GovTech. Led by Rockwell Harrison (Design/UX), we work with AA accessibility, web performance and clean data for public institutions and SMEs.
+        RockCode is a small Chilean studio specialized in GovTech. Led by Rockwell Harrison (Design/UX),
+        we work with AA accessibility, web performance and clean data for public institutions and SMEs.
       </p>
     </section>
 
-    <!-- CONTACT -->
     <section id="contact" class="container py-5">
       <div class="row align-items-center g-4">
         <div class="col-lg-7">
@@ -303,55 +294,46 @@
             <h3 class="h5">Write to us</h3>
             <form action="mailto:contacto@rockcode.cl" method="post" enctype="text/plain">
               <label for="f-name" class="form-label">Name</label>
-              <input id="f-name" name="name" class="form-control mb-2" required />
+              <input id="f-name" name="name" class="form-control mb-2" required>
               <label for="f-email" class="form-label">Email</label>
-              <input id="f-email" name="email" type="email" class="form-control mb-2" required />
+              <input id="f-email" name="email" type="email" class="form-control mb-2" required>
               <label for="f-msg" class="form-label">Message</label>
               <textarea id="f-msg" name="message" class="form-control mb-3" rows="3" required></textarea>
               <button class="btn btn-primary w-100" type="submit">Send by email</button>
             </form>
-            <p class="mt-2 small text-secondary">By sending you agree to be contacted. We don’t share your data.</p>
+            <p class="mt-2 small text-secondary">By sending you agree to be contacted. We do not share your data.</p>
           </div>
         </div>
       </div>
     </section>
   </main>
 
-  <!-- FOOTER -->
   <footer class="mt-5 pt-4 pb-5 border-top" id="footer">
     <div class="container">
       <div class="row g-3 align-items-start">
         <nav class="col-12 col-md-6 order-1 order-md-2 d-flex justify-content-md-end" aria-label="RockCode pillars">
           <ul class="list-inline mb-0 small">
-            <li class="list-inline-item">
-              <a class="link-light link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover" href="/accesibilidad.html">AA Accessibility</a>
-            </li>
+            <li class="list-inline-item"><a class="link-light link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover" href="/accesibilidad.html">AA Accessibility</a></li>
             <li class="list-inline-item text-secondary">·</li>
-            <li class="list-inline-item">
-              <a class="link-light link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover" href="/performance.html">Measurable performance</a>
-            </li>
+            <li class="list-inline-item"><a class="link-light link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover" href="/performance.html">Measurable performance</a></li>
             <li class="list-inline-item text-secondary">·</li>
-            <li class="list-inline-item">
-              <a class="link-light link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover" href="/datos.html#limpios">Clean data</a>
-            </li>
+            <li class="list-inline-item"><a class="link-light link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover" href="/datos.html#limpios">Clean data</a></li>
           </ul>
         </nav>
-
         <div class="col-12 col-md-6 order-2 order-md-1">
-          <p class="text-secondary mb-1">&copy; <span id="y">2025</span> RockCode SpA — Chile</p>
+          <p class="text-secondary mb-1">&copy; <span id="y"></span> RockCode SpA — Chile</p>
           <p class="text-secondary mb-0">
             We will use your data only to answer this request. We don’t send spam or share your information.
-            <a class="link-light link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover" href="/datos.html" rel="privacy" aria-label="Read RockCode Privacy Policy">
-              Privacy policy
-            </a>.
+            <a class="link-light link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover" href="/datos.html" rel="privacy" aria-label="Read the RockCode Privacy Policy">Privacy policy</a>.
           </p>
         </div>
       </div>
     </div>
   </footer>
 
+  <!-- Scripts -->
   <script>
-    document.getElementById('y').textContent = new Date().getFullYear();
+    const y = document.getElementById('y'); if (y) y.textContent = new Date().getFullYear();
   </script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
 </body>
