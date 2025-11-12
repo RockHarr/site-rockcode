@@ -150,3 +150,48 @@ a:focus-visible, button:focus-visible, .btn:focus-visible {
   nav, header .btn, .rc-hero { display:none !important; }
   a { text-decoration: none !important; }
 }
+
+/* ===== Header compacto en móvil ===== */
+@media (max-width: 576px){
+  /* reduce el alto del header */
+  header.container{
+    padding-top: .5rem !important;
+    padding-bottom: .5rem !important;
+  }
+
+  /* separa un poco el logo de los botones */
+  header nav{
+    gap: .5rem;
+  }
+
+  /* grupo de nav como carrusel horizontal si no cabe */
+  .rc-nav{
+    display: flex;
+    gap: .4rem;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;            /* Firefox */
+    max-width: 100%;
+  }
+  .rc-nav::-webkit-scrollbar{ display: none; }  /* WebKit */
+
+  /* botones más delgados y tipografía más chica */
+  .rc-nav .btn{
+    padding: .35rem .6rem;            /* antes ~.5 .75 */
+    font-size: .82rem;                 /* antes ~.875 */
+    line-height: 1.1;
+    border-radius: .55rem;
+    white-space: nowrap;               /* que no corten en dos líneas */
+    border-width: 1px;
+  }
+
+  /* opcional: achicar aún más el contorno */
+  .rc-nav .btn-outline-light{
+    --bs-btn-hover-color: #000;        /* mantiene buen contraste al hover */
+  }
+}
+
+/* un pelín más de aire bajo el logo si lo quieres */
+.rc-brand{ display:flex; align-items:center; gap:.4rem; }
+
