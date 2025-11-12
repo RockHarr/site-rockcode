@@ -1,11 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url><loc>https://rockcode.cl/</loc><priority>1.0</priority></url>
-  <url><loc>https://rockcode.cl/demos/accesibilidad/</loc></url>
-  <url><loc>https://rockcode.cl/demos/formkit/</loc></url>
-  <url><loc>https://rockcode.cl/demos/buscador/</loc></url>
-  <url><loc>https://rockcode.cl/demos/datacleaner/</loc></url>
-  <url><loc>https://rockcode.cl/accesibilidad.html</loc></url>
-  <url><loc>https://rockcode.cl/faq.html</loc></url>
-  <url><loc>https://rockcode.cl/datos.html</loc></url>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  <url>
+    <loc>https://rockcode.cl/</loc>
+    <lastmod>2025-11-12</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="es" href="https://rockcode.cl/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://rockcode.cl/en/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://rockcode.cl/"/>
+  </url>
+  <url>
+    <loc>https://rockcode.cl/en/</loc>
+    <lastmod>2025-11-12</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="es" href="https://rockcode.cl/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://rockcode.cl/en/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://rockcode.cl/"/>
+  </url>
 </urlset>
