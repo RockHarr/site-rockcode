@@ -36,6 +36,8 @@
     }
     .pill { border:1px solid #2a2f37; color:var(--rc-muted) }
     .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0;}
+    .skip-link{position:absolute;top:0;left:0;padding:0.5rem 1rem;background:var(--rc-accent);color:#000;font-weight:bold;z-index:9999;transform:translateY(-100%);transition:transform 0.2s;}
+    .skip-link:focus{transform:translateY(0);}
   </style>
 
   <script type="application/ld+json">
@@ -50,6 +52,7 @@
   </script>
 </head>
 <body>
+  <a class="skip-link" href="#main-content">Skip to content</a>
   <header class="container py-3">
     <nav class="d-flex align-items-center justify-content-between">
       <a class="text-decoration-none text-light fw-semibold" href="/en/" aria-label="RockCode Home">🪨 RockCode</a>
@@ -70,7 +73,7 @@
   
   </header>
 
-  <main>
+  <main id="main-content">
     <!-- HERO -->
     <section class="rc-hero">
       <div class="container py-5 text-center">
