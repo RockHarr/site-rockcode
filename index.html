@@ -297,11 +297,11 @@
             <h3 class="h5">Escríbenos ahora</h3>
             <form action="mailto:contacto@rockcode.cl" method="post" enctype="text/plain">
               <label for="f-nombre" class="form-label">Nombre</label>
-              <input id="f-nombre" name="nombre" class="form-control mb-2" required>
+              <input id="f-nombre" name="nombre" class="form-control mb-2" required autocomplete="name" placeholder="Tu nombre">
               <label for="f-email" class="form-label">Email</label>
-              <input id="f-email" name="email" type="email" class="form-control mb-2" required>
+              <input id="f-email" name="email" type="email" class="form-control mb-2" required autocomplete="email" placeholder="nombre@ejemplo.com">
               <label for="f-msg" class="form-label">Mensaje</label>
-              <textarea id="f-msg" name="mensaje" class="form-control mb-3" rows="3" required></textarea>
+              <textarea id="f-msg" name="mensaje" class="form-control mb-3" rows="3" required placeholder="Cuéntanos tu proyecto..."></textarea>
               <button class="btn btn-primary w-100" type="submit">Enviar por correo</button>
             </form>
             <p class="mt-2 small text-secondary">Al enviar aceptas ser contactado. No compartimos tus datos.</p>
