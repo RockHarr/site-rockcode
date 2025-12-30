@@ -139,6 +139,32 @@ a:focus-visible, button:focus-visible, .btn:focus-visible {
   color: var(--rc-text); box-shadow: var(--rc-shadow);
 }
 
+/* Back to Top button */
+.btn-back-to-top {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 3rem;
+  height: 3rem;
+  border-radius: 50%;
+  z-index: 1000;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(20px);
+  transition: opacity 0.3s, visibility 0.3s, transform 0.3s;
+  box-shadow: var(--rc-shadow);
+  padding: 0;
+}
+
+.btn-back-to-top.show {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
 /* ================================
    Motion & Print
    ================================ */
