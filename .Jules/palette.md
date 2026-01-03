@@ -5,3 +5,7 @@
 ## 2026-01-01 - External Link Indicators
 **Learning:** Users (especially on screen readers) need explicit warning when a link opens a new tab/window (`target="_blank"`).
 **Action:** Use a global script (progressive enhancement) to automatically append a visual icon and visually-hidden text like "(opens in new tab)" to all such links. This ensures consistency and covers future content without manual HTML edits.
+
+## 2026-05-21 - 404 Page Theme Consistency
+**Learning:** Static 404 pages relying on shared CSS and `data-bs-theme` attributes can face inheritance issues (e.g., white background on dark theme) when loaded independently or by verification tools.
+**Action:** Hardcode critical theme variables (background, text color) in the page's internal `<style>` block using `!important` to ensure visual consistency regardless of external factors.
