@@ -43,6 +43,11 @@ html, body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+::selection {
+  background: var(--rc-accent);
+  color: #000;
+}
+
 p, .text-secondary { color: var(--rc-muted) !important; }
 
 /* Enlaces: subrayado sutil en hover, buen foco */
@@ -168,6 +173,12 @@ a:focus-visible, button:focus-visible, .btn:focus-visible {
 /* ================================
    Motion & Print
    ================================ */
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation: none !important; transition: none !important; }
 }

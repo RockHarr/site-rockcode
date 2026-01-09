@@ -9,3 +9,7 @@
 ## 2026-05-21 - 404 Page Theme Consistency
 **Learning:** Static 404 pages relying on shared CSS and `data-bs-theme` attributes can face inheritance issues (e.g., white background on dark theme) when loaded independently or by verification tools.
 **Action:** Hardcode critical theme variables (background, text color) in the page's internal `<style>` block using `!important` to ensure visual consistency regardless of external factors.
+
+## 2026-05-22 - Smooth Scrolling & Reduced Motion
+**Learning:** Adding `scroll-behavior: smooth` drastically improves the feeling of polish on one-page sites with anchor navigation. However, it must be wrapped in `@media (prefers-reduced-motion: no-preference)` to respect users who are sensitive to motion.
+**Action:** Always wrap smooth scrolling CSS in the appropriate media query. This is a standard "delight" pattern that is also accessible.
