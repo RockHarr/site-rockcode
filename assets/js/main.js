@@ -37,6 +37,9 @@ document.addEventListener('DOMContentLoaded', () => {
     // Prevent double injection
     if (link.querySelector('.rc-external-link-icon')) return;
 
+    // Prevent injection if manual icon exists (Bootstrap Icon)
+    if (link.querySelector('.bi-box-arrow-up-right')) return;
+
     // Add screen reader text
     const srSpan = document.createElement('span');
     srSpan.className = 'visually-hidden';
