@@ -17,16 +17,42 @@ document.addEventListener('DOMContentLoaded', () => {
 
       // Move focus to skip link for accessibility
       if (skipLink) {
-        // Ensure it's focusable just in case, though it should be if it's an anchor
         skipLink.focus();
       } else {
-        // Fallback: make body focusable temporarily
         document.body.setAttribute('tabindex', '-1');
         document.body.focus();
         document.body.removeAttribute('tabindex');
       }
     });
   }
+
+  // Copy to clipboard logic
+  const copyBtns = document.querySelectorAll('.js-copy-btn');
+  copyBtns.forEach(btn => {
+    btn.addEventListener('click', async () => {
+      const text = btn.getAttribute('data-copy-text');
+      if (!text) return;
+
+      try {
+        await navigator.clipboard.writeText(text);
+
+        // Visual feedback
+        const originalIcon = btn.innerHTML;
+        const successIcon = `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check-lg" viewBox="0 0 16 16"><path d="M12.736 3.97a.733.733 0 0 1 1.047 0c.286.289.29.756.01 1.05L7.88 12.01a.733.733 0 0 1-1.065.02L3.217 8.384a.757.757 0 0 1 0-1.06.733.733 0 0 1 1.047 0l3.052 3.093 5.4-6.425a.247.247 0 0 1 .02-.022Z"/></svg>`;
+
+        btn.innerHTML = successIcon;
+        btn.classList.add('text-success');
+
+        // Reset after 2s
+        setTimeout(() => {
+          btn.innerHTML = originalIcon;
+          btn.classList.remove('text-success');
+        }, 2000);
+      } catch (err) {
+        console.error('Failed to copy:', err);
+      }
+    });
+  });
 
   // External link indicators
   const externalLinks = document.querySelectorAll('a[target="_blank"]');
@@ -35,7 +61,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   externalLinks.forEach(link => {
     // Prevent double injection
-    if (link.querySelector('.rc-external-link-icon')) return;
+    if (link.querySelector('.rc-external-link-icon') || link.querySelector('svg')) return;
 
     // Add screen reader text
     const srSpan = document.createElement('span');
@@ -44,7 +70,6 @@ document.addEventListener('DOMContentLoaded', () => {
     link.appendChild(srSpan);
 
     // Add visual icon
-    // Using Bootstrap Icons 'box-arrow-up-right' path
     const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
     svg.setAttribute('width', '1em');
     svg.setAttribute('height', '1em');
@@ -52,7 +77,6 @@ document.addEventListener('DOMContentLoaded', () => {
     svg.setAttribute('viewBox', '0 0 16 16');
     svg.setAttribute('aria-hidden', 'true');
     svg.setAttribute('class', 'rc-external-link-icon');
-    // Minimal styling to align it nicely
     svg.style.marginLeft = '4px';
     svg.style.verticalAlign = 'text-bottom';
 
