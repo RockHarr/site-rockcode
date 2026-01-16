@@ -68,4 +68,48 @@ document.addEventListener('DOMContentLoaded', () => {
     svg.appendChild(path2);
     link.appendChild(svg);
   });
+
+  // Copy to clipboard logic
+  const copyButtons = document.querySelectorAll('.js-copy-btn');
+  copyButtons.forEach(btn => {
+    btn.addEventListener('click', () => {
+      // Prevent multiple clicks while showing success state
+      if (btn.getAttribute('data-copying') === 'true') return;
+
+      const textToCopy = btn.getAttribute('data-copy-text');
+      if (!textToCopy) return;
+      if (!navigator.clipboard) return;
+
+      navigator.clipboard.writeText(textToCopy).then(() => {
+        // Set copying flag
+        btn.setAttribute('data-copying', 'true');
+
+        // Visual feedback
+        const originalIcon = btn.innerHTML; // Store original icon
+
+        // Switch to checkmark
+        btn.innerHTML = `
+          <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor" class="bi bi-check-lg" viewBox="0 0 16 16" aria-hidden="true">
+            <path d="M12.736 3.97a.733.733 0 0 1 1.047 0c.286.289.29.756.01 1.05L7.88 12.01a.733.733 0 0 1-1.065.02L3.217 8.384a.757.757 0 0 1 0-1.06.733.733 0 0 1 1.047 0l3.052 3.093 5.4-6.425a.247.247 0 0 1 .02-.022Z"/>
+          </svg>
+        `;
+
+        const originalLabel = btn.getAttribute('aria-label');
+        const originalTitle = btn.getAttribute('title');
+        const successText = lang === 'en' ? 'Copied!' : '¡Copiado!';
+
+        btn.setAttribute('aria-label', successText);
+        if (originalTitle) btn.setAttribute('title', successText);
+
+        setTimeout(() => {
+          btn.innerHTML = originalIcon;
+          if (originalLabel) btn.setAttribute('aria-label', originalLabel);
+          if (originalTitle) btn.setAttribute('title', originalTitle);
+          btn.removeAttribute('data-copying');
+        }, 2000);
+      }).catch(err => {
+        console.error('Failed to copy: ', err);
+      });
+    });
+  });
 });
