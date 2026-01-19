@@ -37,6 +37,13 @@ document.addEventListener('DOMContentLoaded', () => {
     // Prevent double injection
     if (link.querySelector('.rc-external-link-icon')) return;
 
+    // Check for manual existing icon (Bootstrap Icons box-arrow-up-right) to avoid duplication
+    // We check for a characteristic part of the path
+    const hasManualIcon = Array.from(link.querySelectorAll('path')).some(p =>
+      p.getAttribute('d')?.includes('M8.636 3.5')
+    );
+    if (hasManualIcon) return;
+
     // Add screen reader text
     const srSpan = document.createElement('span');
     srSpan.className = 'visually-hidden';
