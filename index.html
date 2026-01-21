@@ -333,11 +333,12 @@
           <div class="p-4 rounded-3" style="background:#0f1319;border:1px solid #1b212a">
             <h3 class="h5">Escríbenos ahora</h3>
             <form action="mailto:contacto@rockcode.cl" method="post" enctype="text/plain">
-              <label for="f-nombre" class="form-label">Nombre</label>
+              <p class="small text-secondary mb-3"><span class="text-danger" aria-hidden="true">*</span> Campos obligatorios</p>
+              <label for="f-nombre" class="form-label">Nombre <span class="text-danger" aria-hidden="true">*</span></label>
               <input id="f-nombre" name="nombre" class="form-control mb-2" placeholder="Ej: Juan Pérez" required autocomplete="name">
-              <label for="f-email" class="form-label">Email</label>
+              <label for="f-email" class="form-label">Email <span class="text-danger" aria-hidden="true">*</span></label>
               <input id="f-email" name="email" type="email" class="form-control mb-2" placeholder="nombre@email.com" required autocomplete="email">
-              <label for="f-msg" class="form-label">Mensaje</label>
+              <label for="f-msg" class="form-label">Mensaje <span class="text-danger" aria-hidden="true">*</span></label>
               <textarea id="f-msg" name="mensaje" class="form-control mb-3" rows="3" placeholder="Cuéntanos sobre tu proyecto..." required></textarea>
               <button class="btn btn-primary w-100" type="submit">Enviar por correo</button>
             </form>
