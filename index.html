@@ -1,43 +1,119 @@
 <!doctype html>
 <html lang="es" data-bs-theme="dark">
+
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>RockCode · GovTech & Datos limpios</title>
-  <meta name="description" content="RockCode: GovTech/GovDX para sector público y PYMEs. Accesibilidad AA real, performance medible y datos limpios.">
+  <meta name="description"
+    content="RockCode: GovTech/GovDX para sector público y PYMEs. Accesibilidad AA real, performance medible y datos limpios.">
   <meta property="og:title" content="RockCode · GovTech & Datos limpios">
   <meta property="og:description" content="Accesibilidad AA, performance web, datos limpios.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://rockcode.cl/">
   <meta property="og:image" content="/assets/og.png">
   <link rel="alternate" href="https://rockcode.cl/" hreflang="es" />
-<link rel="alternate" href="https://rockcode.cl/en/" hreflang="en" />
-<link rel="alternate" href="https://rockcode.cl/" hreflang="x-default" />
+  <link rel="alternate" href="https://rockcode.cl/en/" hreflang="en" />
+  <link rel="alternate" href="https://rockcode.cl/" hreflang="x-default" />
 
   <link rel="icon" href="/assets/favicon.ico" sizes="any">
   <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
 
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
   <!-- Bootstrap primero -->
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+    crossorigin="anonymous">
   <!-- Tu CSS después para sobreescribir -->
   <link rel="stylesheet" href="/assets/css/main.css">
 
   <style>
-    :root { --rc-accent:#4cc9f0; --rc-muted:#8a8f98; }
-    body { font-family: system-ui, -apple-system, "Segoe UI", Roboto, Ubuntu, "Helvetica Neue", Arial, "Noto Sans", "Apple Color Emoji", "Segoe UI Emoji"; }
-    .nav-link:focus, .btn:focus { outline:2px solid var(--rc-accent); outline-offset:2px; }
-    /* Hero dark con gradiente suave */
+    :root {
+      --rc-accent: #4cc9f0;
+      --rc-muted: #8a8f98;
+    }
+
+    .nav-link:focus,
+    .btn:focus {
+      outline: 2px solid var(--rc-accent);
+      outline-offset: 2px;
+    }
+
+    /* Hero moderno: Grid + Mesh Gradient (CSS puro, 0kb pes) */
     .rc-hero {
-      min-height: 72vh;
+      position: relative;
+      min-height: 80vh;
+      /* Un poco más alto para mayor impacto */
       display: grid;
       place-items: center;
-      background: radial-gradient(1200px 600px at 80% -10%, rgba(76,201,240,.08), transparent),
-                  linear-gradient(180deg,#0b0e12 0%, #0a0c10 100%);
+      overflow: hidden;
+
+      /* Fondo base oscuro */
+      background-color: #0b0f14;
+
+      /* 1. Patrón de Grilla (Data Grid) */
+      background-image:
+        linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+      background-size: 40px 40px;
     }
-    .pill { border:1px solid #2a2f37; color:var(--rc-muted) }
-    .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0;}
-    .skip-link{position:absolute;top:0;left:0;padding:0.5rem 1rem;background:var(--rc-accent);color:#000;font-weight:bold;z-index:9999;transform:translateY(-100%);transition:transform 0.2s;}
-    .skip-link:focus{transform:translateY(0);}
+
+    /* 2. Mesh Gradient (Glow) usando pseudo-elemento para no afectar la grilla */
+    .rc-hero::before {
+      content: '';
+      position: absolute;
+      top: -20%;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 120%;
+      height: 120%;
+      background: radial-gradient(circle at 50% 30%, rgba(76, 201, 240, 0.15) 0%, transparent 60%),
+        radial-gradient(circle at 80% 10%, rgba(13, 110, 253, 0.10) 0%, transparent 50%);
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    /* Asegurar que el contenido quede sobre el fondo */
+    .rc-hero>.container {
+      position: relative;
+      z-index: 1;
+    }
+
+    .pill {
+      border: 1px solid #2a2f37;
+      color: var(--rc-muted)
+    }
+
+    .sr-only {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border: 0;
+    }
+
+    .skip-link {
+      position: absolute;
+      top: 0;
+      left: 0;
+      padding: 0.5rem 1rem;
+      background: var(--rc-accent);
+      color: #000;
+      font-weight: bold;
+      z-index: 9999;
+      transform: translateY(-100%);
+      transition: transform 0.2s;
+    }
+
+    .skip-link:focus {
+      transform: translateY(0);
+    }
   </style>
 
   <script type="application/ld+json">
@@ -51,6 +127,7 @@
   }
   </script>
 </head>
+
 <body>
   <a class="skip-link" href="#main-content">Saltar al contenido</a>
   <header class="container py-3">
@@ -64,13 +141,14 @@
           <a class="btn btn-sm btn-outline-light" href="#demos">Demos</a>
           <a class="btn btn-sm btn-outline-light" href="#proyectos">Proyectos</a>
           <a class="btn btn-sm btn-outline-light" href="#contacto">Contacto</a>
+          <a class="btn btn-sm btn-outline-light" href="/integridad.html">Integridad</a>
           <a class="btn btn-sm btn-outline-light" href="/en/" lang="en" aria-label="Switch to English">EN</a>
         </div>
     </nav>
     <nav class="d-flex align-items-center justify-content-between">
       </div>
     </nav>
-  
+
   </header>
 
   <main id="main-content">
@@ -79,7 +157,8 @@
       <div class="container py-5 text-center">
         <p class="pill d-inline-flex px-3 py-2 rounded-5 mb-3">GovTech / GovDX</p>
         <h1 class="display-5 fw-bold mb-3">Prototipos de trámites públicos en 7 días</h1>
-        <p class="lead text-secondary mb-4">Con accesibilidad AA, performance medida y formularios que guardan progreso.</p>
+        <p class="lead text-secondary mb-4">Con accesibilidad AA, performance medida y formularios que guardan progreso.
+        </p>
 
         <div class="rc-kpis d-flex flex-wrap justify-content-center gap-2 mb-4">
           <span class="badge text-bg-secondary">LCP &lt; 2.5s</span>
@@ -93,17 +172,28 @@
           <a class="btn btn-outline-light btn-lg" href="#demos">Probar demos</a>
           <a class="btn btn-outline-light btn-lg" href="mailto:contacto@rockcode.cl">Escríbenos</a>
         </div>
-        <p class="mt-3 text-secondary small">Detalle técnico: LCP &lt; 2.5s, CLS “Good”, auditorías Lighthouse y checklist AA/Perf.</p>
+        <p class="mt-3 text-secondary small">Detalle técnico: LCP &lt; 2.5s, CLS “Good”, auditorías Lighthouse y
+          checklist AA/Perf.</p>
       </div>
     </section>
 
     <section id="por-que" class="container py-5">
       <h2 class="h3 mb-3">¿Por qué RockCode?</h2>
-      <p class="text-secondary mb-4">Reducimos riesgos y tiempos en trámites digitales del Estado con prototipos medibles.</p>
+      <p class="text-secondary mb-4">Reducimos riesgos y tiempos en trámites digitales del Estado con prototipos
+        medibles.</p>
       <ul class="row list-unstyled g-3">
-        <li class="col-md-4"><div class="card p-4 h-100"><strong>Menos reclamos</strong><br><span class="text-secondary">Flujos claros, validaciones visibles, lenguaje simple.</span></div></li>
-        <li class="col-md-4"><div class="card p-4 h-100"><strong>Evidencia de cumplimiento</strong><br><span class="text-secondary">Checklist AA/Perf y reportes Lighthouse para auditorías.</span></div></li>
-        <li class="col-md-4"><div class="card p-4 h-100"><strong>Demos para jefaturas</strong><br><span class="text-secondary">Ejemplos jugables que alinean a equipos y contraloría.</span></div></li>
+        <li class="col-md-4">
+          <div class="card p-4 h-100"><strong>Menos reclamos</strong><br><span class="text-secondary">Flujos claros,
+              validaciones visibles, lenguaje simple.</span></div>
+        </li>
+        <li class="col-md-4">
+          <div class="card p-4 h-100"><strong>Evidencia de cumplimiento</strong><br><span
+              class="text-secondary">Checklist AA/Perf y reportes Lighthouse para auditorías.</span></div>
+        </li>
+        <li class="col-md-4">
+          <div class="card p-4 h-100"><strong>Demos para jefaturas</strong><br><span class="text-secondary">Ejemplos
+              jugables que alinean a equipos y contraloría.</span></div>
+        </li>
       </ul>
     </section>
 
@@ -149,12 +239,20 @@
                 <span class="badge text-bg-warning" role="status" aria-label="Estado: MVP interno">Beta</span>
               </div>
             </div>
-            <p class="text-secondary mb-3">Ideal para rendición simple con evidencia adjunta y pagos claros para vecinos.</p>
+            <p class="text-secondary mb-3">Ideal para rendición simple con evidencia adjunta y pagos claros para
+              vecinos.</p>
             <div class="rc-nav">
               <a class="btn btn-primary btn-sm" href="/demos/ct/">Ver demo</a>
-              <a class="btn btn-outline-light btn-sm d-inline-flex align-items-center gap-1" href="/demos/ct/spec.md" target="_blank" rel="noopener">
+              <a class="btn btn-outline-light btn-sm d-inline-flex align-items-center gap-1" href="/demos/ct/spec.md"
+                target="_blank" rel="noopener">
                 Spec
-                <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" class="bi bi-box-arrow-up-right" viewBox="0 0 16 16" aria-hidden="true"><path fill-rule="evenodd" d="M8.636 3.5a.5.5 0 0 0-.5-.5H1.5A1.5 1.5 0 0 0 0 4.5v10A1.5 1.5 0 0 0 1.5 16h10a1.5 1.5 0 0 0 1.5-1.5V7.864a.5.5 0 0 0-1 0V14.5a.5.5 0 0 1-.5.5h-10a.5.5 0 0 1-.5-.5v-10a.5.5 0 0 1 .5-.5h6.636a.5.5 0 0 0 .5-.5z"/><path fill-rule="evenodd" d="M16 .5a.5.5 0 0 0-.5-.5h-5a.5.5 0 0 0 0 1h3.793L6.146 9.146a.5.5 0 1 0 .708.708L15 1.707V5.5a.5.5 0 0 0 1 0v-5z"/></svg>
+                <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor"
+                  class="bi bi-box-arrow-up-right" viewBox="0 0 16 16" aria-hidden="true">
+                  <path fill-rule="evenodd"
+                    d="M8.636 3.5a.5.5 0 0 0-.5-.5H1.5A1.5 1.5 0 0 0 0 4.5v10A1.5 1.5 0 0 0 1.5 16h10a1.5 1.5 0 0 0 1.5-1.5V7.864a.5.5 0 0 0-1 0V14.5a.5.5 0 0 1-.5.5h-10a.5.5 0 0 1-.5-.5v-10a.5.5 0 0 1 .5-.5h6.636a.5.5 0 0 0 .5-.5z" />
+                  <path fill-rule="evenodd"
+                    d="M16 .5a.5.5 0 0 0-.5-.5h-5a.5.5 0 0 0 0 1h3.793L6.146 9.146a.5.5 0 1 0 .708.708L15 1.707V5.5a.5.5 0 0 0 1 0v-5z" />
+                </svg>
                 <span class="visually-hidden">(abre en nueva pestaña)</span>
               </a>
             </div>
@@ -170,12 +268,20 @@
                 <span class="badge text-bg-success" role="status" aria-label="Estado: nuevo">Nuevo</span>
               </div>
             </div>
-            <p class="text-secondary mb-3">Ideal para verificar AA en minutos: foco visible, contraste y navegación por teclado.</p>
+            <p class="text-secondary mb-3">Ideal para verificar AA en minutos: foco visible, contraste y navegación por
+              teclado.</p>
             <div class="rc-nav">
               <a class="btn btn-primary btn-sm" href="/demos/aa/">Probar demo</a>
-              <a class="btn btn-outline-light btn-sm d-inline-flex align-items-center gap-1" href="/demos/aa/checklist.pdf" target="_blank" rel="noopener">
+              <a class="btn btn-outline-light btn-sm d-inline-flex align-items-center gap-1"
+                href="/demos/aa/checklist.pdf" target="_blank" rel="noopener">
                 Checklist
-                <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" class="bi bi-box-arrow-up-right" viewBox="0 0 16 16" aria-hidden="true"><path fill-rule="evenodd" d="M8.636 3.5a.5.5 0 0 0-.5-.5H1.5A1.5 1.5 0 0 0 0 4.5v10A1.5 1.5 0 0 0 1.5 16h10a1.5 1.5 0 0 0 1.5-1.5V7.864a.5.5 0 0 0-1 0V14.5a.5.5 0 0 1-.5.5h-10a.5.5 0 0 1-.5-.5v-10a.5.5 0 0 1 .5-.5h6.636a.5.5 0 0 0 .5-.5z"/><path fill-rule="evenodd" d="M16 .5a.5.5 0 0 0-.5-.5h-5a.5.5 0 0 0 0 1h3.793L6.146 9.146a.5.5 0 1 0 .708.708L15 1.707V5.5a.5.5 0 0 0 1 0v-5z"/></svg>
+                <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor"
+                  class="bi bi-box-arrow-up-right" viewBox="0 0 16 16" aria-hidden="true">
+                  <path fill-rule="evenodd"
+                    d="M8.636 3.5a.5.5 0 0 0-.5-.5H1.5A1.5 1.5 0 0 0 0 4.5v10A1.5 1.5 0 0 0 1.5 16h10a1.5 1.5 0 0 0 1.5-1.5V7.864a.5.5 0 0 0-1 0V14.5a.5.5 0 0 1-.5.5h-10a.5.5 0 0 1-.5-.5v-10a.5.5 0 0 1 .5-.5h6.636a.5.5 0 0 0 .5-.5z" />
+                  <path fill-rule="evenodd"
+                    d="M16 .5a.5.5 0 0 0-.5-.5h-5a.5.5 0 0 0 0 1h3.793L6.146 9.146a.5.5 0 1 0 .708.708L15 1.707V5.5a.5.5 0 0 0 1 0v-5z" />
+                </svg>
                 <span class="visually-hidden">(abre en nueva pestaña)</span>
               </a>
             </div>
@@ -188,12 +294,20 @@
               <h3 class="h5 m-0">Performance Kit</h3>
               <div class="rc-nav"><span class="badge text-bg-secondary">Performance</span></div>
             </div>
-            <p class="text-secondary mb-3">Ideal para partir con LCP &lt; 2.5s y buenas prácticas de carga desde el día 1.</p>
+            <p class="text-secondary mb-3">Ideal para partir con LCP &lt; 2.5s y buenas prácticas de carga desde el día
+              1.</p>
             <div class="rc-nav">
               <a class="btn btn-primary btn-sm" href="/demos/perf/">Probar demo</a>
-              <a class="btn btn-outline-light btn-sm d-inline-flex align-items-center gap-1" href="/demos/perf/README.md" target="_blank" rel="noopener">
+              <a class="btn btn-outline-light btn-sm d-inline-flex align-items-center gap-1"
+                href="/demos/perf/README.md" target="_blank" rel="noopener">
                 Guía
-                <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" class="bi bi-box-arrow-up-right" viewBox="0 0 16 16" aria-hidden="true"><path fill-rule="evenodd" d="M8.636 3.5a.5.5 0 0 0-.5-.5H1.5A1.5 1.5 0 0 0 0 4.5v10A1.5 1.5 0 0 0 1.5 16h10a1.5 1.5 0 0 0 1.5-1.5V7.864a.5.5 0 0 0-1 0V14.5a.5.5 0 0 1-.5.5h-10a.5.5 0 0 1-.5-.5v-10a.5.5 0 0 1 .5-.5h6.636a.5.5 0 0 0 .5-.5z"/><path fill-rule="evenodd" d="M16 .5a.5.5 0 0 0-.5-.5h-5a.5.5 0 0 0 0 1h3.793L6.146 9.146a.5.5 0 1 0 .708.708L15 1.707V5.5a.5.5 0 0 0 1 0v-5z"/></svg>
+                <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor"
+                  class="bi bi-box-arrow-up-right" viewBox="0 0 16 16" aria-hidden="true">
+                  <path fill-rule="evenodd"
+                    d="M8.636 3.5a.5.5 0 0 0-.5-.5H1.5A1.5 1.5 0 0 0 0 4.5v10A1.5 1.5 0 0 0 1.5 16h10a1.5 1.5 0 0 0 1.5-1.5V7.864a.5.5 0 0 0-1 0V14.5a.5.5 0 0 1-.5.5h-10a.5.5 0 0 1-.5-.5v-10a.5.5 0 0 1 .5-.5h6.636a.5.5 0 0 0 .5-.5z" />
+                  <path fill-rule="evenodd"
+                    d="M16 .5a.5.5 0 0 0-.5-.5h-5a.5.5 0 0 0 0 1h3.793L6.146 9.146a.5.5 0 1 0 .708.708L15 1.707V5.5a.5.5 0 0 0 1 0v-5z" />
+                </svg>
                 <span class="visually-hidden">(abre en nueva pestaña)</span>
               </a>
             </div>
@@ -206,12 +320,20 @@
               <h3 class="h5 m-0">Buscador de Trámites</h3>
               <div class="rc-nav"><span class="badge text-bg-success">Buscador</span></div>
             </div>
-            <p class="text-secondary mb-3">Ideal para encontrar trámites rápido con sinónimos y sugerencias mientras escribes.</p>
+            <p class="text-secondary mb-3">Ideal para encontrar trámites rápido con sinónimos y sugerencias mientras
+              escribes.</p>
             <div class="rc-nav">
               <a class="btn btn-primary btn-sm" href="/demos/buscador/">Probar demo</a>
-              <a class="btn btn-outline-light btn-sm d-inline-flex align-items-center gap-1" href="/demos/buscador/README.md" target="_blank" rel="noopener">
+              <a class="btn btn-outline-light btn-sm d-inline-flex align-items-center gap-1"
+                href="/demos/buscador/README.md" target="_blank" rel="noopener">
                 Cómo replicar
-                <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" class="bi bi-box-arrow-up-right" viewBox="0 0 16 16" aria-hidden="true"><path fill-rule="evenodd" d="M8.636 3.5a.5.5 0 0 0-.5-.5H1.5A1.5 1.5 0 0 0 0 4.5v10A1.5 1.5 0 0 0 1.5 16h10a1.5 1.5 0 0 0 1.5-1.5V7.864a.5.5 0 0 0-1 0V14.5a.5.5 0 0 1-.5.5h-10a.5.5 0 0 1-.5-.5v-10a.5.5 0 0 1 .5-.5h6.636a.5.5 0 0 0 .5-.5z"/><path fill-rule="evenodd" d="M16 .5a.5.5 0 0 0-.5-.5h-5a.5.5 0 0 0 0 1h3.793L6.146 9.146a.5.5 0 1 0 .708.708L15 1.707V5.5a.5.5 0 0 0 1 0v-5z"/></svg>
+                <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor"
+                  class="bi bi-box-arrow-up-right" viewBox="0 0 16 16" aria-hidden="true">
+                  <path fill-rule="evenodd"
+                    d="M8.636 3.5a.5.5 0 0 0-.5-.5H1.5A1.5 1.5 0 0 0 0 4.5v10A1.5 1.5 0 0 0 1.5 16h10a1.5 1.5 0 0 0 1.5-1.5V7.864a.5.5 0 0 0-1 0V14.5a.5.5 0 0 1-.5.5h-10a.5.5 0 0 1-.5-.5v-10a.5.5 0 0 1 .5-.5h6.636a.5.5 0 0 0 .5-.5z" />
+                  <path fill-rule="evenodd"
+                    d="M16 .5a.5.5 0 0 0-.5-.5h-5a.5.5 0 0 0 0 1h3.793L6.146 9.146a.5.5 0 1 0 .708.708L15 1.707V5.5a.5.5 0 0 0 1 0v-5z" />
+                </svg>
                 <span class="visually-hidden">(abre en nueva pestaña)</span>
               </a>
             </div>
@@ -224,12 +346,20 @@
               <h3 class="h5 m-0">Formulario → PDF</h3>
               <div class="rc-nav"><span class="badge text-bg-primary">Formularios</span></div>
             </div>
-            <p class="text-secondary mb-3">Ideal para formularios que deben guardarse y generar comprobante PDF accesible.</p>
+            <p class="text-secondary mb-3">Ideal para formularios que deben guardarse y generar comprobante PDF
+              accesible.</p>
             <div class="rc-nav">
               <a class="btn btn-primary btn-sm" href="/demos/form-pdf/">Probar demo</a>
-              <a class="btn btn-outline-light btn-sm d-inline-flex align-items-center gap-1" href="/demos/form-pdf/spec.md" target="_blank" rel="noopener">
+              <a class="btn btn-outline-light btn-sm d-inline-flex align-items-center gap-1"
+                href="/demos/form-pdf/spec.md" target="_blank" rel="noopener">
                 Spec
-                <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" class="bi bi-box-arrow-up-right" viewBox="0 0 16 16" aria-hidden="true"><path fill-rule="evenodd" d="M8.636 3.5a.5.5 0 0 0-.5-.5H1.5A1.5 1.5 0 0 0 0 4.5v10A1.5 1.5 0 0 0 1.5 16h10a1.5 1.5 0 0 0 1.5-1.5V7.864a.5.5 0 0 0-1 0V14.5a.5.5 0 0 1-.5.5h-10a.5.5 0 0 1-.5-.5v-10a.5.5 0 0 1 .5-.5h6.636a.5.5 0 0 0 .5-.5z"/><path fill-rule="evenodd" d="M16 .5a.5.5 0 0 0-.5-.5h-5a.5.5 0 0 0 0 1h3.793L6.146 9.146a.5.5 0 1 0 .708.708L15 1.707V5.5a.5.5 0 0 0 1 0v-5z"/></svg>
+                <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor"
+                  class="bi bi-box-arrow-up-right" viewBox="0 0 16 16" aria-hidden="true">
+                  <path fill-rule="evenodd"
+                    d="M8.636 3.5a.5.5 0 0 0-.5-.5H1.5A1.5 1.5 0 0 0 0 4.5v10A1.5 1.5 0 0 0 1.5 16h10a1.5 1.5 0 0 0 1.5-1.5V7.864a.5.5 0 0 0-1 0V14.5a.5.5 0 0 1-.5.5h-10a.5.5 0 0 1-.5-.5v-10a.5.5 0 0 1 .5-.5h6.636a.5.5 0 0 0 .5-.5z" />
+                  <path fill-rule="evenodd"
+                    d="M16 .5a.5.5 0 0 0-.5-.5h-5a.5.5 0 0 0 0 1h3.793L6.146 9.146a.5.5 0 1 0 .708.708L15 1.707V5.5a.5.5 0 0 0 1 0v-5z" />
+                </svg>
                 <span class="visually-hidden">(abre en nueva pestaña)</span>
               </a>
             </div>
@@ -247,14 +377,28 @@
             </div>
             <p class="text-secondary mb-3">Ideal para pruebas de cobro y abonos con link y QR sin monto definido.</p>
             <div class="rc-nav">
-              <a class="btn btn-primary btn-sm d-inline-flex align-items-center gap-1" href="https://link.mercadopago.cl/rockcode" target="_blank" rel="noopener">
+              <a class="btn btn-primary btn-sm d-inline-flex align-items-center gap-1"
+                href="https://link.mercadopago.cl/rockcode" target="_blank" rel="noopener">
                 Ver link
-                <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" class="bi bi-box-arrow-up-right" viewBox="0 0 16 16" aria-hidden="true"><path fill-rule="evenodd" d="M8.636 3.5a.5.5 0 0 0-.5-.5H1.5A1.5 1.5 0 0 0 0 4.5v10A1.5 1.5 0 0 0 1.5 16h10a1.5 1.5 0 0 0 1.5-1.5V7.864a.5.5 0 0 0-1 0V14.5a.5.5 0 0 1-.5.5h-10a.5.5 0 0 1-.5-.5v-10a.5.5 0 0 1 .5-.5h6.636a.5.5 0 0 0 .5-.5z"/><path fill-rule="evenodd" d="M16 .5a.5.5 0 0 0-.5-.5h-5a.5.5 0 0 0 0 1h3.793L6.146 9.146a.5.5 0 1 0 .708.708L15 1.707V5.5a.5.5 0 0 0 1 0v-5z"/></svg>
+                <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor"
+                  class="bi bi-box-arrow-up-right" viewBox="0 0 16 16" aria-hidden="true">
+                  <path fill-rule="evenodd"
+                    d="M8.636 3.5a.5.5 0 0 0-.5-.5H1.5A1.5 1.5 0 0 0 0 4.5v10A1.5 1.5 0 0 0 1.5 16h10a1.5 1.5 0 0 0 1.5-1.5V7.864a.5.5 0 0 0-1 0V14.5a.5.5 0 0 1-.5.5h-10a.5.5 0 0 1-.5-.5v-10a.5.5 0 0 1 .5-.5h6.636a.5.5 0 0 0 .5-.5z" />
+                  <path fill-rule="evenodd"
+                    d="M16 .5a.5.5 0 0 0-.5-.5h-5a.5.5 0 0 0 0 1h3.793L6.146 9.146a.5.5 0 1 0 .708.708L15 1.707V5.5a.5.5 0 0 0 1 0v-5z" />
+                </svg>
                 <span class="visually-hidden">(abre en nueva pestaña)</span>
               </a>
-              <a class="btn btn-outline-light btn-sm d-inline-flex align-items-center gap-1" href="/assets/qr/rockcode.pdf" target="_blank" rel="noopener">
+              <a class="btn btn-outline-light btn-sm d-inline-flex align-items-center gap-1"
+                href="/assets/qr/rockcode.pdf" target="_blank" rel="noopener">
                 QR A4
-                <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" class="bi bi-box-arrow-up-right" viewBox="0 0 16 16" aria-hidden="true"><path fill-rule="evenodd" d="M8.636 3.5a.5.5 0 0 0-.5-.5H1.5A1.5 1.5 0 0 0 0 4.5v10A1.5 1.5 0 0 0 1.5 16h10a1.5 1.5 0 0 0 1.5-1.5V7.864a.5.5 0 0 0-1 0V14.5a.5.5 0 0 1-.5.5h-10a.5.5 0 0 1-.5-.5v-10a.5.5 0 0 1 .5-.5h6.636a.5.5 0 0 0 .5-.5z"/><path fill-rule="evenodd" d="M16 .5a.5.5 0 0 0-.5-.5h-5a.5.5 0 0 0 0 1h3.793L6.146 9.146a.5.5 0 1 0 .708.708L15 1.707V5.5a.5.5 0 0 0 1 0v-5z"/></svg>
+                <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor"
+                  class="bi bi-box-arrow-up-right" viewBox="0 0 16 16" aria-hidden="true">
+                  <path fill-rule="evenodd"
+                    d="M8.636 3.5a.5.5 0 0 0-.5-.5H1.5A1.5 1.5 0 0 0 0 4.5v10A1.5 1.5 0 0 0 1.5 16h10a1.5 1.5 0 0 0 1.5-1.5V7.864a.5.5 0 0 0-1 0V14.5a.5.5 0 0 1-.5.5h-10a.5.5 0 0 1-.5-.5v-10a.5.5 0 0 1 .5-.5h6.636a.5.5 0 0 0 .5-.5z" />
+                  <path fill-rule="evenodd"
+                    d="M16 .5a.5.5 0 0 0-.5-.5h-5a.5.5 0 0 0 0 1h3.793L6.146 9.146a.5.5 0 1 0 .708.708L15 1.707V5.5a.5.5 0 0 0 1 0v-5z" />
+                </svg>
                 <span class="visually-hidden">(abre en nueva pestaña)</span>
               </a>
             </div>
@@ -276,7 +420,8 @@
           </div>
         </div>
         <p class="text-secondary mb-3">
-          Limpia, deduplica y estandariza planillas antes de importar. Pensado para áreas con alto volumen de Excel/CSV y necesidad de control de calidad.
+          Limpia, deduplica y estandariza planillas antes de importar. Pensado para áreas con alto volumen de Excel/CSV
+          y necesidad de control de calidad.
         </p>
         <ul class="text-secondary mb-3" style="padding-left:1.1rem">
           <li>Reglas de limpieza y normalización</li>
@@ -284,7 +429,8 @@
           <li>Exportación lista para sistemas externos</li>
         </ul>
         <div class="rc-nav">
-          <a class="btn btn-outline-light btn-sm" href="https://github.com/RockHarr/DataCleaner2" target="_blank" rel="noopener">Código</a>
+          <a class="btn btn-outline-light btn-sm" href="https://github.com/RockHarr/DataCleaner2" target="_blank"
+            rel="noopener">Código</a>
           <!-- <a class="btn btn-primary btn-sm" href="/demos/maka/">Ver demo</a> -->
         </div>
       </div>
@@ -317,31 +463,92 @@
           <ul class="list-unstyled">
             <li class="mb-1">
               Correo: <a href="mailto:contacto@rockcode.cl">contacto@rockcode.cl</a>
-              <button type="button" class="btn btn-link link-secondary p-0 ms-1 align-baseline text-decoration-none js-copy-btn" data-copy-text="contacto@rockcode.cl" title="Copiar correo" aria-label="Copiar correo al portapapeles">
-                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor" class="bi bi-clipboard" viewBox="0 0 16 16" aria-hidden="true">
-                  <path d="M4 1.5H3a2 2 0 0 0-2 2V14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V3.5a2 2 0 0 0-2-2h-1v1h1a1 1 0 0 1 1 1V14a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V3.5a1 1 0 0 1 1-1h1v-1z"/>
-                  <path d="M9.5 1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5h3zm-3-1A1.5 1.5 0 0 0 5 1.5v1A1.5 1.5 0 0 0 6.5 3h3A1.5 1.5 0 0 0 11 1.5v-1A1.5 1.5 0 0 0 9.5 0h-3z"/>
+              <button type="button"
+                class="btn btn-link link-secondary p-0 ms-1 align-baseline text-decoration-none js-copy-btn"
+                data-copy-text="contacto@rockcode.cl" title="Copiar correo" aria-label="Copiar correo al portapapeles">
+                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor"
+                  class="bi bi-clipboard" viewBox="0 0 16 16" aria-hidden="true">
+                  <path
+                    d="M4 1.5H3a2 2 0 0 0-2 2V14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V3.5a2 2 0 0 0-2-2h-1v1h1a1 1 0 0 1 1 1V14a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V3.5a1 1 0 0 1 1-1h1v-1z" />
+                  <path
+                    d="M9.5 1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5h3zm-3-1A1.5 1.5 0 0 0 5 1.5v1A1.5 1.5 0 0 0 6.5 3h3A1.5 1.5 0 0 0 11 1.5v-1A1.5 1.5 0 0 0 9.5 0h-3z" />
                 </svg>
               </button>
               (alias: hola@, licitaciones@, pagos@)
             </li>
-            <li class="mb-1">Pagos/abonos: <a href="https://link.mercadopago.cl/rockcode">link.mercadopago.cl/rockcode</a></li>
+            <li class="mb-1">Pagos/abonos: <a
+                href="https://link.mercadopago.cl/rockcode">link.mercadopago.cl/rockcode</a></li>
             <li class="mb-1">Horario: Lun–Vie, 09:00–18:00 (America/Santiago)</li>
           </ul>
         </div>
         <div class="col-lg-5">
           <div class="p-4 rounded-3" style="background:#0f1319;border:1px solid #1b212a">
             <h3 class="h5">Escríbenos ahora</h3>
-            <form action="mailto:contacto@rockcode.cl" method="post" enctype="text/plain">
+            <!-- Formspree Contact Form -->
+            <form id="contactForm" action="https://formspree.io/f/mlggowzk" method="POST">
               <label for="f-nombre" class="form-label">Nombre</label>
-              <input id="f-nombre" name="nombre" class="form-control mb-2" placeholder="Ej: Juan Pérez" required autocomplete="name">
+              <input id="f-nombre" name="nombre" class="form-control mb-2" placeholder="Ej: Juan Pérez" required
+                autocomplete="name">
               <label for="f-email" class="form-label">Email</label>
-              <input id="f-email" name="email" type="email" class="form-control mb-2" placeholder="nombre@email.com" required autocomplete="email">
+              <input id="f-email" name="email" type="email" class="form-control mb-2" placeholder="nombre@email.com"
+                required autocomplete="email">
               <label for="f-msg" class="form-label">Mensaje</label>
-              <textarea id="f-msg" name="mensaje" class="form-control mb-3" rows="3" placeholder="Cuéntanos sobre tu proyecto..." required></textarea>
-              <button class="btn btn-primary w-100" type="submit">Enviar por correo</button>
+              <textarea id="f-msg" name="message" class="form-control mb-3" rows="3"
+                placeholder="Cuéntanos sobre tu proyecto..." required></textarea>
+              <button class="btn btn-primary w-100" type="submit" id="submitBtn">Enviar mensaje</button>
             </form>
+            <div id="formStatus" class="mt-3 text-center" style="display: none;"></div>
             <p class="mt-2 small text-secondary">Al enviar aceptas ser contactado. No compartimos tus datos.</p>
+
+            <script>
+              document.getElementById('contactForm').addEventListener('submit', async function (e) {
+                e.preventDefault();
+                const form = e.target;
+                const status = document.getElementById('formStatus');
+                const btn = document.getElementById('submitBtn');
+
+                // Basic validation
+                if (!form.checkValidity()) {
+                  form.reportValidity();
+                  return;
+                }
+
+                const data = new FormData(form);
+                const action = form.action;
+
+                // Show loading state
+                btn.disabled = true;
+                btn.textContent = 'Enviando...';
+                status.style.display = 'none';
+                status.className = 'mt-3 text-center';
+
+                try {
+                  const response = await fetch(action, {
+                    method: form.method,
+                    body: data,
+                    headers: {
+                      'Accept': 'application/json'
+                    }
+                  });
+
+                  if (response.ok) {
+                    status.innerHTML = '<div class="alert alert-success py-2">¡Gracias! Mensaje enviado correctamente.</div>';
+                    form.reset();
+                  } else {
+                    const jsonData = await response.json();
+                    let msg = 'Hubo un error al enviar. Por favor intenta nuevamente.';
+                    if (jsonData.errors) msg = jsonData.errors.map(error => error.message).join(', ');
+                    status.innerHTML = `<div class="alert alert-danger py-2">${msg}</div>`;
+                  }
+                } catch (error) {
+                  status.innerHTML = '<div class="alert alert-danger py-2">Error de conexión. Intenta más tarde.</div>';
+                } finally {
+                  btn.disabled = false;
+                  btn.textContent = 'Enviar mensaje';
+                  status.style.display = 'block';
+                }
+              });
+            </script>
           </div>
         </div>
       </div>
@@ -353,18 +560,29 @@
       <div class="row g-3 align-items-start">
         <nav class="col-12 col-md-6 order-1 order-md-2 d-flex justify-content-md-end" aria-label="Pilares de RockCode">
           <ul class="list-inline mb-0 small">
-            <li class="list-inline-item"><a class="link-light link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover" href="/accesibilidad.html">Accesibilidad AA</a></li>
+            <li class="list-inline-item"><a
+                class="link-light link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover"
+                href="/accesibilidad.html">Accesibilidad AA</a></li>
             <li class="list-inline-item text-secondary">·</li>
-            <li class="list-inline-item"><a class="link-light link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover" href="/performance.html">Performance medible</a></li>
+            <li class="list-inline-item"><a
+                class="link-light link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover"
+                href="/performance.html">Performance medible</a></li>
             <li class="list-inline-item text-secondary">·</li>
-            <li class="list-inline-item"><a class="link-light link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover" href="/datos.html#limpios">Datos limpios</a></li>
+            <li class="list-inline-item"><a
+                class="link-light link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover"
+                href="/datos.html#limpios">Datos limpios</a></li>
+            <li class="list-inline-item text-secondary">·</li>
+            <li class="list-inline-item"><a
+                class="link-light link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover"
+                href="/integridad.html">Programa de Integridad</a></li>
           </ul>
         </nav>
         <div class="col-12 col-md-6 order-2 order-md-1">
           <p class="text-secondary mb-1">&copy; <span id="y"></span> RockCode SpA — Chile</p>
           <p class="text-secondary mb-0">
             Usaremos tus datos solo para responder esta solicitud. No enviamos spam ni compartimos tu información.
-            <a class="link-light link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover" href="/datos.html" rel="privacy" aria-label="Leer la Política de datos de RockCode">Política de datos</a>.
+            <a class="link-light link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover"
+              href="/datos.html" rel="privacy" aria-label="Leer la Política de datos de RockCode">Política de datos</a>.
           </p>
         </div>
       </div>
@@ -373,8 +591,10 @@
 
   <!-- Back to Top Button -->
   <button type="button" class="btn btn-primary btn-back-to-top" id="btn-back-to-top" aria-label="Volver arriba">
-    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-arrow-up" viewBox="0 0 16 16">
-      <path fill-rule="evenodd" d="M8 15a.5.5 0 0 0 .5-.5V2.707l3.146 3.147a.5.5 0 0 0 .708-.708l-4-4a.5.5 0 0 0-.708 0l-4 4a.5.5 0 1 0 .708.708L7.5 2.707V14.5a.5.5 0 0 0 .5.5z"/>
+    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-arrow-up"
+      viewBox="0 0 16 16">
+      <path fill-rule="evenodd"
+        d="M8 15a.5.5 0 0 0 .5-.5V2.707l3.146 3.147a.5.5 0 0 0 .708-.708l-4-4a.5.5 0 0 0-.708 0l-4 4a.5.5 0 1 0 .708.708L7.5 2.707V14.5a.5.5 0 0 0 .5.5z" />
     </svg>
   </button>
 
@@ -383,6 +603,8 @@
     const y = document.getElementById('y'); if (y) y.textContent = new Date().getFullYear();
   </script>
   <script src="/assets/js/main.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+    crossorigin="anonymous"></script>
 </body>
+
 </html>

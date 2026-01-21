@@ -3,59 +3,84 @@
    ================================ */
 :root {
   /* Colores base (modo oscuro) */
-  --rc-bg:        #0b0f14;
-  --rc-surface:   #0f1319;
-  --rc-border:    #1b212a;
-  --rc-text:      #dfe6ee;
-  --rc-muted:     #9aa7b6;
+  --rc-bg: #0b0f14;
+  --rc-surface: #0f1319;
+  --rc-border: #1b212a;
+  --rc-text: #dfe6ee;
+  --rc-muted: #9aa7b6;
 
   /* Accents */
-  --rc-primary:   #0d6efd;     /* Bootstrap primary */
-  --rc-accent:    #7cc4ff;     /* Focus ring */
-  --rc-success:   #17b47d;
-  --rc-warning:   #ffc107;
-  --rc-danger:    #ff6b6b;
+  --rc-primary: #0d6efd;
+  /* Bootstrap primary */
+  --rc-accent: #7cc4ff;
+  /* Focus ring */
+  --rc-success: #17b47d;
+  --rc-warning: #ffc107;
+  --rc-danger: #ff6b6b;
 
   /* Radii y sombras */
-  --rc-radius:    14px;
-  --rc-shadow:    0 6px 24px rgba(0,0,0,.25);
+  --rc-radius: 14px;
+  --rc-shadow: 0 6px 24px rgba(0, 0, 0, .25);
 }
 
 /* Respeta el tema del SO si está en light  */
 @media (prefers-color-scheme: light) {
   :root {
-    --rc-bg:      #f8fafc;
+    --rc-bg: #f8fafc;
     --rc-surface: #ffffff;
-    --rc-border:  #e5eaf0;
-    --rc-text:    #0f172a;
-    --rc-muted:   #475569;
-    --rc-shadow:  0 6px 24px rgba(0, 20, 60, .08);
+    --rc-border: #e5eaf0;
+    --rc-text: #0f172a;
+    --rc-muted: #475569;
+    --rc-shadow: 0 6px 24px rgba(0, 20, 60, .08);
   }
 }
 
 /* ================================
    Base
    ================================ */
-html, body {
+html,
+body {
   background: var(--rc-bg);
   color: var(--rc-text);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-p, .text-secondary { color: var(--rc-muted) !important; }
+:root {
+  --rc-accent: #4cc9f0;
+  --rc-muted: #8a8f98;
+}
+
+body {
+  font-family: "Outfit", system-ui, -apple-system, "Segoe UI", Roboto, Ubuntu, "Helvetica Neue", Arial, "Noto Sans", "Apple Color Emoji", "Segoe UI Emoji";
+}
+
+p,
+.text-secondary {
+  color: var(--rc-muted) !important;
+}
 
 /* Enlaces: subrayado sutil en hover, buen foco */
-a { color: inherit; text-underline-offset: 2px; }
-a:hover { text-decoration: underline; }
-a:focus-visible, button:focus-visible, .btn:focus-visible {
+a {
+  color: inherit;
+  text-underline-offset: 2px;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+a:focus-visible,
+button:focus-visible,
+.btn:focus-visible {
   outline: 2px solid var(--rc-accent);
   outline-offset: 2px;
   border-radius: 6px;
 }
 
 /* Inputs y selects con aro accesible */
-.form-control:focus, .form-select:focus {
+.form-control:focus,
+.form-select:focus {
   border-color: var(--rc-accent);
   box-shadow: 0 0 0 .25rem color-mix(in oklab, var(--rc-accent) 30%, transparent);
 }
@@ -73,30 +98,66 @@ a:focus-visible, button:focus-visible, .btn:focus-visible {
   box-shadow: var(--rc-shadow);
   transition: transform .12s ease, box-shadow .12s ease, border-color .12s ease;
 }
-.rc-card:hover { transform: translateY(-1px); }
-.rc-card header { margin-bottom: .5rem; }
-.rc-card h3 { margin: 0; }
+
+.rc-card:hover {
+  transform: translateY(-1px);
+}
+
+.rc-card header {
+  margin-bottom: .5rem;
+}
+
+.rc-card h3 {
+  margin: 0;
+}
 
 /* Badges: mejora contraste y legibilidad */
-.badge[role="status"] { letter-spacing: .2px; }
-.badge.text-bg-warning { color: #2a2100; }     /* warning en dark */
-.badge.text-bg-secondary { color: #e9eef6; }   /* secondary en dark */
+.badge[role="status"] {
+  letter-spacing: .2px;
+}
+
+.badge.text-bg-warning {
+  color: #2a2100;
+}
+
+/* warning en dark */
+.badge.text-bg-secondary {
+  color: #e9eef6;
+}
+
+/* secondary en dark */
 
 /* Botones: hover/focus suaves en dark */
 .btn-outline-light:hover,
 .btn-outline-light:focus-visible {
-  background: rgba(255,255,255,.06);
+  background: rgba(255, 255, 255, .06);
 }
 
 /* Footer */
-#footer { border-color: var(--rc-border) !important; }
-#footer a { text-decoration: none; }
-#footer a:hover { text-decoration: underline; }
-#footer p { margin-bottom: .25rem; }
+#footer {
+  border-color: var(--rc-border) !important;
+}
+
+#footer a {
+  text-decoration: none;
+}
+
+#footer a:hover {
+  text-decoration: underline;
+}
+
+#footer p {
+  margin-bottom: .25rem;
+}
 
 /* Hero y títulos */
-.rc-hero h1 { font-size: clamp(2rem, 3vw + 1rem, 3.25rem); }
-.rc-hero .rc-kpis .badge { font-weight: 600; }
+.rc-hero h1 {
+  font-size: clamp(2rem, 3vw + 1rem, 3.25rem);
+}
+
+.rc-hero .rc-kpis .badge {
+  font-weight: 600;
+}
 
 /* Listas dentro de cards */
 .rc-list {
@@ -104,39 +165,83 @@ a:focus-visible, button:focus-visible, .btn:focus-visible {
   padding-left: 1.1rem;
   margin-bottom: 1rem;
 }
-.rc-list li { margin:.15rem 0; }
+
+.rc-list li {
+  margin: .15rem 0;
+}
 
 /* Chips/pills rápidas (por si las quieres usar) */
 .rc-chip {
-  display:inline-flex; align-items:center; gap:.4rem;
-  padding:.25rem .55rem; border-radius:999px;
-  background: #0b1521; border:1px solid var(--rc-border); color: var(--rc-muted);
-  font-size:.85rem;
+  display: inline-flex;
+  align-items: center;
+  gap: .4rem;
+  padding: .25rem .55rem;
+  border-radius: 999px;
+  background: #0b1521;
+  border: 1px solid var(--rc-border);
+  color: var(--rc-muted);
+  font-size: .85rem;
 }
 
 /* ================================
    Utilidades
    ================================ */
-.rc-surface  { background: var(--rc-surface) !important; }
-.rc-border   { border: 1px solid var(--rc-border) !important; }
-.rc-muted    { color: var(--rc-muted) !important; }
-.rc-shadow   { box-shadow: var(--rc-shadow) !important; }
-.rc-radius   { border-radius: var(--rc-radius) !important; }
+.rc-surface {
+  background: var(--rc-surface) !important;
+}
+
+.rc-border {
+  border: 1px solid var(--rc-border) !important;
+}
+
+.rc-muted {
+  color: var(--rc-muted) !important;
+}
+
+.rc-shadow {
+  box-shadow: var(--rc-shadow) !important;
+}
+
+.rc-radius {
+  border-radius: var(--rc-radius) !important;
+}
 
 /* Espaciados finos para grids (cuando no uses gap de BS) */
-.rc-gap-1 > * + * { margin-left: .25rem; }
-.rc-gap-2 > * + * { margin-left: .5rem; }
-.rc-gap-3 > * + * { margin-left: .75rem; }
+.rc-gap-1>*+* {
+  margin-left: .25rem;
+}
+
+.rc-gap-2>*+* {
+  margin-left: .5rem;
+}
+
+.rc-gap-3>*+* {
+  margin-left: .75rem;
+}
 
 /* Skip link accesible (si lo usas) */
 .skip-link {
-  position:absolute; left:-9999px; top:auto; width:1px; height:1px; overflow:hidden;
+  position: absolute;
+  left: -9999px;
+  top: auto;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
 }
+
 .skip-link:focus-visible {
-  position: fixed; left: 1rem; top: 1rem; z-index: 10000;
-  width:auto; height:auto; padding:.5rem .75rem; border-radius: .5rem;
-  background: var(--rc-surface); border:1px solid var(--rc-border);
-  color: var(--rc-text); box-shadow: var(--rc-shadow);
+  position: fixed;
+  left: 1rem;
+  top: 1rem;
+  z-index: 10000;
+  width: auto;
+  height: auto;
+  padding: .5rem .75rem;
+  border-radius: .5rem;
+  background: var(--rc-surface);
+  border: 1px solid var(--rc-border);
+  color: var(--rc-text);
+  box-shadow: var(--rc-shadow);
 }
 
 /* Back to Top button */
@@ -169,74 +274,113 @@ a:focus-visible, button:focus-visible, .btn:focus-visible {
    Motion & Print
    ================================ */
 @media (prefers-reduced-motion: reduce) {
-  *, *::before, *::after { animation: none !important; transition: none !important; }
+
+  *,
+  *::before,
+  *::after {
+    animation: none !important;
+    transition: none !important;
+  }
 }
 
 @media print {
-  nav, header .btn, .rc-hero { display:none !important; }
-  a { text-decoration: none !important; }
+
+  nav,
+  header .btn,
+  .rc-hero {
+    display: none !important;
+  }
+
+  a {
+    text-decoration: none !important;
+  }
 }
 
 /* ===== Header compacto en móvil ===== */
-@media (max-width: 576px){
+@media (max-width: 576px) {
+
   /* reduce el alto del header */
-  header.container{
+  header.container {
     padding-top: .5rem !important;
     padding-bottom: .5rem !important;
   }
 
   /* separa un poco el logo de los botones */
-  header nav{
+  header nav {
     gap: .5rem;
   }
 
   /* grupo de nav como carrusel horizontal si no cabe */
-  .rc-nav{
+  .rc-nav {
     display: flex;
     gap: .4rem;
     flex-wrap: nowrap;
     overflow-x: auto;
     -webkit-overflow-scrolling: touch;
-    scrollbar-width: none;            /* Firefox */
+    scrollbar-width: none;
+    /* Firefox */
     max-width: 100%;
   }
-  .rc-nav::-webkit-scrollbar{ display: none; }  /* WebKit */
+
+  .rc-nav::-webkit-scrollbar {
+    display: none;
+  }
+
+  /* WebKit */
 
   /* botones más delgados y tipografía más chica */
-  .rc-nav .btn{
-    padding: .35rem .6rem;            /* antes ~.5 .75 */
-    font-size: .82rem;                 /* antes ~.875 */
+  .rc-nav .btn {
+    padding: .35rem .6rem;
+    /* antes ~.5 .75 */
+    font-size: .82rem;
+    /* antes ~.875 */
     line-height: 1.1;
     border-radius: .55rem;
-    white-space: nowrap;               /* que no corten en dos líneas */
+    white-space: nowrap;
+    /* que no corten en dos líneas */
     border-width: 1px;
   }
 
   /* opcional: achicar aún más el contorno */
-  .rc-nav .btn-outline-light{
-    --bs-btn-hover-color: #000;        /* mantiene buen contraste al hover */
+  .rc-nav .btn-outline-light {
+    --bs-btn-hover-color: #000;
+    /* mantiene buen contraste al hover */
   }
 }
 
 /* un pelín más de aire bajo el logo si lo quieres */
-.rc-brand{ display:flex; align-items:center; gap:.4rem; }
+.rc-brand {
+  display: flex;
+  align-items: center;
+  gap: .4rem;
+}
 
 /* Header móvil: chips compactos y separación del logo */
-@media (max-width: 576px){
-  .rc-header{ padding-top:.25rem; }
-  .rc-brand{ margin-right:.5rem; }
-
-  .rc-nav{
-    display:flex;
-    flex-wrap:wrap;
-    gap:.5rem;
-    margin-top:.25rem; /* baja un pelín los chips */
+@media (max-width: 576px) {
+  .rc-header {
+    padding-top: .25rem;
   }
 
-  .rc-nav .btn{
-    padding:.40rem .60rem;   /* menos “gorditos” */
-    font-size:.90rem;         /* texto un toque menor */
-    line-height:1.1;          /* baja la altura visual */
-    border-radius:.8rem;      /* chip más compacto */
+  .rc-brand {
+    margin-right: .5rem;
+  }
+
+  .rc-nav {
+    display: flex;
+    flex-wrap: wrap;
+    gap: .5rem;
+    margin-top: .25rem;
+    /* baja un pelín los chips */
+  }
+
+  .rc-nav .btn {
+    padding: .40rem .60rem;
+    /* menos “gorditos” */
+    font-size: .90rem;
+    /* texto un toque menor */
+    line-height: 1.1;
+    /* baja la altura visual */
+    border-radius: .8rem;
+    /* chip más compacto */
   }
 }
