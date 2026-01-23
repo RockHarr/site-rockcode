@@ -37,6 +37,12 @@ document.addEventListener('DOMContentLoaded', () => {
     // Prevent double injection
     if (link.querySelector('.rc-external-link-icon')) return;
 
+    // Check for manual icon (Bootstrap Icon box-arrow-up-right)
+    const hasManualIcon = Array.from(link.querySelectorAll('svg path')).some(p =>
+      (p.getAttribute('d') || '').startsWith('M8.636 3.5')
+    );
+    if (hasManualIcon) return;
+
     // Add screen reader text
     const srSpan = document.createElement('span');
     srSpan.className = 'visually-hidden';
