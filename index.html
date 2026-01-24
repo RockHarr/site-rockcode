@@ -486,13 +486,13 @@
             <h3 class="h5">Escríbenos ahora</h3>
             <!-- Formspree Contact Form -->
             <form id="contactForm" action="https://formspree.io/f/mlggowzk" method="POST">
-              <label for="f-nombre" class="form-label">Nombre</label>
+              <label for="f-nombre" class="form-label">Nombre <span aria-hidden="true" class="text-danger">*</span></label>
               <input id="f-nombre" name="nombre" class="form-control mb-2" placeholder="Ej: Juan Pérez" required
                 autocomplete="name">
-              <label for="f-email" class="form-label">Email</label>
+              <label for="f-email" class="form-label">Email <span aria-hidden="true" class="text-danger">*</span></label>
               <input id="f-email" name="email" type="email" class="form-control mb-2" placeholder="nombre@email.com"
                 required autocomplete="email">
-              <label for="f-msg" class="form-label">Mensaje</label>
+              <label for="f-msg" class="form-label">Mensaje <span aria-hidden="true" class="text-danger">*</span></label>
               <textarea id="f-msg" name="message" class="form-control mb-3" rows="3"
                 placeholder="Cuéntanos sobre tu proyecto..." required></textarea>
               <button class="btn btn-primary w-100" type="submit" id="submitBtn">Enviar mensaje</button>
