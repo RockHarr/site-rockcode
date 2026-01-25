@@ -398,17 +398,21 @@ Sofía,sofia@example.com,9.876.543-K,5-7-2024,Peñalolén,30000
         let col = headers.findIndex(h => /RUT_Duplicado/i.test(String(h||'')));
         if (col<0){ col = headers.length; headers.push('RUT_Duplicado'); }
         const counts = new Map();
-        data.slice(1).forEach(r=>{
-          const key = actions._rutClean(r[idx]||'');
-          if(!key) return; counts.set(key,(counts.get(key)||0)+1);
-        });
-        const out=[headers];
-        data.slice(1).forEach(row=>{
-          const r = row.slice();
-          const key = actions._rutClean(r[idx]||'');
-          r[col] = (key && counts.get(key)>1) ? 'Sí':'No';
+        const rows = data.slice(1);
+        const keys = new Array(rows.length);
+
+        for (let i = 0; i < rows.length; i++) {
+          const key = actions._rutClean(rows[i][idx] || '');
+          keys[i] = key;
+          if (key) counts.set(key, (counts.get(key) || 0) + 1);
+        }
+        const out = [headers];
+        for (let i = 0; i < rows.length; i++) {
+          const r = rows[i].slice();
+          const key = keys[i];
+          r[col] = (key && counts.get(key) > 1) ? 'Sí' : 'No';
           out.push(r);
-        });
+        }
         data=out; render();
       },
 
