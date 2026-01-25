@@ -4,11 +4,18 @@ document.addEventListener('DOMContentLoaded', () => {
   const skipLink = document.querySelector('.skip-link');
 
   if (btnBackToTop) {
+    let ticking = false;
     window.addEventListener('scroll', () => {
-      if (window.scrollY > 300) {
-        btnBackToTop.classList.add('show');
-      } else {
-        btnBackToTop.classList.remove('show');
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          if (window.scrollY > 300) {
+            btnBackToTop.classList.add('show');
+          } else {
+            btnBackToTop.classList.remove('show');
+          }
+          ticking = false;
+        });
+        ticking = true;
       }
     });
 
