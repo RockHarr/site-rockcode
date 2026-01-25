@@ -33,10 +33,17 @@ document.addEventListener('DOMContentLoaded', () => {
   const lang = document.documentElement.lang || 'es';
   const srText = lang === 'en' ? '(opens in new tab)' : '(se abre en una nueva pestaña)';
 
+  // Batch reads: Identify links needing updates
+  const linksToUpdate = [];
   externalLinks.forEach(link => {
     // Prevent double injection
-    if (link.querySelector('.rc-external-link-icon')) return;
+    if (!link.querySelector('.rc-external-link-icon')) {
+      linksToUpdate.push(link);
+    }
+  });
 
+  // Batch writes: Apply updates
+  linksToUpdate.forEach(link => {
     // Add screen reader text
     const srSpan = document.createElement('span');
     srSpan.className = 'visually-hidden';
