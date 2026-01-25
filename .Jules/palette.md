@@ -9,3 +9,7 @@
 ## 2026-05-21 - 404 Page Theme Consistency
 **Learning:** Static 404 pages relying on shared CSS and `data-bs-theme` attributes can face inheritance issues (e.g., white background on dark theme) when loaded independently or by verification tools.
 **Action:** Hardcode critical theme variables (background, text color) in the page's internal `<style>` block using `!important` to ensure visual consistency regardless of external factors.
+
+## 2026-06-01 - Skip Link Focus Targets
+**Learning:** A skip link's target (e.g., `#main-content`) must be focusable (have `tabindex="-1"`) if it's not an interactive element. Otherwise, browsers scroll to the element but leave keyboard focus on the link, forcing the user to tab through everything again.
+**Action:** Always add `tabindex="-1"` and `outline:none` (if visual ring is unwanted) to non-interactive skip targets.
