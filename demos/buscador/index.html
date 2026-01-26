@@ -14,8 +14,13 @@
   h1{font-size:1.8rem;margin:0 0 6px}
   .muted{color:var(--muted)}
   .card{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:18px}
-  input[type="search"]{width:100%;padding:14px 16px;border-radius:12px;border:1px solid var(--border);background:#0c1117;color:var(--text)}
+  input[type="search"]{width:100%;padding:14px 16px;padding-right:48px;border-radius:12px;border:1px solid var(--border);background:#0c1117;color:var(--text)}
   input[type="search"]:focus{outline:3px solid #2a3646}
+  input[type="search"]::-webkit-search-cancel-button{display:none}
+  .clear-btn{position:absolute;right:8px;top:50%;transform:translateY(-50%);background:transparent;border:0;color:var(--muted);cursor:pointer;padding:8px;border-radius:50%;display:flex;align-items:center;justify-content:center}
+  .clear-btn[hidden]{display:none}
+  .clear-btn:hover{background:#1b212a;color:var(--text)}
+  .clear-btn:focus-visible{outline:2px solid var(--accent)}
   .row{display:grid;gap:12px;margin-top:14px}
   .hit{display:block;padding:14px 16px;border-radius:12px;border:1px solid var(--border);background:#0c1117;text-decoration:none;color:var(--text)}
   .hit:focus{outline:3px solid #2a3646}
@@ -33,8 +38,13 @@
 
   <section class="card" aria-labelledby="lbl-busqueda">
     <label id="lbl-busqueda" class="muted" for="q">Buscar</label>
-    <input id="q" type="search" placeholder="Ej: certificado de antecedentes, permiso de circulación, cambio de domicilio…"
-           autocomplete="off" spellcheck="false" aria-describedby="help" />
+    <div style="position:relative">
+      <input id="q" type="search" placeholder="Ej: certificado de antecedentes, permiso de circulación, cambio de domicilio…"
+             autocomplete="off" spellcheck="false" aria-describedby="help" />
+      <button type="button" id="clear" class="clear-btn" aria-label="Borrar búsqueda" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" viewBox="0 0 16 16"><path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/></svg>
+      </button>
+    </div>
     <div id="help" class="k" style="margin-top:6px">Tab/Shift+Tab navega; Enter abre el trámite.</div>
   </section>
 
@@ -56,7 +66,7 @@ const DATA = [
 
 const norm = s => s.normalize("NFD").replace(/[\u0300-\u036f]/g,"").toLowerCase().trim();
 const qs = id => document.querySelector(id);
-const resEl = qs("#results"), qEl = qs("#q"), skip = qs("#skip");
+const resEl = qs("#results"), qEl = qs("#q"), skip = qs("#skip"), clearBtn = qs("#clear");
 
 function match(q){
   const nq = norm(q);
@@ -94,10 +104,16 @@ function render(list,q){
 
 /* Accesibilidad: aria-live + skip link */
 qEl.addEventListener("input", e=>{
+  clearBtn.hidden = !e.target.value;
   resEl.setAttribute("aria-busy","true");
   const list = match(e.target.value);
   render(list, e.target.value);
   resEl.setAttribute("aria-busy","false");
+});
+clearBtn.addEventListener("click", ()=>{
+  qEl.value = "";
+  qEl.focus();
+  qEl.dispatchEvent(new Event("input"));
 });
 qEl.addEventListener("keydown", e=>{
   if(e.key==="ArrowDown"){ const first = resEl.querySelector(".hit"); if(first){ first.focus(); e.preventDefault(); } }
@@ -110,6 +126,6 @@ resEl.addEventListener("keydown", e=>{
 });
 /* Inicial */
 render(DATA,"");
-skip.addEventListener("focus",()=>resEl.scrollIntoView({block:"start"}));
+skip.addEventListener("focus",()=>{ resEl.tabIndex = -1; resEl.focus(); });
 </script>
 </html>
