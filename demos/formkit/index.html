@@ -39,17 +39,17 @@
         <h2 id="s1-title" class="h5">Identificación</h2>
         <div class="row g-3">
           <div class="col-md-6">
-            <label for="nombre" class="form-label">Nombre completo</label>
+            <label for="nombre" class="form-label">Nombre completo <span class="text-danger" aria-hidden="true">*</span></label>
             <input id="nombre" name="nombre" class="form-control" required autocomplete="name" />
             <div class="invalid-feedback">Indica tu nombre.</div>
           </div>
           <div class="col-md-6">
-            <label for="rut" class="form-label">RUT / Identificación</label>
+            <label for="rut" class="form-label">RUT / Identificación <span class="text-danger" aria-hidden="true">*</span></label>
             <input id="rut" name="rut" class="form-control" required autocomplete="off" />
             <div class="invalid-feedback">Indica tu RUT/Identificación.</div>
           </div>
           <div class="col-md-6">
-            <label for="email" class="form-label">Correo</label>
+            <label for="email" class="form-label">Correo <span class="text-danger" aria-hidden="true">*</span></label>
             <input id="email" name="email" type="email" class="form-control" required autocomplete="email" />
             <div class="invalid-feedback">Indica un correo válido.</div>
           </div>
@@ -65,7 +65,7 @@
         <h2 id="s2-title" class="h5">Datos del trámite</h2>
         <div class="row g-3">
           <div class="col-md-6">
-            <label for="region" class="form-label">Región</label>
+            <label for="region" class="form-label">Región <span class="text-danger" aria-hidden="true">*</span></label>
             <select id="region" name="region" class="form-select" required>
               <option value="" selected disabled>Selecciona…</option>
               <option>Región de Valparaíso</option>
@@ -75,7 +75,7 @@
             <div class="invalid-feedback">Selecciona tu región.</div>
           </div>
           <div class="col-md-6">
-            <label class="form-label d-block">Tipo de solicitud</label>
+            <label class="form-label d-block">Tipo de solicitud <span class="text-danger" aria-hidden="true">*</span></label>
             <div class="form-check">
               <input class="form-check-input" type="radio" name="tipo" id="t1" value="Nueva" required>
               <label class="form-check-label" for="t1">Nueva</label>
@@ -99,7 +99,7 @@
         <div class="form-check mb-3">
           <input class="form-check-input" type="checkbox" id="acepta" name="acepta" value="sí" required>
           <label class="form-check-label" for="acepta">
-            Declaro que la información proporcionada es verídica.
+            Declaro que la información proporcionada es verídica. <span class="text-danger" aria-hidden="true">*</span>
           </label>
           <div class="invalid-feedback">Debes aceptar para continuar.</div>
         </div>
