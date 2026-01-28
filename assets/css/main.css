@@ -384,3 +384,7 @@ button:focus-visible,
     /* chip más compacto */
   }
 }
+/* Override text-danger for better contrast on dark mode */
+.text-danger {
+  color: var(--rc-danger) !important;
+}
