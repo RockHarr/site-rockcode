@@ -186,6 +186,11 @@ button:focus-visible,
 /* ================================
    Utilidades
    ================================ */
+/* Override text-danger for better contrast on dark background */
+.text-danger {
+  color: var(--rc-danger) !important;
+}
+
 .rc-surface {
   background: var(--rc-surface) !important;
 }
