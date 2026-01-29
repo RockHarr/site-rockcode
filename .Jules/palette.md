@@ -9,3 +9,7 @@
 ## 2026-05-21 - 404 Page Theme Consistency
 **Learning:** Static 404 pages relying on shared CSS and `data-bs-theme` attributes can face inheritance issues (e.g., white background on dark theme) when loaded independently or by verification tools.
 **Action:** Hardcode critical theme variables (background, text color) in the page's internal `<style>` block using `!important` to ensure visual consistency regardless of external factors.
+
+## 2026-05-22 - Required Field Indicators
+**Learning:** Visual indicators (asterisks) for required fields are often omitted when relying solely on the HTML5 `required` attribute, but sighted users need them to prevent submission errors.
+**Action:** Add `<span aria-hidden="true" class="text-danger">*</span>` to labels of required inputs, ensuring the color has sufficient contrast against the theme background.
