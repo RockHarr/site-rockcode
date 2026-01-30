@@ -206,6 +206,11 @@ button:focus-visible,
   border-radius: var(--rc-radius) !important;
 }
 
+/* Accessible danger color */
+.text-danger {
+  color: var(--rc-danger) !important;
+}
+
 /* Espaciados finos para grids (cuando no uses gap de BS) */
 .rc-gap-1>*+* {
   margin-left: .25rem;
