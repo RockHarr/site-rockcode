@@ -9,3 +9,7 @@
 ## 2026-05-21 - 404 Page Theme Consistency
 **Learning:** Static 404 pages relying on shared CSS and `data-bs-theme` attributes can face inheritance issues (e.g., white background on dark theme) when loaded independently or by verification tools.
 **Action:** Hardcode critical theme variables (background, text color) in the page's internal `<style>` block using `!important` to ensure visual consistency regardless of external factors.
+
+## 2026-05-22 - Dark Mode Utility Contrast
+**Learning:** Standard Bootstrap utilities like `.text-danger` (default #dc3545) often lack sufficient contrast on custom dark backgrounds (e.g., #0f1319), barely passing or failing AA standards.
+**Action:** Globally override critical utility classes in the main stylesheet to use theme-specific variables (like `--rc-danger`) that guarantee robust contrast ratios (e.g., >6:1).
