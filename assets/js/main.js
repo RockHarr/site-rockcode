@@ -34,8 +34,8 @@ document.addEventListener('DOMContentLoaded', () => {
   const srText = lang === 'en' ? '(opens in new tab)' : '(se abre en una nueva pestaña)';
 
   externalLinks.forEach(link => {
-    // Prevent double injection
-    if (link.querySelector('.rc-external-link-icon')) return;
+    // Prevent double injection or duplication if manual icon exists
+    if (link.querySelector('.rc-external-link-icon') || link.querySelector('.bi-box-arrow-up-right')) return;
 
     // Add screen reader text
     const srSpan = document.createElement('span');
