@@ -9,3 +9,7 @@
 ## 2026-05-21 - 404 Page Theme Consistency
 **Learning:** Static 404 pages relying on shared CSS and `data-bs-theme` attributes can face inheritance issues (e.g., white background on dark theme) when loaded independently or by verification tools.
 **Action:** Hardcode critical theme variables (background, text color) in the page's internal `<style>` block using `!important` to ensure visual consistency regardless of external factors.
+
+## 2026-02-04 - Progressive Enhancement Collisions
+**Learning:** Automated enhancement scripts (like injecting external link icons) must always check for manual overrides to avoid duplication (e.g., double icons).
+**Action:** Add existence checks for common manual patterns (classes, attributes) before injecting DOM elements.
