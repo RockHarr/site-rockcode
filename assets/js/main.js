@@ -35,7 +35,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   externalLinks.forEach(link => {
     // Prevent double injection
-    if (link.querySelector('.rc-external-link-icon')) return;
+    if (link.querySelector('.rc-external-link-icon') || link.querySelector('svg')) return;
 
     // Add screen reader text
     const srSpan = document.createElement('span');
