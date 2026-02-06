@@ -60,6 +60,10 @@ p,
   color: var(--rc-muted) !important;
 }
 
+.text-danger {
+  color: var(--rc-danger) !important;
+}
+
 /* Enlaces: subrayado sutil en hover, buen foco */
 a {
   color: inherit;
