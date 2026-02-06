@@ -13,3 +13,7 @@
 ## 2025-05-22 - Progressive Enhancement Overrides
 **Learning:** Automated progressive enhancement scripts (like adding external link icons) can conflict with manual overrides, causing duplication and screen reader noise.
 **Action:** Always check for the presence of existing elements (e.g., specific classes or tags like `<svg>`) before programmatically injecting decorative or functional icons.
+
+## 2026-02-06 - Explicit Required Fields & Theme Tokens
+**Learning:** Relying on implicit "all fields required" logic increases cognitive load, while standard utility classes (like `.text-danger`) often fail contrast checks in strict dark themes.
+**Action:** Explicitly mark required fields with `aria-hidden` visual indicators, and globally override semantic utility classes to map to accessible theme tokens (`var(--rc-danger)`) instead of using inline styles.
