@@ -356,17 +356,15 @@ Sofía,sofia@example.com,9.876.543-K,5-7-2024,Peñalolén,30000
 
       'rut-normalize': ()=>{
         const idx = actions._rutColIndex();
-        data = data.map((row,i)=>{
-          if (i===0) return row;
-          const raw = String(row[idx]||'').trim(); if (!raw) return row;
-          const clean = actions._rutClean(raw); if (clean.length<2) return row;
+        for (let i=1;i<data.length;i++){
+          const row = data[i];
+          const raw = String(row[idx]||'').trim(); if (!raw) continue;
+          const clean = actions._rutClean(raw); if (clean.length<2) continue;
           const body = clean.slice(0,-1), dv = clean.slice(-1);
           const ok = actions._rutDV(body) === dv;
           const formatted = actions._rutFormat(body,dv);
-          const copy = row.slice();
-          copy[idx] = ok ? formatted : formatted+' ⚠️';
-          return copy;
-        });
+          row[idx] = ok ? formatted : formatted+' ⚠️';
+        }
         render();
       },
 
