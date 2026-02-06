@@ -457,11 +457,14 @@ Sofía,sofia@example.com,9.876.543-K,5-7-2024,Peñalolén,30000
 
     function forEachCell(fn){
       if (!data.length) return;
-      const out = [data[0]];
       for (let i=1;i<data.length;i++){
-        out.push((data[i]||[]).map(fn));
+        if (!data[i]) data[i] = [];
+        const row = data[i];
+        for (let j=0; j<row.length; j++){
+          row[j] = fn(row[j], j, row);
+        }
       }
-      data = out; render();
+      render();
     }
 
     function dateFix(v){
